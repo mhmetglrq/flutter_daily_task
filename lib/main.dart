@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_daily_task/config/routes/app_route_names.dart';
+
+import 'config/routes/app_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +18,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Scaffold(),
+      onGenerateRoute: AppRoutes.onGenerateRoutes,
+      initialRoute: AppRouteNames.bottomNavbar,
     );
   }
 }
