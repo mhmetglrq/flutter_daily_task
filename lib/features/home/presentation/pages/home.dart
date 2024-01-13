@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
+import 'package:flutter_daily_task/features/home/presentation/widgets/project_indicator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../config/items/colors.dart';
 import '../../../../config/utility/enum/svg_enum.dart';
+import '../bloc/home_bloc.dart';
+import '../widgets/progress_card.dart';
+import '../widgets/project_card.dart';
 import '../widgets/status_card.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final PageController _pageController = PageController(viewportFraction: 0.7);
 
   @override
   Widget build(BuildContext context) {
@@ -85,68 +97,65 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            Column(
-              children: [
-                Container(
-                  width: context.dynamicWidth(0.6),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    gradient: const LinearGradient(
-                      colors: [AppColors.activeColor, AppColors.blueColor],
-                      // stops: [0.3, 8.0],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Padding(
-                      padding: context.paddingAllDefault,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+            SizedBox(
+              height: context.dynamicWidth(0.65),
+              child: BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  return PageView.builder(
+                    controller: _pageController,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 4,
+                    padEnds: false,
+                    onPageChanged: (value) {
+                      context
+                          .read<HomeBloc>()
+                          .add(SetPageEvent(pageIndex: value));
+                    },
+                    itemBuilder: (context, value) {
+                      return const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(SvgConstants.projects.getSvg),
-                              Padding(
-                                padding: context.paddingHorizontalDefault,
-                                child: const Text(
-                                  "Project 1",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Text(
-                            "Front-End Development",
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.whiteColor,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const Text(
-                            "October 20, 2020",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300,
-                              color: AppColors.whiteColor,
-                            ),
-                          ),
+                          ProjectCard(),
                         ],
-                      ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              width: context.dynamicWidth(1),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidth(0.38),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        for (int i = 0; i < 4; i++)
+                          ProjectIndicator(pageIndex: i, totalPages: 4),
+                      ],
                     ),
                   ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: context.paddingVerticalLow,
+              child: const Text(
+                "Progress",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.titleTextColor,
                 ),
-              ],
-            )
+              ),
+            ),
+            const ProgressCard()
           ],
         ),
       ),
