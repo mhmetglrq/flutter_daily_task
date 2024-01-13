@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../features/bottomNavbar/presentation/bottom_navbar.dart';
+import '../../features/bottomNavbar/presentation/pages/bottom_navbar.dart';
 
 class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
