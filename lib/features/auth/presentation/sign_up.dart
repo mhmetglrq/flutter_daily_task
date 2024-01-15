@@ -34,7 +34,11 @@ class _SignUpState extends State<SignUp> {
                     alignment: Alignment.topCenter,
                     child: Text(
                       "Hello\nThere!",
-                      style: Theme.of(context).textTheme.headlineLarge,
+                      style:
+                          Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                
+                              ),
                       textAlign: TextAlign.center,
                     ),
                   ),
