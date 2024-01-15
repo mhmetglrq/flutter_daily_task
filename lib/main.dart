@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       onGenerateRoute: AppRoutes.onGenerateRoutes,
-      initialRoute: AppRouteNames.bottomNavbar,
+      initialRoute: AppRouteNames.signUp,
     );
   }
 }

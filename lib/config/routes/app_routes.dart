@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_daily_task/config/routes/app_route_names.dart';
+import 'package:flutter_daily_task/features/auth/presentation/sign_up.dart';
 
 import '../../features/bottomNavbar/presentation/pages/bottom_navbar.dart';
 
@@ -7,8 +9,11 @@ class AppRoutes {
     switch (settings.name) {
       case '/':
         return _materialRoute(const BottomNavbar());
-      case '/bottom-navbar':
+      case AppRouteNames.bottomNavbar:
         return _materialRoute(const BottomNavbar());
+
+      case AppRouteNames.signUp:
+        return _materialRoute(const SignUp());
 
       default:
         return _materialRoute(const BottomNavbar());
