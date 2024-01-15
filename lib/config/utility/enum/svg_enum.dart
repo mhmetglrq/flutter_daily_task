@@ -6,7 +6,13 @@ enum SvgConstants {
   projects("projects"),
   search("search"),
   threeDots("three_dots"),
-  todoList("todo_list");
+  todoList("todo_list"),
+  email("email"),
+  eyeFilled("eye_filled"),
+  eyeOff("eye_off"),
+  signIn("sign_in"),
+  signUp("sign_up"),
+  ;
 
   final String value;
   const SvgConstants(this.value);
