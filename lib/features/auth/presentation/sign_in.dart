@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
-import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../config/items/colors.dart';
+import '../../../config/routes/app_route_names.dart';
 import '../../../config/utility/enum/svg_enum.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignIn> createState() => _SignInState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignInState extends State<SignIn> {
   bool _isObscure = false;
 
   @override
@@ -23,27 +23,27 @@ class _SignUpState extends State<SignUp> {
       body: Column(
         children: [
           Expanded(
-            flex: 6,
-            child: Stack(
-              children: [
-                SvgPicture.asset(
-                  SvgConstants.signUp.getSvg,
-                  // fit: BoxFit.cover,
-                ),
-                Container(
-                  padding: context.paddingAllHigh,
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    "Hello\nThere!",
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                    textAlign: TextAlign.center,
+              flex: 6,
+              child: Stack(
+                children: [
+                  SvgPicture.asset(
+                    SvgConstants.signUp.getSvg,
+                    fit: BoxFit.cover,
                   ),
-                ),
-              ],
-            ),
-          ),
+                  Container(
+                    padding: context.paddingAllHigh,
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      "Hello\nThere!",
+                      style:
+                          Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              )),
           Expanded(
             flex: 5,
             child: SingleChildScrollView(
@@ -142,16 +142,16 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                     Text(
-                      "If you have an account",
+                      "If you don't have an account",
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             color: AppColors.titleTextColor.withOpacity(0.5),
                           ),
                     ),
                     TextButton(
                       onPressed: () =>
-                          Navigator.pushNamed(context, AppRouteNames.signIn),
+                          Navigator.pushNamed(context, AppRouteNames.signUp),
                       child: Text(
-                        "Sign In",
+                        "Sign Up",
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ),
@@ -167,7 +167,7 @@ class _SignUpState extends State<SignUp> {
                         child: Padding(
                           padding: context.paddingAllLow,
                           child: const Text(
-                            "Sign Up",
+                            "Sign In",
                             style: TextStyle(
                               color: AppColors.whiteColor,
                               fontSize: 16,
