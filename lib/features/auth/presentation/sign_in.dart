@@ -4,6 +4,7 @@ import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../config/items/colors.dart';
+import '../../../config/routes/app_route_names.dart';
 import '../../../config/utility/enum/svg_enum.dart';
 
 class SignIn extends StatefulWidget {
@@ -26,8 +27,8 @@ class _SignInState extends State<SignIn> {
               child: Stack(
                 children: [
                   SvgPicture.asset(
-                    SvgConstants.signIn.getSvg,
-                    // fit: BoxFit.cover,
+                    SvgConstants.signUp.getSvg,
+                    fit: BoxFit.cover,
                   ),
                   Container(
                     padding: context.paddingAllHigh,
@@ -44,16 +45,18 @@ class _SignInState extends State<SignIn> {
                 ],
               )),
           Expanded(
-            flex: 4,
+            flex: 5,
             child: SingleChildScrollView(
               child: Padding(
                 padding: context.paddingAllDefault,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "E-Mail",
-                      style: Theme.of(context).textTheme.titleSmall,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "E-Mail",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
                     Padding(
                       padding: context.paddingVerticalLow,
@@ -88,9 +91,12 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                     ),
-                    Text(
-                      "Password",
-                      style: Theme.of(context).textTheme.titleSmall,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Password",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
                     Padding(
                       padding: context.paddingVerticalLow,
@@ -135,6 +141,20 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                     ),
+                    Text(
+                      "If you don't have an account",
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: AppColors.titleTextColor.withOpacity(0.5),
+                          ),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, AppRouteNames.signUp),
+                      child: Text(
+                        "Sign Up",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
                     Padding(
                       padding: context.paddingVerticalLow,
                       child: MaterialButton(
@@ -147,7 +167,7 @@ class _SignInState extends State<SignIn> {
                         child: Padding(
                           padding: context.paddingAllLow,
                           child: const Text(
-                            "Sign Up",
+                            "Sign In",
                             style: TextStyle(
                               color: AppColors.whiteColor,
                               fontSize: 16,

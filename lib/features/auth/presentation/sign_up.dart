@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
+import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../config/items/colors.dart';
@@ -22,39 +23,40 @@ class _SignUpState extends State<SignUp> {
       body: Column(
         children: [
           Expanded(
-              flex: 6,
-              child: Stack(
-                children: [
-                  SvgPicture.asset(
-                    SvgConstants.signUp.getSvg,
-                    // fit: BoxFit.cover,
+            flex: 6,
+            child: Stack(
+              children: [
+                SvgPicture.asset(
+                  SvgConstants.signUp.getSvg,
+                  // fit: BoxFit.cover,
+                ),
+                Container(
+                  padding: context.paddingAllHigh,
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    "Hello\nThere!",
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                    textAlign: TextAlign.center,
                   ),
-                  Container(
-                    padding: context.paddingAllHigh,
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      "Hello\nThere!",
-                      style:
-                          Theme.of(context).textTheme.headlineLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                
-                              ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
           Expanded(
-            flex: 4,
+            flex: 5,
             child: SingleChildScrollView(
               child: Padding(
                 padding: context.paddingAllDefault,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "E-Mail",
-                      style: Theme.of(context).textTheme.titleSmall,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "E-Mail",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
                     Padding(
                       padding: context.paddingVerticalLow,
@@ -89,9 +91,12 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                    Text(
-                      "Password",
-                      style: Theme.of(context).textTheme.titleSmall,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Password",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
                     Padding(
                       padding: context.paddingVerticalLow,
@@ -134,6 +139,20 @@ class _SignUpState extends State<SignUp> {
                             borderSide: BorderSide.none,
                           ),
                         ),
+                      ),
+                    ),
+                    Text(
+                      "If you have an account",
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: AppColors.titleTextColor.withOpacity(0.5),
+                          ),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, AppRouteNames.signIn),
+                      child: Text(
+                        "Sign In",
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ),
                     Padding(
