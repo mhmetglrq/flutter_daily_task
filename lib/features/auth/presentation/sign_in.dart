@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
+import 'package:flutter_daily_task/config/routes/app_route_names.dart';
+import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../config/items/colors.dart';
-import '../../../config/routes/app_route_names.dart';
 import '../../../config/utility/enum/svg_enum.dart';
 
 class SignIn extends StatefulWidget {
@@ -15,47 +16,46 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  bool _isObscure = false;
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-              flex: 6,
-              child: Stack(
-                children: [
-                  SvgPicture.asset(
-                    SvgConstants.signUp.getSvg,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    padding: context.paddingAllHigh,
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      "Hello\nThere!",
-                      style:
-                          Theme.of(context).textTheme.headlineLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              )),
-          Expanded(
-            flex: 5,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: context.paddingAllDefault,
+          SizedBox(
+            height: context.dynamicHeight(1),
+            width: double.infinity,
+            child: Image.asset(
+              ImageConstants.signIn.getPng,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: AppColors.scaffoldColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              height: context.dynamicHeight(0.45),
+              width: double.infinity,
+              padding: context.paddingAllDefault,
+              child: AspectRatio(
+                aspectRatio: 1,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
+                    Padding(
+                      padding: context.paddingVerticalLow,
                       child: Text(
-                        "E-Mail",
-                        style: Theme.of(context).textTheme.titleSmall,
+                        "Sign In",
+                        style: context.textTheme.titleLarge?.copyWith(
+                          color: AppColors.whiteColor,
+                        ),
                       ),
                     ),
                     Padding(
@@ -68,34 +68,24 @@ class _SignInState extends State<SignIn> {
                         validator: (value) => value!.isEmpty
                             ? "Please enter your e-mail address"
                             : null,
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: AppColors.blackColor,
+                          fontWeight: FontWeight.w300,
+                        ),
                         decoration: InputDecoration(
-                          prefixIcon: Padding(
-                            padding: context.paddingAllLow,
-                            child: SvgPicture.asset(
-                              SvgConstants.email.getSvg,
-                            ),
-                          ),
-                          prefixIconConstraints: BoxConstraints(
-                            maxHeight: context.dynamicHeight(0.12),
-                            maxWidth: context.dynamicWidth(0.12),
-                          ),
+                          hintText: "Email",
                           filled: true,
                           fillColor: AppColors.whiteColor,
                           contentPadding: context.paddingAllLow,
-                          hintText: "xyz@gmail.com",
-                          hintStyle: Theme.of(context).textTheme.bodyLarge,
+                          hintStyle: context.textTheme.bodyMedium?.copyWith(
+                            color: AppColors.greyColor,
+                            fontWeight: FontWeight.w300,
+                          ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(5),
                             borderSide: BorderSide.none,
                           ),
                         ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Password",
-                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ),
                     Padding(
@@ -110,73 +100,94 @@ class _SignInState extends State<SignIn> {
                             : null,
                         obscureText: _isObscure,
                         decoration: InputDecoration(
-                          prefixIcon: Padding(
-                            padding: context.paddingAllLow,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-                              },
-                              child: SvgPicture.asset(
-                                _isObscure
-                                    ? SvgConstants.eyeFilled.getSvg
-                                    : SvgConstants.eyeOff.getSvg,
-                              ),
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+                            child: SvgPicture.asset(
+                              _isObscure
+                                  ? SvgConstants.eyeFilled.getSvg
+                                  : SvgConstants.eyeOff.getSvg,
                             ),
                           ),
-                          prefixIconConstraints: BoxConstraints(
-                            maxHeight: context.dynamicHeight(0.12),
-                            maxWidth: context.dynamicWidth(0.12),
+                          suffixIconConstraints: BoxConstraints(
+                            maxHeight: context.dynamicHeight(0.07),
+                            maxWidth: context.dynamicWidth(0.07),
+                          ),
+                          hintText: "Password",
+                          labelStyle: context.textTheme.bodyMedium?.copyWith(
+                            color: AppColors.blackColor,
                           ),
                           filled: true,
                           fillColor: AppColors.whiteColor,
                           contentPadding: context.paddingAllLow,
-                          hintText: "xyz@gmail.com",
-                          hintStyle: Theme.of(context).textTheme.bodyLarge,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(5),
                             borderSide: BorderSide.none,
                           ),
                         ),
                       ),
                     ),
-                    Text(
-                      "If you don't have an account",
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: AppColors.titleTextColor.withOpacity(0.5),
+                    Padding(
+                      padding: context.paddingVerticalDefault,
+                      child: MaterialButton(
+                        onPressed: () {},
+                        minWidth: double.infinity,
+                        color: AppColors.buttonColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          "Sign In",
+                          style: context.textTheme.labelMedium?.copyWith(
+                            color: AppColors.whiteColor,
                           ),
+                        ),
+                      ),
                     ),
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, AppRouteNames.signUp),
-                      child: Text(
-                        "Sign Up",
-                        style: Theme.of(context).textTheme.titleSmall,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          "Forgot Password ?",
+                          style: context.textTheme.labelMedium?.copyWith(
+                            color: AppColors.whiteColor,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
-                      padding: context.paddingVerticalLow,
-                      child: MaterialButton(
-                        onPressed: () {},
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        minWidth: double.infinity,
-                        color: AppColors.blueColor,
-                        child: Padding(
-                          padding: context.paddingAllLow,
-                          child: const Text(
-                            "Sign In",
-                            style: TextStyle(
-                              color: AppColors.whiteColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                      padding: context.paddingVerticalDefault,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don’t haven’t an account ? ",
+                            style: context.textTheme.labelMedium!.copyWith(
+                              color: AppColors.greyColor,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12,
                             ),
                           ),
-                        ),
+                          GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                                context, AppRouteNames.signUp),
+                            child: Text(
+                              "Sign Up",
+                              style: context.textTheme.labelMedium!.copyWith(
+                                color: AppColors.buttonColor,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
