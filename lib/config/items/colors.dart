@@ -13,4 +13,6 @@ class AppColors {
   static const blueColor = Color(0xFF3A49F9);
   static const containerColor = Color(0xFFE5EAFC);
   static const buttonColor = Color(0xFF6C5ECF);
+  static const errorRedColor=Color(0xFF94545e);
+  
 }
