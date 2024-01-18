@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/routes/app_route_names.dart';
-import 'package:flutter_daily_task/features/auth/presentation/sign_up.dart';
+import 'package:flutter_daily_task/features/auth/presentation/pages/sign_up.dart';
 
-import '../../features/auth/presentation/sign_in.dart';
+import '../../features/auth/presentation/pages/sign_in.dart';
 import '../../features/bottomNavbar/presentation/pages/bottom_navbar.dart';
 
 class AppRoutes {
