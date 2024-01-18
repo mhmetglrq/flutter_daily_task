@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../items/colors.dart';
 
@@ -19,82 +18,111 @@ class AppTheme {
       unselectedItemColor: AppColors.inactiveColor,
       type: BottomNavigationBarType.shifting,
     ),
-    textTheme: TextTheme(
-      displayMedium: GoogleFonts.poppins(
+    textTheme: const TextTheme(
+      displayMedium: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w600,
         fontSize: 24,
         wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      displaySmall: GoogleFonts.poppins(
+      displaySmall: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w600,
         fontSize: 20,
+        fontFamily: "Poppins",
+        wordSpacing: 1.5,
       ),
-      displayLarge: GoogleFonts.poppins(
+      displayLarge: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w600,
         fontSize: 28,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      headlineMedium: GoogleFonts.poppins(
+      headlineMedium: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w700,
         fontSize: 24,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      headlineSmall: GoogleFonts.poppins(
+      headlineSmall: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w700,
         fontSize: 20,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      headlineLarge: GoogleFonts.poppins(
+      headlineLarge: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w700,
         fontSize: 28,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      bodyMedium: GoogleFonts.poppins(
+      bodyMedium: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w500,
         fontSize: 16,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      bodySmall: GoogleFonts.poppins(
+      bodySmall: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w500,
         fontSize: 14,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      bodyLarge: GoogleFonts.poppins(
+      bodyLarge: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w500,
         fontSize: 18,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      titleLarge: GoogleFonts.poppins(
+      titleLarge: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w500,
         fontSize: 18,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      titleSmall: GoogleFonts.poppins(
+      titleSmall: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w500,
         fontSize: 14,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      titleMedium: GoogleFonts.poppins(
+      titleMedium: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w500,
         fontSize: 16,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      labelMedium: GoogleFonts.poppins(
+      labelMedium: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w400,
         fontSize: 16,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      labelSmall: GoogleFonts.poppins(
+      labelSmall: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w400,
         fontSize: 14,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
-      labelLarge: GoogleFonts.poppins(
+      labelLarge: TextStyle(
         color: AppColors.titleTextColor,
         fontWeight: FontWeight.w400,
         fontSize: 18,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
       ),
     ),
   );
