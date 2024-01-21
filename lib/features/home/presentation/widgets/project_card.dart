@@ -36,33 +36,30 @@ class ProjectCard extends StatelessWidget {
                   SvgPicture.asset(SvgConstants.projects.getSvg),
                   Padding(
                     padding: context.paddingHorizontalDefault,
-                    child: const Text(
+                    child: Text(
                       "Project 1",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.whiteColor,
+                      style: context.textTheme.headlineSmall?.copyWith(
+                        fontSize: context.dynamicHeight(0.023),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ],
               ),
-              const Text(
+              Text(
                 "Front-End Development",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.whiteColor,
+                style: context.textTheme.headlineMedium?.copyWith(
+                  // fontSize: context.dynamicHeight(0.018),
+                  fontWeight: FontWeight.w500,
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              const Text(
+              Text(
                 "October 20, 2020",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
-                  color: AppColors.whiteColor,
+                style: context.textTheme.headlineSmall?.copyWith(
+                  fontSize: context.dynamicHeight(0.018),
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],

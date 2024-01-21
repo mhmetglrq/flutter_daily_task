@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
                 height: context.dynamicHeight(0.04),
                 SvgConstants.menu.getSvg,
                 colorFilter: const ColorFilter.mode(
-                    AppColors.titleTextColor, BlendMode.srcIn),
+                    AppColors.whiteColor, BlendMode.srcIn),
               ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: CircleAvatar(
               radius: context.dynamicHeight(0.02),
-              backgroundColor: AppColors.titleTextColor,
+              backgroundColor: AppColors.whiteColor,
             ),
             onPressed: () {},
           ),
@@ -56,22 +56,17 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Hello Mehmet!",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: AppColors.titleTextColor,
-              ),
+              style: context.textTheme.headlineMedium,
             ),
             Padding(
               padding: context.paddingVerticalLow,
               child: Text(
                 "Have a nice day.",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.titleTextColor.withOpacity(0.5),
+                style: context.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w300,
+                  fontSize: context.dynamicHeight(0.02),
                 ),
               ),
             ),
@@ -146,13 +141,9 @@ class _HomeState extends State<Home> {
             ),
             Padding(
               padding: context.paddingVerticalLow,
-              child: const Text(
+              child: Text(
                 "Progress",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.titleTextColor,
-                ),
+                style: context.textTheme.headlineMedium,
               ),
             ),
             const ProgressCard()
