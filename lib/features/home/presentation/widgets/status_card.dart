@@ -20,7 +20,7 @@ class StatusCard extends StatelessWidget {
         elevation: isActive ? 5 : 0,
         color: isActive ? AppColors.whiteColor : AppColors.lavenderColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
+          borderRadius: BorderRadius.circular(10),
         ),
         surfaceTintColor:
             isActive ? AppColors.whiteColor : AppColors.lavenderColor,
@@ -31,10 +31,10 @@ class StatusCard extends StatelessWidget {
           ),
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: AppColors.titleTextColor,
+            style: context.textTheme.headlineSmall!.copyWith(
+              color: isActive ? AppColors.scaffoldColor : AppColors.greyColor,
+              fontSize: context.dynamicHeight(0.018),
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),

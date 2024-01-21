@@ -14,7 +14,7 @@ class ProgressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
         color: AppColors.whiteColor,
       ),
       child: Padding(
@@ -45,24 +45,24 @@ class ProgressCard extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: context.paddingHorizontalDefault,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "To-Do List",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.titleTextColor,
+                      style: context.textTheme.headlineSmall?.copyWith(
+                        color: AppColors.scaffoldColor,
+                        fontSize: context.dynamicHeight(0.023),
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
                       "Front-End Development",
-                      style: TextStyle(
-                        fontSize: 13,
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        fontSize: context.dynamicHeight(0.018),
+                        color: AppColors.greyColor,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.titleTextColor,
                       ),
                     ),
                   ],
