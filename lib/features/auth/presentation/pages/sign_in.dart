@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../config/items/colors.dart';
-import '../../../../config/utility/enum/svg_enum.dart';
 import '../widgets/email_field.dart';
+import '../widgets/password_field.dart';
 import '../widgets/purple_button.dart';
+import '../widgets/text_row_button.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -75,48 +74,13 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                         EmailField(emailController: _emailController),
-                        Padding(
-                          padding: context.paddingVerticalLow,
-                          child: TextFormField(
-                            inputFormatters: [
-                              FilteringTextInputFormatter.deny(RegExp(r"\s")),
-                            ],
-                            keyboardType: TextInputType.visiblePassword,
-                            validator: (value) => value!.isEmpty
-                                ? "Please enter your password"
-                                : null,
-                            obscureText: _isObscure,
-                            decoration: InputDecoration(
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _isObscure = !_isObscure;
-                                  });
-                                },
-                                child: SvgPicture.asset(
-                                  _isObscure
-                                      ? SvgConstants.eyeFilled.getSvg
-                                      : SvgConstants.eyeOff.getSvg,
-                                ),
-                              ),
-                              suffixIconConstraints: BoxConstraints(
-                                maxHeight: context.dynamicHeight(0.07),
-                                maxWidth: context.dynamicWidth(0.07),
-                              ),
-                              hintText: "Password",
-                              labelStyle:
-                                  context.textTheme.bodyMedium?.copyWith(
-                                color: AppColors.blackColor,
-                              ),
-                              filled: true,
-                              fillColor: AppColors.whiteColor,
-                              contentPadding: context.paddingAllLow,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                          ),
+                        PasswordField(
+                          isObscure: _isObscure,
+                          onTap: () {
+                            setState(() {
+                              _isObscure = !_isObscure;
+                            });
+                          },
                         ),
                         PurpleButton(
                           title: "Sign In",
@@ -139,33 +103,12 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: context.paddingVerticalDefault,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don’t haven’t an account ? ",
-                                style: context.textTheme.labelMedium!.copyWith(
-                                  color: AppColors.greyColor,
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () => Navigator.pushNamed(
-                                    context, AppRouteNames.signUp),
-                                child: Text(
-                                  "Sign Up",
-                                  style:
-                                      context.textTheme.labelMedium!.copyWith(
-                                    color: AppColors.buttonColor,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        TextRowButton(
+                          text: "Don’t haven’t an account ? ",
+                          buttonText: "Sign Up",
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            AppRouteNames.signUp,
                           ),
                         )
                       ],
@@ -180,3 +123,4 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
+  
