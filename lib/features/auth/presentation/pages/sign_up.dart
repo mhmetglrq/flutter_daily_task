@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 import 'package:flutter_daily_task/features/auth/presentation/widgets/email_field.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_daily_task/features/auth/presentation/widgets/password_field.dart';
+import 'package:flutter_daily_task/features/auth/presentation/widgets/text_row_button.dart';
 
 import '../../../../config/items/colors.dart';
-import '../../../../config/utility/enum/svg_enum.dart';
 import '../widgets/purple_button.dart';
 
 class SignUp extends StatefulWidget {
@@ -75,54 +74,13 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                         EmailField(emailController: _emailController),
-                        Padding(
-                          padding: context.paddingVerticalLow,
-                          child: TextFormField(
-                            controller: _passwordController,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.deny(RegExp(r"\s")),
-                            ],
-                            keyboardType: TextInputType.visiblePassword,
-                            validator: (value) => value!.isEmpty
-                                ? "Please enter your password"
-                                : null,
-                            obscureText: _isObscure,
-                            decoration: InputDecoration(
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _isObscure = !_isObscure;
-                                  });
-                                },
-                                child: SvgPicture.asset(
-                                  _isObscure
-                                      ? SvgConstants.eyeFilled.getSvg
-                                      : SvgConstants.eyeOff.getSvg,
-                                ),
-                              ),
-                              suffixIconConstraints: BoxConstraints(
-                                maxHeight: context.dynamicHeight(0.07),
-                                maxWidth: context.dynamicWidth(0.07),
-                              ),
-                              errorStyle: context.textTheme.bodySmall?.copyWith(
-                                color: const Color(0xFF94545e),
-                                fontWeight: FontWeight.w300,
-                                fontSize: context.dynamicHeight(0.015),
-                              ),
-                              hintText: "Password",
-                              labelStyle:
-                                  context.textTheme.bodyMedium?.copyWith(
-                                color: AppColors.blackColor,
-                              ),
-                              filled: true,
-                              fillColor: AppColors.whiteColor,
-                              contentPadding: context.paddingAllLow,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                          ),
+                        PasswordField(
+                          isObscure: _isObscure,
+                          onTap: () {
+                            setState(() {
+                              _isObscure = !_isObscure;
+                            });
+                          },
                         ),
                         PurpleButton(
                           title: "Sign Up",
@@ -143,35 +101,12 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: context.paddingVerticalDefault,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Do you have an account ? ",
-                                style: context.textTheme.labelMedium!.copyWith(
-                                  color: AppColors.greyColor,
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () => Navigator.pushNamed(
-                                    context, AppRouteNames.signIn),
-                                child: Text(
-                                  "Sign In",
-                                  style:
-                                      context.textTheme.labelMedium!.copyWith(
-                                    color: AppColors.buttonColor,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
+                        TextRowButton(
+                          text: "Do you have an account ? ",
+                          buttonText: "Sign In",
+                          onTap: () => Navigator.pushNamed(
+                              context, AppRouteNames.signIn),
+                        ),
                       ],
                     ),
                   ),

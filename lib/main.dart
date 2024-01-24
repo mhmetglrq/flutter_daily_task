@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
       title: 'Daily Task',
       theme: AppTheme.lightTheme,
       onGenerateRoute: AppRoutes.onGenerateRoutes,
-      initialRoute: AppRouteNames.bottomNavbar,
+      initialRoute: AppRouteNames.signIn,
+
     );
   }
 }
