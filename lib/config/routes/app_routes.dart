@@ -4,7 +4,7 @@ import '../../features/auth/presentation/pages/sign_in.dart';
 import '../../features/auth/presentation/pages/sign_up.dart';
 import '../../features/bottomNavbar/presentation/pages/bottom_navbar.dart';
 import '../../features/home/presentation/pages/home.dart';
-import '../../features/taskCalendar/presentation/task_calendar.dart';
+import '../../features/taskCalendar/presentation/pages/task_calendar.dart';
 import 'app_route_names.dart';
 
 class AppRoutes {
