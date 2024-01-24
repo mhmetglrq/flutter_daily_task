@@ -86,7 +86,8 @@ class _SignInState extends State<SignIn> {
                           title: "Sign In",
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.pushNamed(context, AppRouteNames.home);
+                              Navigator.pushNamed(
+                                  context, AppRouteNames.bottomNavbar);
                             }
                           },
                         ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_daily_task/config/routes/app_route_names.dart';
-import 'package:flutter_daily_task/features/auth/presentation/pages/sign_up.dart';
 
 import '../../features/auth/presentation/pages/sign_in.dart';
+import '../../features/auth/presentation/pages/sign_up.dart';
 import '../../features/bottomNavbar/presentation/pages/bottom_navbar.dart';
+import '../../features/home/presentation/pages/home.dart';
+import '../../features/taskCalendar/presentation/task_calendar.dart';
+import 'app_route_names.dart';
 
 class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
@@ -18,6 +20,11 @@ class AppRoutes {
 
       case AppRouteNames.signIn:
         return _materialRoute(const SignIn());
+      //BottomNavbarPages
+      case AppRouteNames.home:
+        return _materialRoute(const Home());
+      case AppRouteNames.taskCalendar:
+        return _materialRoute(const TaskCalendar());
 
       default:
         return _materialRoute(const BottomNavbar());

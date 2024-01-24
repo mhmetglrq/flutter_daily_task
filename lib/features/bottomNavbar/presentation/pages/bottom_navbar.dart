@@ -3,6 +3,7 @@ import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_daily_task/features/home/presentation/pages/home.dart';
+import 'package:flutter_daily_task/features/taskCalendar/presentation/task_calendar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -15,9 +16,7 @@ class BottomNavbar extends StatefulWidget {
 class _BottomNavbarState extends State<BottomNavbar> {
   final List<Widget> _bodyList = <Widget>[
     const Home(),
-    const Text(
-      'Index 1: Calendar',
-    ),
+    const TaskCalendar(),
     const Text(
       'Index 2: Notification',
     ),

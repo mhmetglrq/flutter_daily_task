@@ -1,5 +1,4 @@
 class AppRouteNames {
-  
   static const String bottomNavbar = '/bottom-navbar';
   static const String home = '/home';
   static const String calendar = '/calendar';
@@ -8,4 +7,5 @@ class AppRouteNames {
   static const String signUp = '/sign-up';
   static const String signIn = '/sign-in';
   static const String forgotPassword = '/forgot-password';
+  static const String taskCalendar = '/task-calendar';
 }
