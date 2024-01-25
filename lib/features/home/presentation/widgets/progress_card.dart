@@ -64,6 +64,7 @@ class ProgressCard extends StatelessWidget {
                         color: AppColors.greyColor,
                         fontWeight: FontWeight.w400,
                       ),
+                      maxLines: 1,
                     ),
                   ],
                 ),
