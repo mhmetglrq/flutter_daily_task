@@ -3,9 +3,6 @@ import 'package:equatable/equatable.dart';
 part 'calendar_event.dart';
 part 'calendar_state.dart';
 
-
-class CalendarBloc extends Bloc<CalendarEvent, CalendarState>{
+class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   CalendarBloc(super.initialState);
-  
-  
 }
