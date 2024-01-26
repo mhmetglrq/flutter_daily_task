@@ -32,7 +32,7 @@ class StatusCard extends StatelessWidget {
           child: Text(
             title,
             style: context.textTheme.headlineSmall!.copyWith(
-              color: isActive ? AppColors.scaffoldColor : AppColors.greyColor,
+              color: isActive ? AppColors.scaffoldColor : AppColors.grayColor,
               fontSize: context.dynamicHeight(0.018),
               fontWeight: FontWeight.w400,
             ),

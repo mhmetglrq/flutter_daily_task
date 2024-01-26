@@ -13,7 +13,7 @@ class ProgressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: context.paddingVerticalLow,
+      padding: context.paddingBottomLow,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -63,7 +63,7 @@ class ProgressCard extends StatelessWidget {
                         "Front-End Development",
                         style: context.textTheme.bodyMedium?.copyWith(
                           fontSize: context.dynamicHeight(0.018),
-                          color: AppColors.greyColor,
+                          color: AppColors.grayColor,
                           fontWeight: FontWeight.w400,
                         ),
                         maxLines: 1,

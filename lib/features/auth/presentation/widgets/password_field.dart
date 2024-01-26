@@ -47,7 +47,7 @@ class PasswordField extends StatelessWidget {
           ),
           hintText: "Password",
           hintStyle: context.textTheme.bodyMedium?.copyWith(
-            color: AppColors.greyColor,
+            color: AppColors.grayColor,
             fontWeight: FontWeight.w300,
           ),
           errorStyle: context.textTheme.bodySmall?.copyWith(
