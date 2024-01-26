@@ -63,7 +63,7 @@ class ProgressCard extends StatelessWidget {
                         "Front-End Development",
                         style: context.textTheme.bodyMedium?.copyWith(
                           fontSize: context.dynamicHeight(0.018),
-                          color: AppColors.greyColor,
+                          color: AppColors.grayColor,
                           fontWeight: FontWeight.w400,
                         ),
                         maxLines: 1,

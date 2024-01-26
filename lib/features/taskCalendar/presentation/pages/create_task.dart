@@ -34,8 +34,9 @@ class _CreateTaskState extends State<CreateTask> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_ios),
         ),
+        centerTitle: true,
         title: Text(
-          "Create Task",
+          "Create a Task",
           style: context.textTheme.titleMedium?.copyWith(
             color: Colors.white,
             fontSize: context.dynamicHeight(0.025),
@@ -127,7 +128,161 @@ class _CreateTaskState extends State<CreateTask> {
               ),
             ),
           ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: context.paddingAllDefault,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Start Time",
+                              style: context.textTheme.titleMedium?.copyWith(
+                                color: AppColors.periwinkle,
+                                fontSize: context.dynamicHeight(0.02),
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            Text(
+                              "01.22 PM",
+                              style: context.textTheme.titleMedium?.copyWith(
+                                color: AppColors.whiteColor,
+                                fontSize: context.dynamicHeight(0.03),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "End Time",
+                              style: context.textTheme.titleMedium?.copyWith(
+                                color: AppColors.periwinkle,
+                                fontSize: context.dynamicHeight(0.02),
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            Text(
+                              "03.20 PM",
+                              style: context.textTheme.titleMedium?.copyWith(
+                                color: AppColors.whiteColor,
+                                fontSize: context.dynamicHeight(0.03),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: context.paddingVerticalDefault,
+                      child: const Divider(
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
+                    const ColoredTitle(
+                      title: "Description",
+                      color: AppColors.periwinkle,
+                    ),
+                    Text(
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                      style: context.textTheme.titleMedium?.copyWith(
+                        color: AppColors.periwinkle,
+                        fontSize: context.dynamicHeight(0.018),
+                        fontWeight: FontWeight.w300,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                    Padding(
+                      padding: context.paddingVerticalDefault,
+                      child: const Divider(
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
+                    const ColoredTitle(
+                        color: AppColors.periwinkle, title: "Category"),
+                    SizedBox(
+                      height: context.dynamicHeight(0.08),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            {"name": "Design", "isActive": false},
+                            {"name": "Meeting", "isActive": true},
+                            {"name": "Coding", "isActive": false},
+                            {"name": "Testing", "isActive": false},
+                            {"name": "Bug Fix", "isActive": false},
+                            {"name": "Deployment", "isActive": false}
+                          ].map((e) {
+                            return GestureDetector(
+                              onTap: () {},
+                              child: Padding(
+                                padding: context.paddingRightDefault,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: e["isActive"] == true
+                                        ? AppColors.activeColor
+                                        : AppColors.containerColor,
+                                  ),
+                                  child: Padding(
+                                    padding: context.paddingAllLow,
+                                    child: Text(
+                                      "${e["name"]}",
+                                      style: context.textTheme.titleMedium
+                                          ?.copyWith(
+                                        color: AppColors.whiteColor,
+                                        fontSize: context.dynamicHeight(0.018),
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class ColoredTitle extends StatelessWidget {
+  const ColoredTitle({
+    super.key,
+    required this.color,
+    required this.title,
+  });
+  final Color color;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: context.paddingVerticalLow,
+      child: Text(
+        title,
+        style: context.textTheme.titleMedium?.copyWith(
+          color: color,
+          fontSize: context.dynamicHeight(0.02),
+          fontWeight: FontWeight.w300,
+        ),
       ),
     );
   }

@@ -25,7 +25,7 @@ class TextRowButton extends StatelessWidget {
           Text(
             text,
             style: context.textTheme.labelMedium!.copyWith(
-              color: AppColors.greyColor,
+              color: AppColors.grayColor,
               fontWeight: FontWeight.w300,
               fontSize: 12,
             ),
