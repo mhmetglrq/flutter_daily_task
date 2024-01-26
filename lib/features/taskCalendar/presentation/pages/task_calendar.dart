@@ -4,7 +4,6 @@ import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-
 import '../../../home/presentation/widgets/progress_card.dart';
 
 class TaskCalendar extends StatefulWidget {
@@ -23,7 +22,6 @@ class _TaskCalendarState extends State<TaskCalendar> {
       int dayDifference = i - currentDayOfWeek;
       DateTime day = now.add(Duration(days: dayDifference));
       String dayName = DateFormat('E').format(day);
-
       daysOfWeek.add({
         "dayName": dayName,
         "dayNumber": day.day,
@@ -83,7 +81,8 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       color: AppColors.activeColor,
                       child: Row(
                         children: [
-                          const Icon(Icons.add),
+                          const Icon(Icons.add_rounded,
+                              color: AppColors.whiteColor),
                           Padding(
                             padding: context.paddingLeftLow,
                             child: Text(
@@ -109,7 +108,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: now.day == e["dayNumber"]
-                                ? AppColors.activeColor
+                                ? AppColors.whiteColor.withOpacity(0.1)
                                 : Colors.transparent,
                           ),
                           child: Column(
@@ -138,20 +137,26 @@ class _TaskCalendarState extends State<TaskCalendar> {
               ],
             ),
           ),
-          Padding(
-            padding: context.paddingAllDefault,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: context.paddingVerticalLow,
-                  child: Text(
+          Expanded(
+            child: Padding(
+              padding: context.paddingAllDefault,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
                     "Tasks",
                     style: context.textTheme.headlineMedium,
                   ),
-                ),
-                const ProgressCard()
-              ],
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 15,
+                      itemBuilder: (BuildContext context, int index) {
+                        return const ProgressCard();
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

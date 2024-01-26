@@ -35,77 +35,80 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _bodyList[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onTap,
-        useLegacyColorScheme: false,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            label: 'Home',
-            icon: SvgPicture.asset(
-              height: context.dynamicHeight(0.04),
-              SvgConstants.home.getSvg,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.inactiveColor, BlendMode.srcIn),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: _bodyList[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onTap,
+          useLegacyColorScheme: false,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+              label: 'Home',
+              icon: SvgPicture.asset(
+                height: context.dynamicHeight(0.04),
+                SvgConstants.home.getSvg,
+                colorFilter: const ColorFilter.mode(
+                    AppColors.inactiveColor, BlendMode.srcIn),
+              ),
+              activeIcon: SvgPicture.asset(
+                height: context.dynamicHeight(0.04),
+                SvgConstants.home.getSvg,
+                colorFilter: const ColorFilter.mode(
+                    AppColors.activeColor, BlendMode.srcIn),
+              ),
             ),
-            activeIcon: SvgPicture.asset(
-              height: context.dynamicHeight(0.04),
-              SvgConstants.home.getSvg,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.activeColor, BlendMode.srcIn),
+            BottomNavigationBarItem(
+              label: 'Calendar',
+              icon: SvgPicture.asset(
+                SvgConstants.calendar.getSvg,
+                height: context.dynamicHeight(0.04),
+                colorFilter: const ColorFilter.mode(
+                    AppColors.inactiveColor, BlendMode.srcIn),
+              ),
+              activeIcon: SvgPicture.asset(
+                height: context.dynamicHeight(0.04),
+                SvgConstants.calendar.getSvg,
+                colorFilter: const ColorFilter.mode(
+                    AppColors.activeColor, BlendMode.srcIn),
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Calendar',
-            icon: SvgPicture.asset(
-              SvgConstants.calendar.getSvg,
-              height: context.dynamicHeight(0.04),
-              colorFilter: const ColorFilter.mode(
-                  AppColors.inactiveColor, BlendMode.srcIn),
+            BottomNavigationBarItem(
+              label: 'Notification',
+              icon: SvgPicture.asset(
+                height: context.dynamicHeight(0.04),
+                SvgConstants.notification.getSvg,
+                colorFilter: const ColorFilter.mode(
+                    AppColors.inactiveColor, BlendMode.srcIn),
+              ),
+              activeIcon: SvgPicture.asset(
+                height: context.dynamicHeight(0.04),
+                SvgConstants.notification.getSvg,
+                colorFilter: const ColorFilter.mode(
+                    AppColors.activeColor, BlendMode.srcIn),
+              ),
             ),
-            activeIcon: SvgPicture.asset(
-              height: context.dynamicHeight(0.04),
-              SvgConstants.calendar.getSvg,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.activeColor, BlendMode.srcIn),
+            BottomNavigationBarItem(
+              label: 'Search',
+              icon: SvgPicture.asset(
+                height: context.dynamicHeight(0.04),
+                SvgConstants.search.getSvg,
+                colorFilter: const ColorFilter.mode(
+                    AppColors.inactiveColor, BlendMode.srcIn),
+              ),
+              activeIcon: SvgPicture.asset(
+                height: context.dynamicHeight(0.04),
+                SvgConstants.search.getSvg,
+                colorFilter: const ColorFilter.mode(
+                    AppColors.activeColor, BlendMode.srcIn),
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Notification',
-            icon: SvgPicture.asset(
-              height: context.dynamicHeight(0.04),
-              SvgConstants.notification.getSvg,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.inactiveColor, BlendMode.srcIn),
-            ),
-            activeIcon: SvgPicture.asset(
-              height: context.dynamicHeight(0.04),
-              SvgConstants.notification.getSvg,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.activeColor, BlendMode.srcIn),
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Search',
-            icon: SvgPicture.asset(
-              height: context.dynamicHeight(0.04),
-              SvgConstants.search.getSvg,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.inactiveColor, BlendMode.srcIn),
-            ),
-            activeIcon: SvgPicture.asset(
-              height: context.dynamicHeight(0.04),
-              SvgConstants.search.getSvg,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.activeColor, BlendMode.srcIn),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
