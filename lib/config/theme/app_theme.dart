@@ -4,6 +4,11 @@ import '../items/colors.dart';
 
 class AppTheme {
   static final ThemeData lightTheme = ThemeData(
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: AppColors.whiteColor,
+      selectionColor: AppColors.scaffoldColor,
+      selectionHandleColor: AppColors.activeColor,
+    ),
     scaffoldBackgroundColor: AppColors.scaffoldColor,
     useMaterial3: true,
     appBarTheme: const AppBarTheme(
@@ -18,39 +23,6 @@ class AppTheme {
       unselectedItemColor: AppColors.inactiveColor,
       type: BottomNavigationBarType.shifting,
     ),
-    // datePickerTheme: const DatePickerThemeData(
-    //   backgroundColor: AppColors.scaffoldColor,
-    //   elevation: 5,
-    //   shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.all(
-    //       Radius.circular(15),
-    //     ),
-    //   ),
-    //   dayForegroundColor: MaterialStatePropertyAll(AppColors.whiteColor),
-    //   yearForegroundColor: MaterialStatePropertyAll(AppColors.whiteColor),
-    //   yearStyle: TextStyle(
-    //     color: AppColors.whiteColor,
-    //     fontWeight: FontWeight.w500,
-    //     fontSize: 20,
-    //     wordSpacing: 1.5,
-    //     fontFamily: "Poppins",
-    //   ),
-    //   headerHeadlineStyle: TextStyle(
-    //     color: AppColors.whiteColor,
-    //     fontWeight: FontWeight.w500,
-    //     fontSize: 20,
-    //     wordSpacing: 1.5,
-    //     fontFamily: "Poppins",
-    //   ),
-    //   weekdayStyle: TextStyle(
-    //     color: AppColors.whiteColor,
-    //     fontWeight: FontWeight.w500,
-    //     fontSize: 18,
-    //     wordSpacing: 1.5,
-    //     fontFamily: "Poppins",
-    //   ),
-    //   dividerColor: AppColors.whiteColor,
-    // ),
     textTheme: const TextTheme(
       displayMedium: TextStyle(
         color: AppColors.whiteColor,
@@ -156,6 +128,82 @@ class AppTheme {
         fontSize: 18,
         wordSpacing: 1.5,
         fontFamily: "Poppins",
+      ),
+    ),
+    colorScheme: const ColorScheme.dark(
+      onPrimary: Colors.white,
+      onSurface: Colors.white,
+    ),
+    dialogBackgroundColor: AppColors.scaffoldColor,
+    datePickerTheme: DatePickerThemeData(
+      backgroundColor: AppColors.scaffoldColor,
+      elevation: 5,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+      ),
+      confirmButtonStyle: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          AppColors.containerColor,
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      headerHelpStyle: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+        fontSize: 20,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
+      ),
+      dividerColor: Colors.white,
+      yearForegroundColor: MaterialStateProperty.all(Colors.white),
+      yearStyle: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+        fontSize: 20,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
+      ),
+      headerForegroundColor: Colors.white,
+      yearOverlayColor: const MaterialStatePropertyAll(
+        Colors.white,
+      ),
+      weekdayStyle: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
+      ),
+      headerHeadlineStyle: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+        fontSize: 20,
+        wordSpacing: 1.5,
+        fontFamily: "Poppins",
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        backgroundColor: AppColors.containerColor,
+        foregroundColor: Colors.white,
       ),
     ),
   );
