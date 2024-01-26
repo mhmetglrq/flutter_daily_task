@@ -18,6 +18,39 @@ class AppTheme {
       unselectedItemColor: AppColors.inactiveColor,
       type: BottomNavigationBarType.shifting,
     ),
+    // datePickerTheme: const DatePickerThemeData(
+    //   backgroundColor: AppColors.scaffoldColor,
+    //   elevation: 5,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.all(
+    //       Radius.circular(15),
+    //     ),
+    //   ),
+    //   dayForegroundColor: MaterialStatePropertyAll(AppColors.whiteColor),
+    //   yearForegroundColor: MaterialStatePropertyAll(AppColors.whiteColor),
+    //   yearStyle: TextStyle(
+    //     color: AppColors.whiteColor,
+    //     fontWeight: FontWeight.w500,
+    //     fontSize: 20,
+    //     wordSpacing: 1.5,
+    //     fontFamily: "Poppins",
+    //   ),
+    //   headerHeadlineStyle: TextStyle(
+    //     color: AppColors.whiteColor,
+    //     fontWeight: FontWeight.w500,
+    //     fontSize: 20,
+    //     wordSpacing: 1.5,
+    //     fontFamily: "Poppins",
+    //   ),
+    //   weekdayStyle: TextStyle(
+    //     color: AppColors.whiteColor,
+    //     fontWeight: FontWeight.w500,
+    //     fontSize: 18,
+    //     wordSpacing: 1.5,
+    //     fontFamily: "Poppins",
+    //   ),
+    //   dividerColor: AppColors.whiteColor,
+    // ),
     textTheme: const TextTheme(
       displayMedium: TextStyle(
         color: AppColors.whiteColor,

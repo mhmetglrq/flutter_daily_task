@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_daily_task/features/taskCalendar/presentation/pages/create_task.dart';
 
 import '../../features/auth/presentation/pages/sign_in.dart';
 import '../../features/auth/presentation/pages/sign_up.dart';
@@ -25,6 +26,8 @@ class AppRoutes {
         return _materialRoute(const Home());
       case AppRouteNames.taskCalendar:
         return _materialRoute(const TaskCalendar());
+      case AppRouteNames.taskCreate:
+        return _materialRoute(const CreateTask());
 
       default:
         return _materialRoute(const BottomNavbar());

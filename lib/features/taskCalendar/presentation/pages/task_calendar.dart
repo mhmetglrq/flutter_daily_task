@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
+import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -74,7 +75,8 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       ),
                     ),
                     MaterialButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.pushNamed(
+                          context, AppRouteNames.taskCreate),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),

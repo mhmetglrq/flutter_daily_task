@@ -8,4 +8,5 @@ class AppRouteNames {
   static const String signIn = '/sign-in';
   static const String forgotPassword = '/forgot-password';
   static const String taskCalendar = '/task-calendar';
+  static const String taskCreate = '/task-create';
 }
