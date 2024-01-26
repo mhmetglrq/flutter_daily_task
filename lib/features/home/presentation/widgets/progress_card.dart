@@ -12,71 +12,74 @@ class ProgressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: AppColors.whiteColor,
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: context.dynamicWidth(0.05),
-          vertical: context.dynamicHeight(0.02),
+    return Padding(
+      padding: context.paddingVerticalLow,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: AppColors.whiteColor,
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                gradient: const LinearGradient(
-                  colors: [AppColors.activeColor, AppColors.blueColor],
-                  // stops: [0.3, 8.0],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.dynamicWidth(0.05),
+            vertical: context.dynamicHeight(0.02),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: const LinearGradient(
+                    colors: [AppColors.activeColor, AppColors.blueColor],
+                    // stops: [0.3, 8.0],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Padding(
+                  padding: context.paddingAllDefault,
+                  child: SvgPicture.asset(
+                    SvgConstants.todoList.getSvg,
+                  ),
                 ),
               ),
-              child: Padding(
-                padding: context.paddingAllDefault,
-                child: SvgPicture.asset(
-                  SvgConstants.todoList.getSvg,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: context.paddingHorizontalDefault,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "To-Do List",
-                      style: context.textTheme.headlineSmall?.copyWith(
-                        color: AppColors.scaffoldColor,
-                        fontSize: context.dynamicHeight(0.023),
-                        fontWeight: FontWeight.w600,
+              Expanded(
+                child: Padding(
+                  padding: context.paddingHorizontalDefault,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "To-Do List",
+                        style: context.textTheme.headlineSmall?.copyWith(
+                          color: AppColors.scaffoldColor,
+                          fontSize: context.dynamicHeight(0.023),
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Front-End Development",
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        fontSize: context.dynamicHeight(0.018),
-                        color: AppColors.greyColor,
-                        fontWeight: FontWeight.w400,
+                      Text(
+                        "Front-End Development",
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          fontSize: context.dynamicHeight(0.018),
+                          color: AppColors.greyColor,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        maxLines: 1,
                       ),
-                      maxLines: 1,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                SvgConstants.threeDots.getSvg,
+              IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset(
+                  SvgConstants.threeDots.getSvg,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -28,6 +28,10 @@ class PasswordField extends StatelessWidget {
         validator: (value) =>
             value!.isEmpty ? "Please enter your password" : null,
         obscureText: _isObscure,
+        style: context.textTheme.bodyMedium?.copyWith(
+          color: AppColors.blackColor,
+          fontWeight: FontWeight.w300,
+        ),
         decoration: InputDecoration(
           suffixIcon: GestureDetector(
             onTap: onTap,
@@ -45,6 +49,11 @@ class PasswordField extends StatelessWidget {
           hintStyle: context.textTheme.bodyMedium?.copyWith(
             color: AppColors.greyColor,
             fontWeight: FontWeight.w300,
+          ),
+          errorStyle: context.textTheme.bodySmall?.copyWith(
+            color: AppColors.errorRedColor,
+            fontWeight: FontWeight.w300,
+            fontSize: context.dynamicHeight(0.015),
           ),
           filled: true,
           fillColor: AppColors.whiteColor,
