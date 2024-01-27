@@ -12,6 +12,7 @@ enum SvgConstants {
   eyeOff("eye_off"),
   signIn("sign_in"),
   signUp("sign_up"),
+  person("person"),
   ;
 
   final String value;

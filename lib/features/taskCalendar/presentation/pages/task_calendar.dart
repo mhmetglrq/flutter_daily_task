@@ -152,6 +152,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                   Expanded(
                     child: ListView.builder(
                       itemCount: 15,
+                      padding: context.paddingTopLow,
                       itemBuilder: (BuildContext context, int index) {
                         return const ProgressCard();
                       },

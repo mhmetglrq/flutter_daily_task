@@ -3,6 +3,7 @@ import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_daily_task/features/home/presentation/pages/home.dart';
+import 'package:flutter_daily_task/features/profile/pages/profile.dart';
 import 'package:flutter_daily_task/features/taskCalendar/presentation/pages/task_calendar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -20,9 +21,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const Text(
       'Index 2: Notification',
     ),
-    const Text(
-      'Index 3: Search',
-    ),
+    const Profile(),
   ];
 
   int _selectedIndex = 0;
@@ -93,16 +92,16 @@ class _BottomNavbarState extends State<BottomNavbar> {
               ),
             ),
             BottomNavigationBarItem(
-              label: 'Search',
+              label: 'Profile',
               icon: SvgPicture.asset(
                 height: context.dynamicHeight(0.04),
-                SvgConstants.search.getSvg,
+                SvgConstants.person.getSvg,
                 colorFilter: const ColorFilter.mode(
                     AppColors.inactiveColor, BlendMode.srcIn),
               ),
               activeIcon: SvgPicture.asset(
                 height: context.dynamicHeight(0.04),
-                SvgConstants.search.getSvg,
+                SvgConstants.person.getSvg,
                 colorFilter: const ColorFilter.mode(
                     AppColors.activeColor, BlendMode.srcIn),
               ),
