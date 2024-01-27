@@ -3,7 +3,7 @@ import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_daily_task/features/home/presentation/pages/home.dart';
-import 'package:flutter_daily_task/features/profile/pages/profile.dart';
+import 'package:flutter_daily_task/features/profile/presentation/pages/profile.dart';
 import 'package:flutter_daily_task/features/taskCalendar/presentation/pages/task_calendar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
