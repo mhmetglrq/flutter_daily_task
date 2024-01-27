@@ -12,6 +12,13 @@ enum SvgConstants {
   eyeOff("eye_off"),
   signIn("sign_in"),
   signUp("sign_up"),
+  person("person"),
+  github("github"),
+  medium("medium"),
+  linkedin("linkedin"),
+  stackOverflow("stack_overflow"),
+  web("web"),
+  editProfile("edit_profile"),
   ;
 
   final String value;
