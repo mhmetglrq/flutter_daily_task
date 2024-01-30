@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "175044632920",
+    "project_id": "daily-task-b4420",
+    "storage_bucket": "daily-task-b4420.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175044632920:android:2bb17043a680cb9cca452d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_daily_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA210yfZYKeG7fKo4pQFUVoMvHgFnm-MEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

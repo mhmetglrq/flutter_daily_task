@@ -6,7 +6,14 @@ import 'package:flutter_daily_task/config/theme/app_theme.dart';
 import 'config/routes/app_routes.dart';
 import 'features/home/presentation/bloc/home_bloc.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiBlocProvider(
       providers: [
