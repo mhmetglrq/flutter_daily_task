@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
-import 'package:flutter_daily_task/features/presentation/auth/presentation/widgets/email_field.dart';
-import 'package:flutter_daily_task/features/presentation/auth/presentation/widgets/password_field.dart';
-import 'package:flutter_daily_task/features/presentation/auth/presentation/widgets/text_row_button.dart';
 
 import '../../../../../../config/items/colors.dart';
+import '../widgets/email_field.dart';
+import '../widgets/password_field.dart';
 import '../widgets/purple_button.dart';
+import '../widgets/text_row_button.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});

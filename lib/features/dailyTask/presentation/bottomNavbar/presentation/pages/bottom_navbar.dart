@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
-import 'package:flutter_daily_task/features/presentation/profile/presentation/pages/profile.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../home/presentation/pages/home.dart';
+import '../../../profile/presentation/pages/profile.dart';
 import '../../../taskCalendar/presentation/pages/task_calendar.dart';
 
 class BottomNavbar extends StatefulWidget {
