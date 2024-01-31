@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../../config/items/colors.dart';
-import '../../../../../../config/utility/enum/svg_enum.dart';
+import '../../../../../config/items/colors.dart';
+import '../../../../../config/utility/enum/svg_enum.dart';
 
 class PasswordField extends StatelessWidget {
   const PasswordField({

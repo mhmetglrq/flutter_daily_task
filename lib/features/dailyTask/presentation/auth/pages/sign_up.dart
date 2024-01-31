@@ -3,20 +3,20 @@ import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 
-import '../../../../../../config/items/colors.dart';
+import '../../../../../config/items/colors.dart';
 import '../widgets/email_field.dart';
 import '../widgets/password_field.dart';
 import '../widgets/purple_button.dart';
 import '../widgets/text_row_button.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   bool _isObscure = true;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -67,7 +67,7 @@ class _SignInState extends State<SignIn> {
                         Padding(
                           padding: context.paddingVerticalLow,
                           child: Text(
-                            "Sign In",
+                            "Sign Up",
                             style: context.textTheme.titleLarge?.copyWith(
                               color: AppColors.whiteColor,
                             ),
@@ -83,12 +83,9 @@ class _SignInState extends State<SignIn> {
                           },
                         ),
                         PurpleButton(
-                          title: "Sign In",
+                          title: "Sign Up",
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              Navigator.pushNamed(
-                                  context, AppRouteNames.bottomNavbar);
-                            }
+                            if (_formKey.currentState!.validate()) {}
                           },
                         ),
                         Align(
@@ -105,13 +102,11 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                         TextRowButton(
-                          text: "Don’t haven’t an account ? ",
-                          buttonText: "Sign Up",
+                          text: "Do you have an account ? ",
+                          buttonText: "Sign In",
                           onTap: () => Navigator.pushNamed(
-                            context,
-                            AppRouteNames.signUp,
-                          ),
-                        )
+                              context, AppRouteNames.signIn),
+                        ),
                       ],
                     ),
                   ),
