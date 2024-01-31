@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRoutes.onGenerateRoutes,
-      initialRoute: AppRouteNames.taskCreate,
+      initialRoute: AppRouteNames.signIn,
     );
   }
 }
