@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/auth/presentation/pages/sign_in.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/auth/presentation/pages/sign_up.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/auth/pages/sign_in.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/auth/pages/sign_up.dart';
 
 import '../../features/dailyTask/presentation/bottomNavbar/presentation/pages/bottom_navbar.dart';
 import '../../features/dailyTask/presentation/home/presentation/pages/home.dart';
