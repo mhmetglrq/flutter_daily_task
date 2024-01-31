@@ -8,11 +8,11 @@ class UserEntity extends Equatable {
   final String? name;
   final String? surname;
   final String? email;
-  final List<ProjectEntity> projects;
+  final List<ProjectEntity>? projects;
   final String? password;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final List<TaskEntity> tasks;
+  final List<TaskEntity>? tasks;
 
   const UserEntity({
     this.uid,

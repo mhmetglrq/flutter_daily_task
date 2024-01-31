@@ -7,16 +7,15 @@ import 'task.dart';
 
 class ProjectEntity extends Equatable {
   final String? uid;
-
   final String? name;
   final String? description;
-  final List<CategoryEntity> categories;
-  final List<UserEntity> assignes;
-  final List<TaskEntity> tasks;
+  final List<CategoryEntity>? categories;
+  final List<UserEntity>? assignes;
+  final List<TaskEntity>? tasks;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? deadline;
-  final StatusEntity status;
+  final StatusEntity? status;
 
   const ProjectEntity({
     this.uid,
