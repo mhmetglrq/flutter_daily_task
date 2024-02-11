@@ -88,4 +88,18 @@ class UserModel extends UserEntity {
           : null,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'name': name,
+      'surname': surname,
+      'email': email,
+      'password': password,
+      'projects': projects?.map((e) => e as Map<String, dynamic>).toList(),
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
+      'tasks': tasks?.map((e) => e as Map<String, dynamic>).toList(),
+    };
+  }
 }
