@@ -11,11 +11,12 @@ class AuthRepositoryImpl extends AuthRepository {
   AuthRepositoryImpl(this._firebaseService);
 
   @override
-  Future<void> createUser(UserEntity user) async {
+  Future<DataState<void>> createUser(UserEntity user) async {
     try {
-      _firebaseService.createUser(user as UserModel);
+      return DataSuccess(
+          data: _firebaseService.createUser(UserModel.fromEntity(user)));
     } catch (e) {
-      e.toString();
+      return DataError(message: e.toString());
     }
   }
 
@@ -29,11 +30,11 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<DataState<void>> signOut() async {
     try {
-      _firebaseService.signOut();
+      return DataSuccess(data: _firebaseService.signOut());
     } catch (e) {
-      e.toString();
+      return DataError(message: e.toString());
     }
   }
 }
