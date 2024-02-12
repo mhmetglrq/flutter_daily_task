@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 
 import '../../../../../config/items/colors.dart';
+import '../../../domain/entities/user.dart';
+import '../bloc/remote/remote_auth_bloc.dart';
+import '../bloc/remote/remote_auth_event.dart';
+import '../bloc/remote/remote_auth_state.dart';
 import '../widgets/email_field.dart';
 import '../widgets/password_field.dart';
 import '../widgets/purple_button.dart';
@@ -82,10 +87,23 @@ class _SignUpState extends State<SignUp> {
                             });
                           },
                         ),
-                        PurpleButton(
-                          title: "Sign Up",
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {}
+                        BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
+                          builder: (context, state) {
+                            return PurpleButton(
+                              title: "Sign Up",
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  context.read<RemoteAuthBloc>().add(
+                                        RemoteSignUpEvent(
+                                          user: UserEntity(
+                                            email: _emailController.text,
+                                            password: _passwordController.text,
+                                          ),
+                                        ),
+                                      );
+                                }
+                              },
+                            );
                           },
                         ),
                         Align(
