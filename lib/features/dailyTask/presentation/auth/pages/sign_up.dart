@@ -81,6 +81,7 @@ class _SignUpState extends State<SignUp> {
                         EmailField(emailController: _emailController),
                         PasswordField(
                           isObscure: _isObscure,
+                          passwordController: _passwordController,
                           onTap: () {
                             setState(() {
                               _isObscure = !_isObscure;
@@ -101,6 +102,8 @@ class _SignUpState extends State<SignUp> {
                                           ),
                                         ),
                                       );
+                                  Navigator.pushNamed(
+                                      context, AppRouteNames.signIn);
                                 }
                               },
                             );

@@ -80,6 +80,7 @@ class _SignInState extends State<SignIn> {
                         EmailField(emailController: _emailController),
                         PasswordField(
                           isObscure: _isObscure,
+                          passwordController: _passwordController,
                           onTap: () {
                             setState(() {
                               _isObscure = !_isObscure;
@@ -88,6 +89,14 @@ class _SignInState extends State<SignIn> {
                         ),
                         BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
                           builder: (context, state) {
+                            if (state is RemoteAuthError) {
+                              return Text(
+                                state.message ?? "Error",
+                                style: context.textTheme.labelMedium?.copyWith(
+                                  color: AppColors.activeColor,
+                                ),
+                              );
+                            }
                             return PurpleButton(
                               title: "Sign In",
                               onPressed: () {
@@ -98,8 +107,6 @@ class _SignInState extends State<SignIn> {
                                       password: _passwordController.text,
                                     ),
                                   );
-                                  // Navigator.pushNamed(
-                                  //     context, AppRouteNames.bottomNavbar);
                                 }
                               },
                             );

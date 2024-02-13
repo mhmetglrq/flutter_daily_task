@@ -12,6 +12,7 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
   RemoteAuthBloc(this._signInUseCase, this._signUpUseCase)
       : super(const RemoteAuthLoading()) {
     on<RemoteSignInEvent>(onSignInEvent);
+    on<RemoteSignUpEvent>(onSignUpEvent);
   }
 
   void onSignInEvent(
@@ -22,8 +23,16 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
     };
     final dataState = await _signInUseCase(params);
     if (dataState is DataSuccess) {
-      emit(const RemoteAuthSuccess());
-    } else if (dataState is DataError) {
+      if (dataState.data != null) {
+        emit(const RemoteAuthDone());
+        print("Success");
+      } else {
+        emit(RemoteAuthError(dataState.message));
+        print("Error: ${dataState.message}");
+      }
+    }
+
+    if (dataState is DataError) {
       emit(RemoteAuthError(dataState.message));
     }
   }
@@ -33,8 +42,9 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
     final params = event.user;
     final dataState = await _signUpUseCase(params);
     if (dataState is DataSuccess) {
-      emit(const RemoteAuthSuccess());
-    } else if (dataState is DataError) {
+      emit(const RemoteAuthDone());
+    }
+    if (dataState is DataError) {
       emit(RemoteAuthError(dataState.message));
     }
   }

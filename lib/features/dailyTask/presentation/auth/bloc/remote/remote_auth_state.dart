@@ -5,7 +5,9 @@ abstract class RemoteAuthState extends Equatable {
   const RemoteAuthState({this.message});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        message!,
+      ];
 }
 
 class RemoteAuthInitial extends RemoteAuthState {
@@ -16,8 +18,8 @@ class RemoteAuthLoading extends RemoteAuthState {
   const RemoteAuthLoading();
 }
 
-class RemoteAuthSuccess extends RemoteAuthState {
-  const RemoteAuthSuccess();
+class RemoteAuthDone extends RemoteAuthState {
+  const RemoteAuthDone();
 }
 
 class RemoteAuthError extends RemoteAuthState {

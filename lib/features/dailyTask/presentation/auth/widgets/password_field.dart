@@ -11,16 +11,20 @@ class PasswordField extends StatelessWidget {
     super.key,
     required bool isObscure,
     required this.onTap,
-  }) : _isObscure = isObscure;
+    required TextEditingController passwordController,
+  })  : _isObscure = isObscure,
+        _passwordController = passwordController;
 
   final bool _isObscure;
   final Function()? onTap;
+  final TextEditingController _passwordController;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: context.paddingVerticalLow,
       child: TextFormField(
+        controller: _passwordController,
         inputFormatters: [
           FilteringTextInputFormatter.deny(RegExp(r"\s")),
         ],
