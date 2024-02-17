@@ -20,31 +20,26 @@ class FirebaseService {
   }
 
   Future<User> createUser(UserModel user) async {
-    return _auth
+    User firebaseUser = await _auth
         .createUserWithEmailAndPassword(
             email: user.email!, password: user.password!)
-        .then(
-      (value) {
-        UserModel userModel = UserModel(
-          uid: value.user!.uid,
-          name: user.name,
-          surname: user.surname,
-          email: user.email,
-          password: user.password,
-          projects: user.projects
-              ?.map((entity) => ProjectModel.fromEntity(entity))
-              .toList(),
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
-          tasks: user.tasks
-              ?.map((entity) => TaskModel.fromEntity(entity))
-              .toList(),
-        );
-        _firestore.collection('users').doc(userModel.uid).set(
-              userModel.toMap(),
-            );
-        return value.user!;
-      },
+        .then((value) => value.user!);
+    UserModel userModel = UserModel(
+      uid: firebaseUser.uid,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      password: user.password,
+      projects: user.projects
+          ?.map((entity) => ProjectModel.fromEntity(entity))
+          .toList(),
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      tasks: user.tasks?.map((entity) => TaskModel.fromEntity(entity)).toList(),
     );
+    await _firestore.collection('users').doc(userModel.uid).set(
+          userModel.toMap(),
+        );
+    return firebaseUser;
   }
 }

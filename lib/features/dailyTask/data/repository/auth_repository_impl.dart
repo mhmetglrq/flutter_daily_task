@@ -15,7 +15,10 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<DataState<User>> createUser(UserEntity user) async {
     try {
       return DataSuccess(
-          data: await _firebaseService.createUser(UserModel.fromEntity(user)));
+        data: await _firebaseService.createUser(
+          UserModel.fromEntity(user),
+        ),
+      );
     } catch (e) {
       return DataError(message: e.toString());
     }
@@ -25,7 +28,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<DataState<User>> signIn(String username, String password) async {
     try {
       return DataSuccess(
-          data: await _firebaseService.signIn(username, password));
+        data: await _firebaseService.signIn(username, password),
+      );
     } catch (e) {
       return DataError(message: e.toString());
     }
@@ -34,7 +38,9 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<DataState<void>> signOut() async {
     try {
-      return DataSuccess(data: _firebaseService.signOut());
+      return DataSuccess(
+        data: _firebaseService.signOut(),
+      );
     } catch (e) {
       return DataError(message: e.toString());
     }
