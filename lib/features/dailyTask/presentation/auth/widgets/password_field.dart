@@ -36,6 +36,7 @@ class PasswordField extends StatelessWidget {
           color: AppColors.blackColor,
           fontWeight: FontWeight.w300,
         ),
+        cursorColor: AppColors.activeColor,
         decoration: InputDecoration(
           suffixIcon: GestureDetector(
             onTap: onTap,

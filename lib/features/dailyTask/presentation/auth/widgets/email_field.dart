@@ -4,7 +4,6 @@ import 'package:flutter_daily_task/config/extension/context_extension.dart';
 
 import '../../../../../config/items/colors.dart';
 
-
 class EmailField extends StatelessWidget {
   const EmailField({
     super.key,
@@ -29,6 +28,7 @@ class EmailField extends StatelessWidget {
           color: AppColors.blackColor,
           fontWeight: FontWeight.w300,
         ),
+        cursorColor: AppColors.activeColor,
         decoration: InputDecoration(
           hintText: "Email",
           filled: true,
