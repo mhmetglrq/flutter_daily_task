@@ -25,10 +25,8 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
         emit(const RemoteAuthDone());
-        print("Success");
       } else {
         emit(RemoteAuthError(dataState.message));
-        print("Error: ${dataState.message}");
       }
     }
 
@@ -45,7 +43,7 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
       emit(const RemoteAuthDone());
     }
     if (dataState is DataError) {
-      emit(RemoteAuthError(dataState.message));
+      emit(RemoteAuthError(dataState.message),);
     }
   }
 }

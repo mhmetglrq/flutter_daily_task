@@ -9,16 +9,18 @@ class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> signIn(String username, String password) async {
-    await _auth.signInWithEmailAndPassword(email: username, password: password);
+  Future<User> signIn(String username, String password) async {
+    return await _auth
+        .signInWithEmailAndPassword(email: username, password: password)
+        .then((value) => value.user!);
   }
 
   Future<void> signOut() async {
     await _auth.signOut();
   }
 
-  Future<void> createUser(UserModel user) async {
-    _auth
+  Future<User> createUser(UserModel user) async {
+    return _auth
         .createUserWithEmailAndPassword(
             email: user.email!, password: user.password!)
         .then(
@@ -41,6 +43,7 @@ class FirebaseService {
         _firestore.collection('users').doc(userModel.uid).set(
               userModel.toMap(),
             );
+        return value.user!;
       },
     );
   }
