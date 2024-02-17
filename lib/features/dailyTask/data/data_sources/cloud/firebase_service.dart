@@ -9,39 +9,37 @@ class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> signIn(String username, String password) async {
-    await _auth.signInWithEmailAndPassword(email: username, password: password);
+  Future<User> signIn(String username, String password) async {
+    return await _auth
+        .signInWithEmailAndPassword(email: username, password: password)
+        .then((value) => value.user!);
   }
 
   Future<void> signOut() async {
     await _auth.signOut();
   }
 
-  Future<void> createUser(UserModel user) async {
-    _auth
+  Future<User> createUser(UserModel user) async {
+    User firebaseUser = await _auth
         .createUserWithEmailAndPassword(
             email: user.email!, password: user.password!)
-        .then(
-      (value) {
-        UserModel userModel = UserModel(
-          uid: value.user!.uid,
-          name: user.name,
-          surname: user.surname,
-          email: user.email,
-          password: user.password,
-          projects: user.projects
-              ?.map((entity) => ProjectModel.fromEntity(entity))
-              .toList(),
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
-          tasks: user.tasks
-              ?.map((entity) => TaskModel.fromEntity(entity))
-              .toList(),
-        );
-        _firestore.collection('users').doc(userModel.uid).set(
-              userModel.toMap(),
-            );
-      },
+        .then((value) => value.user!);
+    UserModel userModel = UserModel(
+      uid: firebaseUser.uid,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      password: user.password,
+      projects: user.projects
+          ?.map((entity) => ProjectModel.fromEntity(entity))
+          .toList(),
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      tasks: user.tasks?.map((entity) => TaskModel.fromEntity(entity)).toList(),
     );
+    await _firestore.collection('users').doc(userModel.uid).set(
+          userModel.toMap(),
+        );
+    return firebaseUser;
   }
 }

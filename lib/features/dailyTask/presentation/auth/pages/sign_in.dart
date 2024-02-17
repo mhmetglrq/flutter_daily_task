@@ -89,14 +89,6 @@ class _SignInState extends State<SignIn> {
                         ),
                         BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
                           builder: (context, state) {
-                            if (state is RemoteAuthError) {
-                              return Text(
-                                state.message ?? "Error",
-                                style: context.textTheme.labelMedium?.copyWith(
-                                  color: AppColors.activeColor,
-                                ),
-                              );
-                            }
                             return PurpleButton(
                               title: "Sign In",
                               onPressed: () {
@@ -107,6 +99,21 @@ class _SignInState extends State<SignIn> {
                                       password: _passwordController.text,
                                     ),
                                   );
+                                  if (state is RemoteAuthDone) {
+                                    BlocProvider.of<RemoteAuthBloc>(context)
+                                        .close();
+                                    Navigator.pushNamed(
+                                      context,
+                                      AppRouteNames.bottomNavbar,
+                                    );
+                                  } else if (state is RemoteAuthError) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content:
+                                            Text("Error: ${state.message}"),
+                                      ),
+                                    );
+                                  }
                                 }
                               },
                             );

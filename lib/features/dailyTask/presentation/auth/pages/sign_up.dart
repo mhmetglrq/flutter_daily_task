@@ -94,16 +94,28 @@ class _SignUpState extends State<SignUp> {
                               title: "Sign Up",
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  context.read<RemoteAuthBloc>().add(
-                                        RemoteSignUpEvent(
-                                          user: UserEntity(
-                                            email: _emailController.text,
-                                            password: _passwordController.text,
-                                          ),
-                                        ),
-                                      );
-                                  Navigator.pushNamed(
-                                      context, AppRouteNames.signIn);
+                                  BlocProvider.of<RemoteAuthBloc>(context).add(
+                                    RemoteSignUpEvent(
+                                      user: UserEntity(
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                      ),
+                                    ),
+                                  );
+                                  print("state: $state");
+                                  if (state is RemoteAuthDone) {
+                                    Navigator.pushNamed(
+                                        context, AppRouteNames.signIn);
+                                  }
+                                  BlocProvider.of<RemoteAuthBloc>(context)
+                                      .close();
+                                  if (state is RemoteAuthError) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("${state.message}"),
+                                      ),
+                                    );
+                                  }
                                 }
                               },
                             );
