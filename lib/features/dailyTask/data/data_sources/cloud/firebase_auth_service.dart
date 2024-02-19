@@ -5,7 +5,7 @@ import 'package:flutter_daily_task/features/dailyTask/data/model/user.dart';
 
 import '../../model/project.dart';
 
-class FirebaseService {
+class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 

@@ -3,11 +3,11 @@ import 'package:flutter_daily_task/core/resources/data_state.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/user.dart';
 
 import '../../domain/repository/auth_repository.dart';
-import '../data_sources/cloud/firebase_service.dart';
+import '../data_sources/cloud/firebase_auth_service.dart';
 import '../model/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final FirebaseService _firebaseService;
+  final FirebaseAuthService _firebaseService;
 
   AuthRepositoryImpl(this._firebaseService);
 
