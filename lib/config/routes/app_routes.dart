@@ -4,8 +4,8 @@ import 'package:flutter_daily_task/features/dailyTask/presentation/auth/pages/si
 
 import '../../features/dailyTask/presentation/bottomNavbar/presentation/pages/bottom_navbar.dart';
 import '../../features/dailyTask/presentation/home/presentation/pages/home.dart';
-import '../../features/dailyTask/presentation/taskCalendar/presentation/pages/create_task.dart';
-import '../../features/dailyTask/presentation/taskCalendar/presentation/pages/task_calendar.dart';
+import '../../features/dailyTask/presentation/taskCalendar/pages/create_task.dart';
+import '../../features/dailyTask/presentation/taskCalendar/pages/task_calendar.dart';
 import 'app_route_names.dart';
 
 class AppRoutes {

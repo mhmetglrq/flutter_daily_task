@@ -1,4 +1,8 @@
 import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_auth_service.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_task_service.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/repository/task_repository_impl.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/repository/task_repository.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/create_task_usecase.dart';
 import 'package:get_it/get_it.dart';
 
 import 'features/dailyTask/data/repository/auth_repository_impl.dart';
@@ -16,10 +20,13 @@ Future<void> initializeDependencies() async {
   // UseCase
   sl.registerLazySingleton(() => SignInUseCase(sl()));
   sl.registerLazySingleton(() => SignUpUseCase(sl()));
+  sl.registerLazySingleton(() => CreateTaskUseCase(sl()));
 
   // Dependencies
   sl.registerLazySingleton(() => FirebaseAuthService());
+  sl.registerLazySingleton(() => FirebaseTaskService());
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
+  sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(sl()));
 }
