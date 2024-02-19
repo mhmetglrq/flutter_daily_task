@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../home/presentation/pages/home.dart';
 import '../../../profile/presentation/pages/profile.dart';
-import '../../../taskCalendar/presentation/pages/task_calendar.dart';
+import '../../../taskCalendar/pages/task_calendar.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({super.key});

@@ -8,7 +8,7 @@ class TaskRepositoryImpl implements TaskRepository {
 
   TaskRepositoryImpl(this._firebaseTaskService);
   @override
-  Future<DataState<TaskModel>> createTask(TaskModel task) async {
+  Future<DataState<void>> createTask(TaskModel task) async {
     try {
       return DataSuccess(data: await _firebaseTaskService.createTask(task));
     } catch (e) {

@@ -4,7 +4,7 @@ import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/theme/app_theme.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../../config/widget/title/colored_title.dart';
+import '../../../../../config/widget/title/colored_title.dart';
 
 class CreateTask extends StatefulWidget {
   const CreateTask({super.key});
