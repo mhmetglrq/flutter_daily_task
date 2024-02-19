@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/core/resources/data_state.dart';
-import 'package:flutter_daily_task/features/dailyTask/domain/usecases/sign_in_usecase.dart';
-import 'package:flutter_daily_task/features/dailyTask/domain/usecases/sign_up_usecase.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/sign_in_usecase.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/sign_up_usecase.dart';
 
 import 'remote_auth_event.dart';
 import 'remote_auth_state.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter_daily_task/core/resources/data_state.dart';
 
-import '../../../../core/usecase/usecase.dart';
-import '../repository/auth_repository.dart';
+import '../../../../../core/usecase/usecase.dart';
+import '../../repository/auth_repository.dart';
 
 class SignInUseCase implements UseCase<DataState<void>, Map<String, dynamic>> {
   final AuthRepository _authRepository;

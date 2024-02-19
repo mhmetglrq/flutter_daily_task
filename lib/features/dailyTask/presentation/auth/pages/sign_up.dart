@@ -102,7 +102,6 @@ class _SignUpState extends State<SignUp> {
                                       ),
                                     ),
                                   );
-                                  print("state: $state");
                                   if (state is RemoteAuthDone) {
                                     Navigator.pushNamed(
                                         context, AppRouteNames.signIn);
