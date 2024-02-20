@@ -12,9 +12,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<DataState<void>> createTask(TaskEntity task) async {
     try {
       return DataSuccess(
-        data: await _firebaseTaskService.createTask(
-          TaskModel.fromEntity(task),
-        ),
+        data: _firebaseTaskService.createTask(TaskModel.fromEntity(task)),
       );
     } catch (e) {
       return DataError(message: e.toString());
