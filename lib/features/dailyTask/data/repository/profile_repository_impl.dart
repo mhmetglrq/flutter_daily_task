@@ -8,18 +8,18 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   ProfileRepositoryImpl(this._firebaseProfileService);
   @override
-  Future<DataState<UserModel>> getBadges() async {
+  Future<DataState<void>> getBadges() async {
     try {
-      return DataSuccess(data: await _firebaseProfileService.getProfile());
+      return DataSuccess(data: await _firebaseProfileService.getBadges());
     } catch (e) {
       return DataError(message: e.toString());
     }
   }
 
   @override
-  Future<DataState<void>> getProfile() async {
+  Future<DataState<UserModel>> getProfile() async {
     try {
-      return DataSuccess(data: await _firebaseProfileService.getBadges());
+      return DataSuccess(data: await _firebaseProfileService.getProfile());
     } catch (e) {
       return DataError(message: e.toString());
     }
