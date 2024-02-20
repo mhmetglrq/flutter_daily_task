@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
+import 'package:flutter_daily_task/config/utility/constants/menu_items.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../../config/items/colors.dart';
@@ -70,27 +71,30 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: context.paddingVerticalDefault,
-                child: const Row(
-                  children: [
-                    StatusCard(
-                      title: "My Task",
-                      isActive: true,
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: context.paddingVerticalDefault,
+                    child: Row(
+                      children: [
+                        for (int i = 0; i < MenuItems.statusItems.length; i++)
+                          StatusCard(
+                            title: MenuItems.statusItems[i],
+                            isActive: i == state.choosenValue,
+                            onTap: () {
+                              context.read<HomeBloc>().add(
+                                    SetChosenValueEvent(choosenValue: i),
+                                  );
+                              print(state.choosenValue);
+                            },
+                          ),
+                      ],
                     ),
-                    StatusCard(
-                      title: "In-progress",
-                      isActive: false,
-                    ),
-                    StatusCard(
-                      title: "Completed",
-                      isActive: false,
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: context.dynamicWidth(0.65),
