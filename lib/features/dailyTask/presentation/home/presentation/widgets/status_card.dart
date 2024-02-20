@@ -8,14 +8,16 @@ class StatusCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.isActive,
+    required this.onTap,
   });
   final String title;
   final bool isActive;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Card(
         elevation: isActive ? 5 : 0,
         color: isActive ? AppColors.whiteColor : AppColors.lavenderColor,
