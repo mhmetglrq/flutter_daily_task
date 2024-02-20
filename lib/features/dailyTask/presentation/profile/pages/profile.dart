@@ -4,8 +4,8 @@ import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/utility/constants/status_types.dart';
 import 'package:flutter_daily_task/config/widget/title/colored_title.dart';
 
-import '../../../../../../config/utility/enum/svg_enum.dart';
-import '../widgets/social_media_icon.dart';
+import '../../../../../config/utility/enum/svg_enum.dart';
+import '../presentation/widgets/social_media_icon.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
