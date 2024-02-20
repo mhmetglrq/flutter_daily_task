@@ -100,8 +100,6 @@ class _SignInState extends State<SignIn> {
                                     ),
                                   );
                                   if (state is RemoteAuthDone) {
-                                    BlocProvider.of<RemoteAuthBloc>(context)
-                                        .close();
                                     Navigator.pushNamed(
                                       context,
                                       AppRouteNames.bottomNavbar,
