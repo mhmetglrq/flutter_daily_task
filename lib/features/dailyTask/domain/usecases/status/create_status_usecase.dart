@@ -8,7 +8,7 @@ class CreateStatusUseCase implements UseCase<DataState<void>, StatusEntity> {
 
   CreateStatusUseCase(this._statusRepository);
   @override
-  Future<DataState<void>> call(StatusEntity params) async {
-    return await _statusRepository.createStatus(params);
+  Future<DataState<void>> call({StatusEntity? params}) async {
+    return await _statusRepository.createStatus(params!);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_daily_task/config/theme/app_theme.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/auth/bloc/remote/remote_auth_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bottomNavbar/bloc/bottom_navbar_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/home/presentation/bloc/home_bloc.dart';
 
 import 'config/routes/app_routes.dart';
@@ -25,6 +26,9 @@ Future<void> main() async {
         ),
         BlocProvider<RemoteAuthBloc>(
           create: (context) => sl<RemoteAuthBloc>(),
+        ),
+        BlocProvider<BottomNavbarBloc>(
+          create: (context) => sl<BottomNavbarBloc>(),
         ),
       ],
       child: const MyApp(),

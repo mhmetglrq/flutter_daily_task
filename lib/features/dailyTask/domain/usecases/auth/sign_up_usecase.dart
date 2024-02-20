@@ -10,7 +10,7 @@ class SignUpUseCase implements UseCase<DataState<void>, UserEntity> {
   SignUpUseCase(this._authRepository);
 
   @override
-  Future<DataState<void>> call(params) async{
-    return await _authRepository.createUser(params);
+  Future<DataState<void>> call({UserEntity? params}) async {
+    return await _authRepository.createUser(params!);
   }
 }

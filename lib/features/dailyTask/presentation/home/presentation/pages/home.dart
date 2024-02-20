@@ -87,7 +87,6 @@ class _HomeState extends State<Home> {
                               context.read<HomeBloc>().add(
                                     SetChosenValueEvent(choosenValue: i),
                                   );
-                              print(state.choosenValue);
                             },
                           ),
                       ],
