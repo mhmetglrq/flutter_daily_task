@@ -5,7 +5,7 @@ import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../home/presentation/pages/home.dart';
-import '../../profile/presentation/pages/profile.dart';
+import '../../profile/pages/profile.dart';
 import '../../taskCalendar/pages/task_calendar.dart';
 
 class BottomNavbar extends StatefulWidget {
