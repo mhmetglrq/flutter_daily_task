@@ -9,7 +9,7 @@ class CreateTaskUseCase implements UseCase<DataState<void>, TaskModel> {
   CreateTaskUseCase(this._taskRepository);
 
   @override
-  Future<DataState<void>> call(TaskModel params) async {
-    return await _taskRepository.createTask(params);
+  Future<DataState<void>> call({TaskModel? params}) async {
+    return await _taskRepository.createTask(params!);
   }
 }

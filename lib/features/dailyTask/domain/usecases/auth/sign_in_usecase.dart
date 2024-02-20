@@ -9,7 +9,8 @@ class SignInUseCase implements UseCase<DataState<void>, Map<String, dynamic>> {
   SignInUseCase(this._authRepository);
 
   @override
-  Future<DataState<void>> call(params) async {
-    return _authRepository.signIn(params["username"], params["password"]);
+  Future<DataState<void>> call({Map<String, dynamic>? params}) async {
+    return await _authRepository.signIn(
+        params!["username"], params["password"]);
   }
 }

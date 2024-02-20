@@ -9,7 +9,7 @@ class CreateProjectUseCase implements UseCase<DataState<void>, ProjectModel> {
   CreateProjectUseCase(this._projectRepository);
 
   @override
-  Future<DataState<void>> call(ProjectModel params) async {
-    return await _projectRepository.createProject(params);
+  Future<DataState<void>> call({ProjectModel? params}) async {
+    return await _projectRepository.createProject(params!);
   }
 }

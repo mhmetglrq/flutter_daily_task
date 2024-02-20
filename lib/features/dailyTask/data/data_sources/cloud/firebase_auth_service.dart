@@ -42,4 +42,13 @@ class FirebaseAuthService {
         );
     return firebaseUser;
   }
+
+  Future<UserModel> getUser() async {
+    return await _firestore
+        .collection("users")
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then(
+            (value) => UserModel.fromMap(value.data() as Map<String, dynamic>));
+  }
 }

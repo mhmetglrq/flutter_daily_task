@@ -7,4 +7,5 @@ abstract class AuthRepository {
   Future<DataState<User>> signIn(String username, String password);
   Future<DataState<void>> signOut();
   Future<DataState<User>> createUser(UserEntity user);
+  Future<DataState<UserEntity>> getUser();
 }
