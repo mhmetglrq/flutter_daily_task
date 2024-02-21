@@ -8,17 +8,22 @@ class BottomNavbarBloc extends Bloc<BottomNavbarEvent, BottomNavbarState> {
   final GetUserUseCase _getUserUseCase;
   BottomNavbarBloc(this._getUserUseCase) : super(const BottomNavbarLoading()) {
     on<GetUserEvent>(_getUserEvent);
+    on<SetPageIndexEvent>(setIndex);
   }
 
   void _getUserEvent(
       GetUserEvent event, Emitter<BottomNavbarState> emit) async {
     final dataState = await _getUserUseCase();
     if (dataState is DataSuccess) {
-      emit(const BottomNavbarDone());
+      emit(BottomNavbarDone());
     } else if (dataState is DataError) {
       emit(
         BottomNavbarError(dataState.message),
       );
     }
+  }
+
+  void setIndex(SetPageIndexEvent event, Emitter<BottomNavbarState> emit) {
+    emit(state.copyWith(index: event.pageIndex, message: event.message));
   }
 }

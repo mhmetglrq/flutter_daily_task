@@ -1,12 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-abstract class BottomNavbarState extends Equatable {
+class BottomNavbarState extends Equatable {
   final String? message;
-  const BottomNavbarState({this.message});
+  final int index;
+  const BottomNavbarState({this.message, this.index = 0});
 
   @override
-  List<Object> get props => [message!];
+  List<Object> get props => [message!, index];
+
+  BottomNavbarState copyWith({String? message, int? index}) {
+    return BottomNavbarState(
+      message: message ?? this.message,
+      index: index ?? this.index,
+    );
+  }
 }
 
 class BottomNavbarInitial extends BottomNavbarState {
@@ -18,7 +26,8 @@ class BottomNavbarLoading extends BottomNavbarState {
 }
 
 class BottomNavbarDone extends BottomNavbarState {
-  const BottomNavbarDone();
+  BottomNavbarDone({int? index, String? message})
+      : super(index: index!, message: message!);
 }
 
 class BottomNavbarError extends BottomNavbarState {
