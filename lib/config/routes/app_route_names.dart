@@ -9,4 +9,6 @@ class AppRouteNames {
   static const String forgotPassword = '/forgot-password';
   static const String taskCalendar = '/task-calendar';
   static const String taskCreate = '/task-create';
+  static const String project = '/project';
+  static const String projectCreate = '/project-create';
 }
