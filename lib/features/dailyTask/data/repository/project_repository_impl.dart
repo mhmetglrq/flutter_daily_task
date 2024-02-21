@@ -12,7 +12,7 @@ class ProjectRepositoryImpl implements ProjectRepository {
   Future<DataState<void>> createProject(ProjectEntity project) async {
     try {
       return DataSuccess(
-        data: await _firebaseProjectService.createProject(
+        data: _firebaseProjectService.createProject(
           ProjectModel.fromEntity(project),
         ),
       );
