@@ -100,7 +100,7 @@ class ProjectModel extends ProjectEntity {
       'deadline': deadline?.toIso8601String(),
       'tasks': tasks?.map((e) => e as Map<String, dynamic>).toList(),
       'assignes': assignes?.map((e) => e as Map<String, dynamic>).toList(),
-      'status': status as Map<String, dynamic>,
+      'status': StatusModel.fromEntity(status!).toMap(),
     };
   }
 }
