@@ -4,10 +4,10 @@ import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.da
 
 import '../../repository/home_repository.dart';
 
-class GetProjectUseCase
+class GetProjectsUseCase
     implements UseCase<DataState<List<ProjectEntity>>, void> {
   final HomeRepository _homeRepository;
-  GetProjectUseCase(this._homeRepository);
+  GetProjectsUseCase(this._homeRepository);
 
   @override
   Future<DataState<List<ProjectEntity>>> call({void params}) async {

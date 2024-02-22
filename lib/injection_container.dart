@@ -9,7 +9,7 @@ import 'package:flutter_daily_task/features/dailyTask/domain/repository/home_rep
 import 'package:flutter_daily_task/features/dailyTask/domain/repository/project_repository.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/repository/task_repository.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/get_user_usecase.dart';
-import 'package:flutter_daily_task/features/dailyTask/domain/usecases/home/get_project_usecase.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/usecases/home/get_projects_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/profile/get_profile_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/project/create_project_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/create_task_usecase.dart';
@@ -33,7 +33,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory(() => BottomNavbarBloc(sl()));
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ProjectBloc(sl()));
-  sl.registerFactory(() => HomeBloc());
+  sl.registerFactory(() => HomeBloc(sl()));
   //UseCase
 
   //----Auth
@@ -47,7 +47,7 @@ Future<void> initializeDependencies() async {
   //----Project
   sl.registerLazySingleton(() => CreateProjectUseCase(sl()));
   //?----Home
-  sl.registerLazySingleton(() => GetProjectUseCase(sl()));
+  sl.registerLazySingleton(() => GetProjectsUseCase(sl()));
 
   // Dependencies
   sl.registerLazySingleton(() => FirebaseAuthService());
