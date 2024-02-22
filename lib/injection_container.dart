@@ -1,15 +1,20 @@
 import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_auth_service.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_home_service.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_project_service.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_task_service.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/repository/home_repository_impl.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/repository/project_repository_impl.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/repository/task_repository_impl.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/repository/home_repository.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/repository/project_repository.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/repository/task_repository.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/get_user_usecase.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/usecases/home/get_projects_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/profile/get_profile_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/project/create_project_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/create_task_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bottomNavbar/bloc/bottom_navbar_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/profile/bloc/profile_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/bloc/project_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -28,6 +33,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory(() => BottomNavbarBloc(sl()));
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ProjectBloc(sl()));
+  sl.registerFactory(() => HomeBloc(sl()));
   //UseCase
 
   //----Auth
@@ -40,15 +46,19 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton(() => GetProfileUseCase(sl()));
   //----Project
   sl.registerLazySingleton(() => CreateProjectUseCase(sl()));
+  //?----Home
+  sl.registerLazySingleton(() => GetProjectsUseCase(sl()));
 
   // Dependencies
   sl.registerLazySingleton(() => FirebaseAuthService());
   sl.registerLazySingleton(() => FirebaseTaskService());
   sl.registerLazySingleton(() => FirebaseProjectService());
+  sl.registerLazySingleton(() => FirebaseHomeService());
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(sl()));
   sl.registerLazySingleton<ProjectRepository>(
       () => ProjectRepositoryImpl(sl()));
+  sl.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(sl()));
 }

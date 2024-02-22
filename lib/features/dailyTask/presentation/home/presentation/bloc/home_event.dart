@@ -20,3 +20,11 @@ class SetChosenValueEvent extends HomeEvent {
   @override
   List<Object> get props => [choosenValue];
 }
+
+class GetProjects extends HomeEvent {
+  final List<ProjectEntity>? projects;
+  const GetProjects({this.projects});
+
+  @override
+  List<Object> get props => [projects!];
+}

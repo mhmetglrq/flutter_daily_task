@@ -24,7 +24,7 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider<HomeBloc>(
-          create: (context) => HomeBloc(),
+          create: (context) => sl<HomeBloc>(),
         ),
         BlocProvider<RemoteAuthBloc>(
           create: (context) => sl<RemoteAuthBloc>(),
