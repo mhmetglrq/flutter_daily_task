@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_daily_task/core/resources/data_state.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/home/get_projects_usecase.dart';
-
-import '../../../../domain/entities/project.dart';
 part 'home_event.dart';
 part 'home_state.dart';
 
