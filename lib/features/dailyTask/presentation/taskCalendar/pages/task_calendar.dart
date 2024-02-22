@@ -5,7 +5,7 @@ import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import '../../home/presentation/widgets/progress_card.dart';
+import '../../home/widgets/progress_card.dart';
 
 class TaskCalendar extends StatefulWidget {
   const TaskCalendar({super.key});
