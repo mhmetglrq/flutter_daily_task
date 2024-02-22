@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/constants/menu_items.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../../config/items/colors.dart';
-import '../../../../../../config/utility/enum/svg_enum.dart';
-import '../bloc/home_bloc.dart';
+import '../../../../../config/items/colors.dart';
+import '../../../../../config/utility/enum/svg_enum.dart';
 import '../widgets/progress_card.dart';
 import '../widgets/project_card.dart';
 import '../widgets/project_indicator.dart';

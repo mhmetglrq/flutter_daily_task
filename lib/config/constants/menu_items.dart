@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/home/presentation/pages/home.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/home/pages/home.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/profile/pages/profile.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/project.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/taskCalendar/pages/task_calendar.dart';

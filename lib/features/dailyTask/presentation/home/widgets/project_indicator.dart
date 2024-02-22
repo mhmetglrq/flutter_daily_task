@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
-
-import '../bloc/home_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/home/bloc/home_bloc.dart';
 
 class ProjectIndicator extends StatelessWidget {
   const ProjectIndicator(
