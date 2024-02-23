@@ -1,15 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_daily_task/core/resources/data_state.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/home/get_projects_usecase.dart';
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetProjectsUseCase _getProjectsUseCase;
-  HomeBloc(this._getProjectsUseCase) : super(const HomeState()) {
+  HomeBloc(this._getProjectsUseCase) : super(HomeLoading()) {
     on<SetPageEvent>(setPageEvenet);
     on<SetChosenValueEvent>(setChosenValueEvent);
+    on<GetProjects>(onGetProjectsEvent);
   }
 
   void setPageEvenet(SetPageEvent event, Emitter<HomeState> emit) {
@@ -21,9 +23,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void onGetProjectsEvent(GetProjects event, Emitter<HomeState> emit) async {
-    final dataState = await _getProjectsUseCase();
+    final dataState = await _getProjectsUseCase(params: event.projects);
+    final List<ProjectEntity> projects = dataState.data!;
+    final int pageIndex = state.pageIndex;
     if (dataState is DataSuccess) {
-      emit(HomeLoaded(dataState.data!));
+      emit(HomeLoaded(pageIndex, projects));
     } else {
       emit(HomeError(message: dataState.message!));
     }

@@ -22,9 +22,9 @@ class SetChosenValueEvent extends HomeEvent {
 }
 
 class GetProjects extends HomeEvent {
-  final List<ProjectEntity>? projects;
-  const GetProjects({this.projects});
+  final List<ProjectEntity> projects;
+  const GetProjects({required this.projects});
 
   @override
-  List<Object> get props => [projects!];
+  List<Object> get props => [projects];
 }
