@@ -2,13 +2,15 @@ part of 'home_bloc.dart';
 
 class HomeState extends Equatable {
   final int pageIndex;
-  final int? choosenValue;
+  final int choosenValue;
   final List<ProjectEntity> projects;
   const HomeState(
-      {required this.pageIndex, this.choosenValue = 0, required this.projects});
+      {required this.pageIndex,
+      required this.choosenValue,
+      required this.projects});
 
   @override
-  List<Object> get props => [pageIndex, choosenValue!, projects];
+  List<Object> get props => [pageIndex, choosenValue, projects];
 
   HomeState copyWith({int? pageIndex, int? choosenValue}) {
     return HomeState(
@@ -19,21 +21,26 @@ class HomeState extends Equatable {
 }
 
 class HomeInitial extends HomeState {
-  HomeInitial() : super(pageIndex: 0, projects: []);
+  HomeInitial() : super(choosenValue: 0, pageIndex: 0, projects: []);
 }
 
 class HomeLoading extends HomeState {
-  HomeLoading() : super(pageIndex: 0, projects: []);
+  HomeLoading() : super(choosenValue: 0, pageIndex: 0, projects: []);
 }
 
 class HomeLoaded extends HomeState {
-  const HomeLoaded(int pageIndex, List<ProjectEntity> projects)
-      : super(pageIndex: pageIndex, projects: projects);
+  const HomeLoaded(
+      int pageIndex, int choosenValue, List<ProjectEntity> projects)
+      : super(
+            pageIndex: pageIndex,
+            choosenValue: choosenValue,
+            projects: projects);
 }
 
 class HomeError extends HomeState {
   final String message;
-  HomeError({required this.message}) : super(pageIndex: 0, projects: []);
+  HomeError({required this.message})
+      : super(choosenValue: 0, pageIndex: 0, projects: []);
 
   @override
   List<Object> get props => [message];

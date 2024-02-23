@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
-import 'package:flutter_daily_task/features/dailyTask/data/model/project.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
