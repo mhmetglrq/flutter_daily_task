@@ -26,8 +26,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final dataState = await _getProjectsUseCase(params: event.projects);
     final List<ProjectEntity> projects = dataState.data!;
     final int pageIndex = state.pageIndex;
+    final int choosenValue = state.choosenValue;
     if (dataState is DataSuccess) {
-      emit(HomeLoaded(pageIndex, projects));
+      emit(HomeLoaded(pageIndex, choosenValue, projects));
     } else {
       emit(HomeError(message: dataState.message!));
     }
