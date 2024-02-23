@@ -52,28 +52,31 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: Padding(
-        padding: context.paddingAllDefault,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Hello Mehmet!",
-              style: context.textTheme.headlineMedium,
-            ),
-            Padding(
-              padding: context.paddingVerticalLow,
-              child: Text(
-                "Have a nice day.",
-                style: context.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w300,
-                  fontSize: context.dynamicHeight(0.02),
+      body: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          context.read<HomeBloc>().add(
+                GetProjects(projects: state.projects),
+              );
+          return Padding(
+            padding: context.paddingAllDefault,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hello Mehmet!",
+                  style: context.textTheme.headlineMedium,
                 ),
-              ),
-            ),
-            BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                return SingleChildScrollView(
+                Padding(
+                  padding: context.paddingVerticalLow,
+                  child: Text(
+                    "Have a nice day.",
+                    style: context.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w300,
+                      fontSize: context.dynamicHeight(0.02),
+                    ),
+                  ),
+                ),
+                SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Padding(
                     padding: context.paddingVerticalDefault,
@@ -92,66 +95,67 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-                );
-              },
-            ),
-            SizedBox(
-              height: context.dynamicWidth(0.65),
-              child: BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  return PageView.builder(
+                ),
+                SizedBox(
+                  height: context.dynamicWidth(0.65),
+                  child: PageView.builder(
                     controller: _pageController,
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 4,
+                    itemCount: state.projects.length,
                     padEnds: false,
                     onPageChanged: (value) {
                       context
                           .read<HomeBloc>()
                           .add(SetPageEvent(pageIndex: value));
                     },
-                    itemBuilder: (context, value) {
-                      return const Row(
+                    itemBuilder: (context, index) {
+                      final project = state.projects[index];
+                      return Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ProjectCard(),
+                          ProjectCard(
+                            projectModel: project,
+                          ),
                         ],
                       );
                     },
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              width: context.dynamicWidth(1),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: context.dynamicWidth(0.38),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        for (int i = 0; i < 4; i++)
-                          ProjectIndicator(pageIndex: i, totalPages: 4),
-                      ],
-                    ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  width: context.dynamicWidth(1),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: context.dynamicWidth(0.38),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            for (int i = 0; i < state.projects.length; i++)
+                              ProjectIndicator(
+                                  pageIndex: i,
+                                  totalPages: state.projects.length),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: context.paddingVerticalLow,
+                  child: Text(
+                    "Progress",
+                    style: context.textTheme.headlineMedium,
+                  ),
+                ),
+                const ProgressCard()
+              ],
             ),
-            Padding(
-              padding: context.paddingVerticalLow,
-              child: Text(
-                "Progress",
-                style: context.textTheme.headlineMedium,
-              ),
-            ),
-            const ProgressCard()
-          ],
-        ),
+          );
+        },
       ),
     );
   }
