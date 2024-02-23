@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/model/project.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../config/items/colors.dart';
 import '../../../../../config/utility/enum/svg_enum.dart';
 
-
 class ProjectCard extends StatelessWidget {
   const ProjectCard({
     super.key,
+    required this.projectModel,
   });
+
+  final ProjectEntity projectModel;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,7 @@ class ProjectCard extends StatelessWidget {
                   Padding(
                     padding: context.paddingHorizontalDefault,
                     child: Text(
-                      "Project 1",
+                      "${projectModel.description}",
                       style: context.textTheme.headlineSmall?.copyWith(
                         fontSize: context.dynamicHeight(0.023),
                         fontWeight: FontWeight.w500,
@@ -48,7 +53,7 @@ class ProjectCard extends StatelessWidget {
                 ],
               ),
               Text(
-                "Front-End Development",
+                "${projectModel.description}",
                 style: context.textTheme.headlineMedium?.copyWith(
                   // fontSize: context.dynamicHeight(0.018),
                   fontWeight: FontWeight.w500,
@@ -57,7 +62,7 @@ class ProjectCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                "October 20, 2020",
+                DateFormat("dd.MM.yyyy").format(projectModel.createdAt!),
                 style: context.textTheme.headlineSmall?.copyWith(
                   fontSize: context.dynamicHeight(0.018),
                   fontWeight: FontWeight.w400,
