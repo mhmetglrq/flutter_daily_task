@@ -151,7 +151,10 @@ class _HomeState extends State<Home> {
                     style: context.textTheme.headlineMedium,
                   ),
                 ),
-                const ProgressCard()
+                const ProgressCard(
+                  title: "To Do",
+                  subtitle: "5 tasks now. 1 started",
+                )
               ],
             ),
           );

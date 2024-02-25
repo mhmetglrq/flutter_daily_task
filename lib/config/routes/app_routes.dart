@@ -3,6 +3,7 @@ import 'package:flutter_daily_task/features/dailyTask/presentation/auth/pages/si
 import 'package:flutter_daily_task/features/dailyTask/presentation/auth/pages/sign_up.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/create_project.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/project.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/project_details.dart';
 
 import '../../features/dailyTask/presentation/bottomNavbar/pages/bottom_navbar.dart';
 import '../../features/dailyTask/presentation/home/pages/home.dart';
@@ -34,6 +35,10 @@ class AppRoutes {
         return _materialRoute(const Project());
       case AppRouteNames.projectCreate:
         return _materialRoute(const CreateProject());
+      case AppRouteNames.projectDetail:
+        final args = settings.arguments as Map<String, dynamic>;
+        final project = args["project"];
+        return _materialRoute(ProjectDetails(project: project));
 
       default:
         return _materialRoute(const BottomNavbar());

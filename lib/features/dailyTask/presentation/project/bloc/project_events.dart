@@ -9,3 +9,8 @@ class CreateProjectEvent extends ProjectEvents {
 
   CreateProjectEvent({required this.project});
 }
+
+class GetProjects extends ProjectEvents {
+  final List<ProjectEntity> projects;
+  const GetProjects({required this.projects});
+}

@@ -154,7 +154,10 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       itemCount: 15,
                       padding: context.paddingTopLow,
                       itemBuilder: (BuildContext context, int index) {
-                        return const ProgressCard();
+                        return const ProgressCard(
+                          title: "Task Title",
+                          subtitle: "Subtitle",
+                        );
                       },
                     ),
                   ),
