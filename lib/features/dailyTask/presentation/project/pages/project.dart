@@ -170,6 +170,15 @@ class _ProjectState extends State<Project> {
                               return ProgressCard(
                                 title: "${item.name}",
                                 subtitle: "${item.description}",
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRouteNames.projectDetail,
+                                    arguments: {
+                                      "project": item,
+                                    },
+                                  );
+                                },
                               );
                             }
                             if (state is ProjectError) {
