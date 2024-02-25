@@ -27,8 +27,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final List<ProjectEntity> projects = dataState.data!;
     final int pageIndex = state.pageIndex;
     final int choosenValue = state.choosenValue;
+    projects.sort((a, b) => a.createdAt!.compareTo(b.createdAt!));
     if (dataState is DataSuccess) {
-      emit(HomeLoaded(pageIndex, choosenValue, projects));
+      emit(
+        HomeLoaded(
+          pageIndex,
+          choosenValue,
+          projects.reversed.toList().sublist(0, 5),
+        ),
+      );
     } else {
       emit(HomeError(message: dataState.message!));
     }
