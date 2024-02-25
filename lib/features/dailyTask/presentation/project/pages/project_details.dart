@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
-import 'package:flutter_daily_task/config/theme/app_theme.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/project/widgets/project_status_card.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../config/widget/title/colored_title.dart';
@@ -83,14 +83,18 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   ),
                   Padding(
                     padding: context.paddingBottomLow,
-                    child: TextFormField(
-                      controller: _nameController,
+                    child: Text(
+                      "${widget.project.name}",
+                      maxLines: 2,
                       style: context.textTheme.titleMedium?.copyWith(
                         color: Colors.white,
                         fontSize: context.dynamicHeight(0.02),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                  ),
+                  const Divider(
+                    color: AppColors.whiteColor,
                   ),
                   Text(
                     "Date",
@@ -102,39 +106,17 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   ),
                   Padding(
                     padding: context.paddingBottomLow,
-                    child: TextFormField(
-                      controller: _dateController,
-                      onTap: () async {
-                        await showDatePicker(
-                          useRootNavigator: false,
-                          barrierColor: AppColors.scaffoldColor,
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(20),
-                          lastDate: DateTime(2025),
-                          currentDate: DateTime.now(),
-                          builder: (BuildContext context, Widget? child) {
-                            return Theme(
-                              data: AppTheme.lightTheme,
-                              child: child!,
-                            );
-                          },
-                        ).then(
-                          (value) {
-                            if (value != null) {
-                              _dateController.text =
-                                  DateFormat("dd MMMM yyyy").format(value);
-                            }
-                          },
-                        );
-                      },
-                      readOnly: true,
+                    child: Text(
+                      "${widget.project.deadline}",
                       style: context.textTheme.titleMedium?.copyWith(
                         color: Colors.white,
                         fontSize: context.dynamicHeight(0.02),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                  ),
+                  const Divider(
+                    color: AppColors.whiteColor,
                   ),
                 ],
               ),
@@ -227,42 +209,9 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       height: context.dynamicHeight(0.08),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            {"name": "Design", "isActive": false},
-                            {"name": "Meeting", "isActive": true},
-                            {"name": "Coding", "isActive": false},
-                            {"name": "Testing", "isActive": false},
-                            {"name": "Bug Fix", "isActive": false},
-                            {"name": "Deployment", "isActive": false}
-                          ].map((e) {
-                            return GestureDetector(
-                              onTap: () {},
-                              child: Padding(
-                                padding: context.paddingRightDefault,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: e["isActive"] == true
-                                        ? AppColors.activeColor
-                                        : AppColors.containerColor,
-                                  ),
-                                  child: Padding(
-                                    padding: context.paddingAllLow,
-                                    child: Text(
-                                      "${e["name"]}",
-                                      style: context.textTheme.titleMedium
-                                          ?.copyWith(
-                                        color: AppColors.whiteColor,
-                                        fontSize: context.dynamicHeight(0.018),
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          }).toList(),
+                        child: ProjectStatusCard(
+                          color: AppColors.activeColor,
+                          name: "${widget.project.status?.value}",
                         ),
                       ),
                     ),
