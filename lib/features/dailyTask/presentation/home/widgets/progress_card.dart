@@ -40,7 +40,6 @@ class ProgressCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     gradient: const LinearGradient(
                       colors: [AppColors.activeColor, AppColors.blueColor],
-                      // stops: [0.3, 8.0],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -66,6 +65,8 @@ class ProgressCard extends StatelessWidget {
                             fontSize: context.dynamicHeight(0.023),
                             fontWeight: FontWeight.w600,
                           ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           subtitle,
@@ -74,7 +75,8 @@ class ProgressCard extends StatelessWidget {
                             color: AppColors.grayColor,
                             fontWeight: FontWeight.w400,
                           ),
-                          maxLines: 1,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
