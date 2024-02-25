@@ -93,18 +93,19 @@ class _SignInState extends State<SignIn> {
                               title: "Sign In",
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  BlocProvider.of<RemoteAuthBloc>(context).add(
-                                    RemoteSignInEvent(
-                                      username: _emailController.text,
-                                      password: _passwordController.text,
-                                    ),
-                                  );
+                                  context.read<RemoteAuthBloc>().add(
+                                        RemoteSignInEvent(
+                                          username: _emailController.text,
+                                          password: _passwordController.text,
+                                        ),
+                                      );
                                   if (state is RemoteAuthDone) {
                                     Navigator.pushNamed(
                                       context,
                                       AppRouteNames.bottomNavbar,
                                     );
-                                  } else if (state is RemoteAuthError) {
+                                  }
+                                  if (state is RemoteAuthError) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content:

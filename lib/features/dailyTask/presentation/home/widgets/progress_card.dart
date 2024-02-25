@@ -8,7 +8,11 @@ import '../../../../../config/utility/enum/svg_enum.dart';
 class ProgressCard extends StatelessWidget {
   const ProgressCard({
     super.key,
+    required this.title,
+    required this.subtitle,
   });
+  final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,7 @@ class ProgressCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "To-Do List",
+                        title,
                         style: context.textTheme.headlineSmall?.copyWith(
                           color: AppColors.scaffoldColor,
                           fontSize: context.dynamicHeight(0.023),
@@ -60,7 +64,7 @@ class ProgressCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Front-End Development",
+                        subtitle,
                         style: context.textTheme.bodyMedium?.copyWith(
                           fontSize: context.dynamicHeight(0.018),
                           color: AppColors.grayColor,
