@@ -27,20 +27,14 @@ class _HomeState extends State<Home> {
     return Scaffold(
       drawer: const Drawer(),
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: SvgPicture.asset(
-                height: context.dynamicHeight(0.04),
-                SvgConstants.menu.getSvg,
-                colorFilter: const ColorFilter.mode(
-                    AppColors.whiteColor, BlendMode.srcIn),
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            height: context.dynamicHeight(0.04),
+            SvgConstants.menu.getSvg,
+            colorFilter:
+                const ColorFilter.mode(AppColors.whiteColor, BlendMode.srcIn),
+          ),
+          onPressed: () {},
         ),
         actions: [
           IconButton(
