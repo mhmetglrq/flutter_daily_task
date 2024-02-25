@@ -11,4 +11,5 @@ class AppRouteNames {
   static const String taskCreate = '/task-create';
   static const String project = '/project';
   static const String projectCreate = '/project-create';
+  static const String projectDetail = '/project-detail';
 }

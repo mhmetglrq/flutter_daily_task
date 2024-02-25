@@ -32,7 +32,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory(() => RemoteAuthBloc(sl(), sl()));
   sl.registerFactory(() => BottomNavbarBloc(sl()));
   sl.registerFactory(() => ProfileBloc());
-  sl.registerFactory(() => ProjectBloc(sl()));
+  sl.registerFactory(() => ProjectBloc(sl(),sl()));
   sl.registerFactory(() => HomeBloc(sl()));
   //UseCase
 

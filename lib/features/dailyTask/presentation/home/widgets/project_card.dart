@@ -23,7 +23,6 @@ class ProjectCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         gradient: const LinearGradient(
           colors: [AppColors.activeColor, AppColors.blueColor],
-          // stops: [0.3, 8.0],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
