@@ -1,29 +1,33 @@
 import '../../domain/entities/project.dart';
+import 'category.dart';
 import 'status.dart';
 import 'task.dart';
 import 'user.dart';
 
 class ProjectModel extends ProjectEntity {
-  const ProjectModel(
-      {String? uid,
-      String? name,
-      String? description,
-      DateTime? createdAt,
-      DateTime? updatedAt,
-      DateTime? deadline,
-      List<TaskModel>? tasks,
-      List<UserModel>? assignes,
-      StatusModel? status})
-      : super(
-            uid: uid,
-            name: name,
-            description: description,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            deadline: deadline,
-            tasks: tasks,
-            assignes: assignes,
-            status: status);
+  const ProjectModel({
+    String? uid,
+    String? name,
+    String? description,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? deadline,
+    List<TaskModel>? tasks,
+    List<UserModel>? assignes,
+    StatusModel? status,
+    List<CategoryModel>? categories,
+  }) : super(
+          uid: uid,
+          name: name,
+          description: description,
+          createdAt: createdAt,
+          updatedAt: updatedAt,
+          deadline: deadline,
+          tasks: tasks,
+          assignes: assignes,
+          status: status,
+          categories: categories,
+        );
 
   factory ProjectModel.fromJson(Map<String, dynamic> json) {
     return ProjectModel(
@@ -46,12 +50,17 @@ class ProjectModel extends ProjectEntity {
           : null,
       status:
           json['status'] != null ? StatusModel.fromJson(json['status']) : null,
+      categories: json['categories'] != null
+          ? (json['categories'] as List)
+              .map((e) => CategoryModel.fromJson(e))
+              .toList()
+          : null,
     );
   }
 
   @override
   String toString() {
-    return 'ProjectModel(uid: $uid, name: $name, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, deadline: $deadline, tasks: $tasks, assignes: $assignes, status: $status)';
+    return 'ProjectModel(uid: $uid, name: $name, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, deadline: $deadline, tasks: $tasks, assignes: $assignes, status: $status, categories: $categories)';
   }
 
   factory ProjectModel.fromEntity(ProjectEntity entity) {
@@ -66,6 +75,8 @@ class ProjectModel extends ProjectEntity {
       assignes: entity.assignes?.map((e) => UserModel.fromEntity(e)).toList(),
       status:
           entity.status != null ? StatusModel.fromEntity(entity.status!) : null,
+      categories:
+          entity.categories?.map((e) => CategoryModel.fromEntity(e)).toList(),
     );
   }
 
@@ -87,6 +98,11 @@ class ProjectModel extends ProjectEntity {
           ? (map['assignes'] as List).map((e) => UserModel.fromMap(e)).toList()
           : null,
       status: map['status'] != null ? StatusModel.fromMap(map['status']) : null,
+      categories: map['categories'] != null
+          ? (map['categories'] as List)
+              .map((e) => CategoryModel.fromMap(e))
+              .toList()
+          : null,
     );
   }
 
@@ -101,6 +117,8 @@ class ProjectModel extends ProjectEntity {
       'tasks': tasks?.map((e) => e as Map<String, dynamic>).toList(),
       'assignes': assignes?.map((e) => e as Map<String, dynamic>).toList(),
       'status': StatusModel.fromEntity(status!).toMap(),
+      'categories':
+          categories?.map((e) => CategoryModel.fromEntity(e).toMap()).toList(),
     };
   }
 }

@@ -21,13 +21,13 @@ class ProjectEntity extends Equatable {
     this.uid,
     this.name,
     this.description,
-    this.categories = const [],
-    this.assignes = const [],
-    this.tasks = const [],
+    this.categories,
+    this.assignes,
+    this.tasks,
     this.createdAt,
     this.updatedAt,
     this.deadline,
-    this.status = const StatusEntity(),
+    this.status,
   });
 
   @override

@@ -11,7 +11,7 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
   final CreateProjectUseCase _createProjectUseCase;
   final GetProjectsUseCase _getProjectsUseCase;
   ProjectBloc(this._createProjectUseCase, this._getProjectsUseCase)
-      : super(const ProjectLoading([])) {
+      : super(ProjectLoading(const [])) {
     on<CreateProjectEvent>(_createProjectEvent);
     on<GetProjects>(onGetProjectsEvent);
   }
@@ -21,7 +21,10 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
     final params = event.project;
     final dataState = await _createProjectUseCase(params: params);
     if (dataState is DataSuccess) {
-      emit(const ProjectDone([], ""));
+      emit(ProjectDone(
+        const [],
+        "",
+      ));
     } else {
       emit(ProjectError(
         const [],
@@ -40,5 +43,12 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
         ProjectError(const [], dataState.message!),
       );
     }
+  }
+
+  void onChooseCategoriesEvent(
+      ChooseCategories event, Emitter<ProjectState> emit) {
+    emit(
+      state.copyWith(categories: event.categories),
+    );
   }
 }

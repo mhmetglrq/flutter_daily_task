@@ -107,7 +107,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                   Padding(
                     padding: context.paddingBottomLow,
                     child: Text(
-                      "${widget.project.deadline}",
+                      DateFormat("dd MMMM yyyy")
+                          .format(widget.project.createdAt!),
                       style: context.textTheme.titleMedium?.copyWith(
                         color: Colors.white,
                         fontSize: context.dynamicHeight(0.02),
@@ -204,14 +205,20 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       ),
                     ),
                     const ColoredTitle(
-                        color: AppColors.periwinkle, title: "Status"),
+                        color: AppColors.periwinkle, title: "Categories"),
                     SizedBox(
                       height: context.dynamicHeight(0.08),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: ProjectStatusCard(
-                          color: AppColors.activeColor,
-                          name: "${widget.project.status?.value}",
+                        child: Row(
+                          children: widget.project.categories!
+                              .map(
+                                (e) => ProjectStatusCard(
+                                  color: AppColors.activeColor,
+                                  name: "${e.value}",
+                                ),
+                              )
+                              .toList(),
                         ),
                       ),
                     ),
@@ -221,6 +228,20 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                         color: AppColors.whiteColor,
                       ),
                     ),
+                    const ColoredTitle(
+                        color: AppColors.periwinkle, title: "Status"),
+                    ProjectStatusCard(
+                      color: AppColors.activeColor,
+                      name: "${widget.project.status!.value}",
+                    ),
+                    Padding(
+                      padding: context.paddingVerticalDefault,
+                      child: const Divider(
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
+                    const ColoredTitle(
+                        color: AppColors.periwinkle, title: "Assignes"),
                   ],
                 ),
               ),
