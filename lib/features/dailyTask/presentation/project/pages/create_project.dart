@@ -4,8 +4,8 @@ import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/theme/app_theme.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/model/category.dart';
-import 'package:flutter_daily_task/features/dailyTask/data/model/project.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/model/status.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/model/user.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -29,6 +29,7 @@ class _CreateProjectState extends State<CreateProject> {
   String? _startDate;
   String? _endDate;
   List<CategoryModel> choosenCategories = [];
+  List<UserModel> choosenUsers = [];
 
   @override
   void dispose() {
