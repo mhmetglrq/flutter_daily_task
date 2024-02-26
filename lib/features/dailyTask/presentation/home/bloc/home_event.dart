@@ -30,9 +30,9 @@ class GetProjects extends HomeEvent {
 }
 
 class GetStatusEvent extends HomeEvent {
-  final StatusEntity status;
-  const GetStatusEvent({required this.status});
+  final List<StatusEntity> statusList;
+  const GetStatusEvent({required this.statusList});
 
   @override
-  List<Object> get props => [status];
+  List<Object> get props => [statusList];
 }

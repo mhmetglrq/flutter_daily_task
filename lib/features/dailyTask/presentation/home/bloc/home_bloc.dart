@@ -16,6 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<SetPageEvent>(setPageEvenet);
     on<SetChosenValueEvent>(setChosenValueEvent);
     on<GetProjects>(onGetProjectsEvent);
+    on<GetStatusEvent>(onGetStatusEvent);
   }
 
   void setPageEvenet(SetPageEvent event, Emitter<HomeState> emit) {
@@ -31,7 +32,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final List<ProjectEntity> projects = dataState.data!;
     final int pageIndex = state.pageIndex;
     final int choosenValue = state.choosenValue;
-    final StatusEntity status = state.status;
+    final List<StatusEntity> statusList = state.status;
     projects.sort((a, b) => a.createdAt!.compareTo(b.createdAt!));
     if (dataState is DataSuccess) {
       emit(
@@ -41,7 +42,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           projects.length >= 5
               ? projects.reversed.toList().sublist(0, 5)
               : projects.reversed.toList(),
-          status,
+          statusList,
         ),
       );
     } else {
@@ -54,14 +55,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final List<ProjectEntity> projects = state.projects;
     final int pageIndex = state.pageIndex;
     final int choosenValue = state.choosenValue;
-    final StatusEntity status = dataState.data!.first;
+    final List<StatusEntity> statusList = dataState.data!;
     if (dataState is DataSuccess) {
       emit(
         HomeLoaded(
           pageIndex,
           choosenValue,
           projects,
-          status,
+          statusList,
         ),
       );
     } else {

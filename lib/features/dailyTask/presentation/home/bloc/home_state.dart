@@ -3,7 +3,7 @@ part of 'home_bloc.dart';
 class HomeState extends Equatable {
   final int pageIndex;
   final int choosenValue;
-  final StatusEntity status;
+  final List<StatusEntity> status;
   final List<ProjectEntity> projects;
   const HomeState(
       {required this.pageIndex,
@@ -18,7 +18,7 @@ class HomeState extends Equatable {
       {int? pageIndex,
       int? choosenValue,
       List<ProjectEntity>? projects,
-      StatusEntity? status}) {
+      List<StatusEntity>? status}) {
     return HomeState(
         pageIndex: pageIndex ?? this.pageIndex,
         choosenValue: choosenValue ?? this.choosenValue,
@@ -29,25 +29,17 @@ class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {
   HomeInitial()
-      : super(
-            choosenValue: 0,
-            pageIndex: 0,
-            projects: [],
-            status:const StatusEntity());
+      : super(choosenValue: 0, pageIndex: 0, projects: [], status: []);
 }
 
 class HomeLoading extends HomeState {
   HomeLoading()
-      : super(
-            choosenValue: 0,
-            pageIndex: 0,
-            projects: [],
-            status:const StatusEntity());
+      : super(choosenValue: 0, pageIndex: 0, projects: [], status: []);
 }
 
 class HomeLoaded extends HomeState {
   const HomeLoaded(int pageIndex, int choosenValue,
-      List<ProjectEntity> projects, StatusEntity status)
+      List<ProjectEntity> projects, List<StatusEntity> status)
       : super(
             pageIndex: pageIndex,
             choosenValue: choosenValue,
@@ -58,11 +50,7 @@ class HomeLoaded extends HomeState {
 class HomeError extends HomeState {
   final String message;
   HomeError({required this.message})
-      : super(
-            choosenValue: 0,
-            pageIndex: 0,
-            projects: [],
-            status:const StatusEntity());
+      : super(choosenValue: 0, pageIndex: 0, projects: [], status: []);
 
   @override
   List<Object> get props => [message];

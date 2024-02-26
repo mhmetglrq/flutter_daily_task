@@ -24,7 +24,7 @@ class FirebaseHomeService {
 
   Future<List<StatusModel>> getStatusList() async {
     List<StatusModel> status = [];
-    await _firestore.collection("status").get().then((value) {
+    await _firestore.collection("situations").get().then((value) {
       for (var element in value.docs) {
         status.add(StatusModel.fromJson(element.data()));
       }
