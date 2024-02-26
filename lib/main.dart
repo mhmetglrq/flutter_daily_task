@@ -5,6 +5,7 @@ import 'package:flutter_daily_task/features/dailyTask/presentation/bottomNavbar/
 import 'package:flutter_daily_task/features/dailyTask/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/profile/bloc/profile_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/bloc/project_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/taskCalendar/bloc/calendar_bloc.dart';
 import 'package:flutter_daily_task/my_app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -33,6 +34,9 @@ Future<void> main() async {
         ),
         BlocProvider<ProjectBloc>(
           create: (context) => sl<ProjectBloc>(),
+        ),
+        BlocProvider<CalendarBloc>(
+          create: (context) => sl<CalendarBloc>(),
         ),
       ],
       child: const MyApp(),
