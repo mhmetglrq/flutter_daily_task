@@ -18,6 +18,7 @@ import 'package:flutter_daily_task/features/dailyTask/presentation/bottomNavbar/
 import 'package:flutter_daily_task/features/dailyTask/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/profile/bloc/profile_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/bloc/project_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/taskCalendar/bloc/calendar_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import 'features/dailyTask/data/repository/auth_repository_impl.dart';
@@ -35,6 +36,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ProjectBloc(sl(), sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl()));
+  sl.registerFactory(() => CalendarBloc());
   //UseCase
 
   //----Auth

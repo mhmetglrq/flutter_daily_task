@@ -4,5 +4,11 @@ part 'calendar_event.dart';
 part 'calendar_state.dart';
 
 class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
-  CalendarBloc(super.initialState);
+  CalendarBloc() : super(CalendarLoading()) {
+    on<SetDayEvent>(onSetDayEvent);
+  }
+
+  void onSetDayEvent(SetDayEvent event, Emitter<CalendarState> emit) {
+    emit(state.copyWith(day: event.day));
+  }
 }
