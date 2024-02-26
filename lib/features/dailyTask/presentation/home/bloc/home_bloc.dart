@@ -33,7 +33,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         HomeLoaded(
           pageIndex,
           choosenValue,
-          projects.reversed.toList().sublist(0, 5),
+          projects.length >= 5
+              ? projects.reversed.toList().sublist(0, 5)
+              : projects.reversed.toList(),
         ),
       );
     } else {
