@@ -3,8 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/theme/app_theme.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/model/category.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/model/status.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/model/user.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../config/widget/title/colored_title.dart';
 import '../bloc/project_bloc.dart';
@@ -20,14 +24,27 @@ class CreateProject extends StatefulWidget {
 
 class _CreateProjectState extends State<CreateProject> {
   final TextEditingController _nameController = TextEditingController();
-
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  String? _startDate;
+  String? _endDate;
+  List<CategoryModel> choosenCategories = [];
+  List<UserModel> choosenUsers = [];
 
   @override
   void dispose() {
     _dateController.dispose();
     _nameController.dispose();
+    _descriptionController.dispose();
     super.dispose();
+  }
+
+  void addCategoryItem(CategoryModel item) {
+    if (choosenCategories.contains(item)) {
+      choosenCategories.remove(item);
+    } else {
+      choosenCategories.add(item);
+    }
   }
 
   @override
@@ -145,47 +162,103 @@ class _CreateProjectState extends State<CreateProject> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Start Time",
-                              style: context.textTheme.titleMedium?.copyWith(
-                                color: AppColors.periwinkle,
-                                fontSize: context.dynamicHeight(0.02),
-                                fontWeight: FontWeight.w300,
+                        GestureDetector(
+                          onTap: () async {
+                            await showDatePicker(
+                              useRootNavigator: false,
+                              barrierColor: AppColors.scaffoldColor,
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(20),
+                              lastDate: DateTime(2025),
+                              currentDate: DateTime.now(),
+                              builder: (BuildContext context, Widget? child) {
+                                return Theme(
+                                  data: AppTheme.lightTheme,
+                                  child: child!,
+                                );
+                              },
+                            ).then(
+                              (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    _startDate =
+                                        DateFormat("dd.MM.y").format(value);
+                                  });
+                                }
+                              },
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Start Time",
+                                style: context.textTheme.titleMedium?.copyWith(
+                                  color: AppColors.periwinkle,
+                                  fontSize: context.dynamicHeight(0.02),
+                                  fontWeight: FontWeight.w300,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "01.22 PM",
-                              style: context.textTheme.titleMedium?.copyWith(
-                                color: AppColors.whiteColor,
-                                fontSize: context.dynamicHeight(0.03),
-                                fontWeight: FontWeight.bold,
+                              Text(
+                                _startDate ?? "",
+                                style: context.textTheme.titleMedium?.copyWith(
+                                  color: AppColors.whiteColor,
+                                  fontSize: context.dynamicHeight(0.03),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "End Time",
-                              style: context.textTheme.titleMedium?.copyWith(
-                                color: AppColors.periwinkle,
-                                fontSize: context.dynamicHeight(0.02),
-                                fontWeight: FontWeight.w300,
+                        GestureDetector(
+                          onTap: () async {
+                            await showDatePicker(
+                              useRootNavigator: false,
+                              barrierColor: AppColors.scaffoldColor,
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(20),
+                              lastDate: DateTime(2025),
+                              currentDate: DateTime.now(),
+                              builder: (BuildContext context, Widget? child) {
+                                return Theme(
+                                  data: AppTheme.lightTheme,
+                                  child: child!,
+                                );
+                              },
+                            ).then(
+                              (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    _endDate =
+                                        DateFormat("dd.MM.y").format(value);
+                                  });
+                                }
+                              },
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "End Time",
+                                style: context.textTheme.titleMedium?.copyWith(
+                                  color: AppColors.periwinkle,
+                                  fontSize: context.dynamicHeight(0.02),
+                                  fontWeight: FontWeight.w300,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "03.20 PM",
-                              style: context.textTheme.titleMedium?.copyWith(
-                                color: AppColors.whiteColor,
-                                fontSize: context.dynamicHeight(0.03),
-                                fontWeight: FontWeight.bold,
+                              Text(
+                                _endDate ?? "",
+                                style: context.textTheme.titleMedium?.copyWith(
+                                  color: AppColors.whiteColor,
+                                  fontSize: context.dynamicHeight(0.03),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -199,12 +272,22 @@ class _CreateProjectState extends State<CreateProject> {
                       title: "Description",
                       color: AppColors.periwinkle,
                     ),
-                    Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    TextFormField(
+                      maxLines: 5,
+                      controller: _descriptionController,
                       style: context.textTheme.titleMedium?.copyWith(
                         color: AppColors.periwinkle,
                         fontSize: context.dynamicHeight(0.018),
                         fontWeight: FontWeight.w300,
+                      ),
+                      decoration: InputDecoration(
+                        hintText: "Write a description",
+                        hintStyle: context.textTheme.titleMedium?.copyWith(
+                          color: AppColors.periwinkle,
+                          fontSize: context.dynamicHeight(0.018),
+                          fontWeight: FontWeight.w300,
+                        ),
+                        border: InputBorder.none,
                       ),
                       textAlign: TextAlign.justify,
                     ),
@@ -222,28 +305,32 @@ class _CreateProjectState extends State<CreateProject> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            {"name": "Design", "isActive": false},
-                            {"name": "Meeting", "isActive": true},
-                            {"name": "Coding", "isActive": false},
-                            {"name": "Testing", "isActive": false},
-                            {"name": "Bug Fix", "isActive": false},
-                            {"name": "Deployment", "isActive": false}
+                            const CategoryModel(uid: "1", value: "Design"),
+                            const CategoryModel(uid: "2", value: "Meeting"),
+                            const CategoryModel(uid: "3", value: "Coding"),
+                            const CategoryModel(uid: "4", value: "Testing"),
+                            const CategoryModel(uid: "5", value: "Bug Fix"),
+                            const CategoryModel(uid: "6", value: "Deployment"),
                           ].map((e) {
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                setState(() {
+                                  addCategoryItem(e);
+                                });
+                              },
                               child: Padding(
                                 padding: context.paddingRightDefault,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: e["isActive"] == true
+                                    color: choosenCategories.contains(e)
                                         ? AppColors.activeColor
                                         : AppColors.containerColor,
                                   ),
                                   child: Padding(
                                     padding: context.paddingAllLow,
                                     child: Text(
-                                      "${e["name"]}",
+                                      e.value!,
                                       style: context.textTheme.titleMedium
                                           ?.copyWith(
                                         color: AppColors.whiteColor,
@@ -275,12 +362,21 @@ class _CreateProjectState extends State<CreateProject> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            for (int i = 0; i < 5; i++)
+                            for (int i = 0; i < 1; i++)
                               Padding(
                                 padding: context.paddingRightDefault,
                                 child: CircleAvatar(
                                   radius: context.dynamicHeight(0.04),
                                   backgroundColor: AppColors.whiteColor,
+                                  child: Text(
+                                    "M",
+                                    style:
+                                        context.textTheme.titleMedium?.copyWith(
+                                      color: AppColors.periwinkle,
+                                      fontSize: context.dynamicHeight(0.03),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                           ],
@@ -302,10 +398,20 @@ class _CreateProjectState extends State<CreateProject> {
                             height: context.dynamicHeight(0.06),
                             child: ElevatedButton(
                               onPressed: () {
+                                final uid = const Uuid().v4();
                                 ProjectEntity project = ProjectEntity(
                                   name: _nameController.text,
                                   createdAt: DateFormat("dd MMMM yyyy")
                                       .parse(_dateController.text),
+                                  description: _descriptionController.text,
+                                  deadline:
+                                      DateFormat("dd.MM.y").parse(_endDate!),
+                                  categories: choosenCategories,
+                                  status: const StatusModel(
+                                    uid: "1",
+                                    value: "Active",
+                                  ),
+                                  uid: uid,
                                 );
                                 context.read<ProjectBloc>().add(
                                       CreateProjectEvent(
