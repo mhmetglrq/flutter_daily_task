@@ -2,31 +2,43 @@ import 'package:equatable/equatable.dart';
 
 import '../../../domain/entities/project.dart';
 
-abstract class ProjectState extends Equatable {
+class ProjectState extends Equatable {
   final String? message;
   final List<ProjectEntity> projects;
-  const ProjectState({this.message, required this.projects});
+  final List<String> categories;
+  const ProjectState(
+      {this.message, required this.projects, required this.categories});
   @override
-  List<Object> get props => [message!, projects];
+  List<Object> get props => [message!, projects, categories];
+
+  ProjectState copyWith(
+      {String? message,
+      List<ProjectEntity>? projects,
+      List<String>? categories}) {
+    return ProjectState(
+        message: message ?? this.message,
+        projects: projects ?? this.projects,
+        categories: categories ?? this.categories);
+  }
 }
 
 class ProjectInitial extends ProjectState {
-  const ProjectInitial(List<ProjectEntity> projects)
-      : super(projects: projects, message: "");
+  ProjectInitial(List<ProjectEntity> projects)
+      : super(projects: projects, message: "", categories: []);
 }
 
 class ProjectLoading extends ProjectState {
-  const ProjectLoading(List<ProjectEntity> projects)
-      : super(projects: projects, message: "");
+  ProjectLoading(List<ProjectEntity> projects)
+      : super(projects: projects, message: "", categories: []);
 }
 
 class ProjectDone extends ProjectState {
-  const ProjectDone(List<ProjectEntity> projects, String? message)
-      : super(projects: projects, message: message);
+  ProjectDone(List<ProjectEntity> projects, String? message)
+      : super(projects: projects, message: message, categories: []);
 }
 
 class ProjectError extends ProjectState {
   @override
-  const ProjectError(List<ProjectEntity> projects, String? message)
-      : super(message: message, projects: projects);
+  ProjectError(List<ProjectEntity> projects, String? message)
+      : super(message: message, projects: projects, categories: []);
 }

@@ -3,8 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/theme/app_theme.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/model/category.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/model/project.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/model/status.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../config/widget/title/colored_title.dart';
 import '../bloc/project_bloc.dart';
@@ -24,6 +28,7 @@ class _CreateProjectState extends State<CreateProject> {
   final TextEditingController _descriptionController = TextEditingController();
   String? _startDate;
   String? _endDate;
+  List<CategoryModel> choosenCategories = [];
 
   @override
   void dispose() {
@@ -31,6 +36,14 @@ class _CreateProjectState extends State<CreateProject> {
     _nameController.dispose();
     _descriptionController.dispose();
     super.dispose();
+  }
+
+  void addCategoryItem(CategoryModel item) {
+    if (choosenCategories.contains(item)) {
+      choosenCategories.remove(item);
+    } else {
+      choosenCategories.add(item);
+    }
   }
 
   @override
@@ -291,28 +304,32 @@ class _CreateProjectState extends State<CreateProject> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            "Design",
-                            "Meeting",
-                            "Coding",
-                            "Testing",
-                            "Bug Fix",
-                            "Deployment",
+                            const CategoryModel(uid: "1", value: "Design"),
+                            const CategoryModel(uid: "2", value: "Meeting"),
+                            const CategoryModel(uid: "3", value: "Coding"),
+                            const CategoryModel(uid: "4", value: "Testing"),
+                            const CategoryModel(uid: "5", value: "Bug Fix"),
+                            const CategoryModel(uid: "6", value: "Deployment"),
                           ].map((e) {
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                setState(() {
+                                  addCategoryItem(e);
+                                });
+                              },
                               child: Padding(
                                 padding: context.paddingRightDefault,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    // color: e["isActive"] == true
-                                    //     ? AppColors.activeColor
-                                    //     : AppColors.containerColor,
+                                    color: choosenCategories.contains(e)
+                                        ? AppColors.activeColor
+                                        : AppColors.containerColor,
                                   ),
                                   child: Padding(
                                     padding: context.paddingAllLow,
                                     child: Text(
-                                      e,
+                                      e.value!,
                                       style: context.textTheme.titleMedium
                                           ?.copyWith(
                                         color: AppColors.whiteColor,
@@ -380,6 +397,7 @@ class _CreateProjectState extends State<CreateProject> {
                             height: context.dynamicHeight(0.06),
                             child: ElevatedButton(
                               onPressed: () {
+                                final uid = const Uuid().v4();
                                 ProjectEntity project = ProjectEntity(
                                   name: _nameController.text,
                                   createdAt: DateFormat("dd MMMM yyyy")
@@ -387,6 +405,12 @@ class _CreateProjectState extends State<CreateProject> {
                                   description: _descriptionController.text,
                                   deadline:
                                       DateFormat("dd.MM.y").parse(_endDate!),
+                                  categories: choosenCategories,
+                                  status: const StatusModel(
+                                    uid: "1",
+                                    value: "Active",
+                                  ),
+                                  uid: uid,
                                 );
                                 context.read<ProjectBloc>().add(
                                       CreateProjectEvent(
