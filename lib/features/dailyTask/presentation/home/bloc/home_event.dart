@@ -28,3 +28,11 @@ class GetProjects extends HomeEvent {
   @override
   List<Object> get props => [projects];
 }
+
+class GetStatusEvent extends HomeEvent {
+  final List<StatusEntity> statusList;
+  const GetStatusEvent({required this.statusList});
+
+  @override
+  List<Object> get props => [statusList];
+}
