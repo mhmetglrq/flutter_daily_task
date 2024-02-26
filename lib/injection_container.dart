@@ -34,7 +34,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory(() => BottomNavbarBloc(sl()));
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ProjectBloc(sl(), sl()));
-  sl.registerFactory(() => HomeBloc(sl()));
+  sl.registerFactory(() => HomeBloc(sl(), sl()));
   //UseCase
 
   //----Auth

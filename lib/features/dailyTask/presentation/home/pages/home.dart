@@ -51,6 +51,10 @@ class _HomeState extends State<Home> {
           context.read<HomeBloc>().add(
                 GetProjects(projects: state.projects),
               );
+          context.read<HomeBloc>().add(
+                GetStatusEvent(statusList: state.status),
+              );
+
           return Padding(
             padding: context.paddingAllDefault,
             child: Column(
@@ -76,9 +80,9 @@ class _HomeState extends State<Home> {
                     padding: context.paddingVerticalDefault,
                     child: Row(
                       children: [
-                        for (int i = 0; i < MenuItems.statusItems.length; i++)
+                        for (int i = 0; i < state.status.length; i++)
                           StatusCard(
-                            title: MenuItems.statusItems[i],
+                            title: state.status[i].value!,
                             isActive: i == state.choosenValue,
                             onTap: () {
                               context.read<HomeBloc>().add(
