@@ -1,12 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class RemoteAuthState extends Equatable {
   final String? message;
-  const RemoteAuthState({this.message});
+  final User? user;
+  const RemoteAuthState({this.message, this.user});
 
   @override
   List<Object> get props => [
         message!,
+        user!,
       ];
 }
 
