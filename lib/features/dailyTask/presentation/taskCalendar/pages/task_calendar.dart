@@ -121,7 +121,8 @@ class _TaskCalendarState extends State<TaskCalendar> {
                                   borderRadius: BorderRadius.circular(20),
                                   color: now.day == e["dayNumber"]
                                       ? AppColors.whiteColor.withOpacity(0.1)
-                                      : state.day["dayNumber"] == e["dayNumber"]
+                                      : state.day?["dayNumber"] ==
+                                              e["dayNumber"]
                                           ? AppColors.activeColor
                                           : Colors.transparent,
                                 ),

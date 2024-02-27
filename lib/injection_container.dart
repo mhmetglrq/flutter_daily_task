@@ -31,12 +31,12 @@ final sl = GetIt.instance; // Service Locator
 
 Future<void> initializeDependencies() async {
   // Bloc
-  sl.registerFactory(() => RemoteAuthBloc(sl(), sl(),sl()));
+  sl.registerFactory(() => RemoteAuthBloc(sl(), sl(), sl()));
   sl.registerFactory(() => BottomNavbarBloc(sl()));
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ProjectBloc(sl(), sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl()));
-  sl.registerFactory(() => CalendarBloc());
+  sl.registerFactory(() => CalendarBloc(sl()));
   //UseCase
 
   //----Auth
