@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/config/theme/app_theme.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/model/category.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/model/user.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/entities/task.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/taskCalendar/bloc/calendar_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../config/widget/title/colored_title.dart';
 
@@ -359,29 +363,50 @@ class _CreateTaskState extends State<CreateTask> {
                         color: AppColors.whiteColor,
                       ),
                     ),
-                    Padding(
-                      padding: context.paddingVerticalDefault,
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: context.dynamicHeight(0.06),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.activeColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                    BlocBuilder<CalendarBloc, CalendarState>(
+                      builder: (context, state) {
+                        return Padding(
+                          padding: context.paddingVerticalDefault,
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: context.dynamicHeight(0.06),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                final uid = const Uuid().v4();
+                                TaskEntity task = TaskEntity(
+                                  name: _nameController.text,
+                                  description: _descriptionController.text,
+                                  deadline:
+                                      DateFormat("dd.MM.y").parse(_endDate!),
+                                  createdAt: DateTime.now(),
+                                  updatedAt: DateTime.now(),
+                                  assignes: choosenUsers,
+                                  statuses: const [],
+                                  uid: uid,
+                                );
+                                context.read<CalendarBloc>().add(
+                                      CreateTaskEvent(task: task),
+                                    );
+                                Navigator.pop(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.activeColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: Text(
+                                "Create Project",
+                                style: context.textTheme.titleMedium?.copyWith(
+                                  color: AppColors.whiteColor,
+                                  fontSize: context.dynamicHeight(0.02),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
-                          child: Text(
-                            "Create Project",
-                            style: context.textTheme.titleMedium?.copyWith(
-                              color: AppColors.whiteColor,
-                              fontSize: context.dynamicHeight(0.02),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),
