@@ -1,35 +1,36 @@
 part of 'calendar_bloc.dart';
 
 class CalendarState extends Equatable {
-  final Map<String, dynamic> day;
+  final Map<String, dynamic>? day;
   final TaskEntity? taskEntity;
-  const CalendarState(this.day, {this.taskEntity});
+  final String? message;
+  const CalendarState({this.day, this.taskEntity, this.message});
   @override
-  List<Object?> get props => [day];
+  List<Object?> get props => [day, taskEntity, message];
 
   CalendarState copyWith({Map<String, dynamic>? day}) {
-    return CalendarState(day ?? this.day);
+    return CalendarState(
+        day: day ?? this.day, taskEntity: taskEntity, message: message);
   }
 }
 
 class CalendarInitial extends CalendarState {
-  CalendarInitial() : super({});
+  const CalendarInitial();
 }
 
 class CalendarLoading extends CalendarState {
-  CalendarLoading() : super({});
+  const CalendarLoading();
 }
 
 class CalendarLoaded extends CalendarState {
-  const CalendarLoaded(Map<String, dynamic> day, {TaskEntity? taskEntity})
-      : super(day, taskEntity: taskEntity);
+  const CalendarLoaded({Map<String, dynamic>? day, TaskEntity? taskEntity})
+      : super(day: day, taskEntity: taskEntity);
   @override
   List<Object?> get props => [day];
 }
 
 class CalendarError extends CalendarState {
-  final String message;
-  CalendarError(this.message) : super({});
+  const CalendarError(String message) : super(message: message);
   @override
   List<Object?> get props => [message];
 }
