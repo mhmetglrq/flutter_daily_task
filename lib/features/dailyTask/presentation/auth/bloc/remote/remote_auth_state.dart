@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/entities/user.dart';
 
 abstract class RemoteAuthState extends Equatable {
   final String? message;
-  final User? user;
+  final UserEntity? user;
   const RemoteAuthState({this.message, this.user});
 
   @override
@@ -22,7 +22,8 @@ class RemoteAuthLoading extends RemoteAuthState {
 }
 
 class RemoteAuthDone extends RemoteAuthState {
-  const RemoteAuthDone(String? message):super(message: message);
+  const RemoteAuthDone({String? message, UserEntity? userEntity})
+      : super(message: message, user: userEntity);
 }
 
 class RemoteAuthError extends RemoteAuthState {

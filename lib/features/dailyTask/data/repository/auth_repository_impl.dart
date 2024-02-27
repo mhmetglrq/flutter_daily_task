@@ -50,7 +50,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<DataState<UserEntity>> getUser() async {
     try {
       return DataSuccess(
-        data: await _firebaseService.getUser(),
+        data: UserModel.fromEntity(await _firebaseService.getUser()),
       );
     } catch (e) {
       return DataError(message: e.toString());
