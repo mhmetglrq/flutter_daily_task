@@ -43,7 +43,7 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
       emit(
         RemoteAuthDone(
           message: "Login Success",
-          userEntity: dataState.data,
+          userEntity: dataState.data!,
         ),
       );
     } else {
