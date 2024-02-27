@@ -45,6 +45,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton(() => GetUserUseCase(sl()));
   //----Task
   sl.registerLazySingleton(() => CreateTaskUseCase(sl()));
+  sl.registerLazySingleton(() => GetProjectsUseCase(sl()));
   //----Profile
   sl.registerLazySingleton(() => GetProfileUseCase(sl()));
   //----Project
@@ -65,4 +66,5 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<ProjectRepository>(
       () => ProjectRepositoryImpl(sl()));
   sl.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(sl()));
+  sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(sl()));
 }
