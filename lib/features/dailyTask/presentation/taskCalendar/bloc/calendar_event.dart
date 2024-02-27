@@ -11,3 +11,11 @@ class SetDayEvent extends CalendarEvent {
   @override
   List<Object> get props => [day];
 }
+
+class CreateTaskEvent extends CalendarEvent {
+  final TaskEntity task;
+  const CreateTaskEvent({required this.task});
+
+  @override
+  List<Object> get props => [task];
+}
