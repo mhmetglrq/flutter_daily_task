@@ -299,28 +299,46 @@ class _CreateTaskState extends State<CreateTask> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            {"name": "Design", "isActive": false},
-                            {"name": "Meeting", "isActive": true},
-                            {"name": "Coding", "isActive": false},
-                            {"name": "Testing", "isActive": false},
-                            {"name": "Bug Fix", "isActive": false},
-                            {"name": "Deployment", "isActive": false}
+                            const CategoryModel(
+                              uid: "1",
+                              value: "Design",
+                            ),
+                            const CategoryModel(
+                              uid: "2",
+                              value: "Development",
+                            ),
+                            const CategoryModel(
+                              uid: "3",
+                              value: "Marketing",
+                            ),
+                            const CategoryModel(
+                              uid: "4",
+                              value: "Management",
+                            ),
+                            const CategoryModel(
+                              uid: "5",
+                              value: "Finance",
+                            ),
                           ].map((e) {
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                setState(() {
+                                  addCategoryItem(e);
+                                });
+                              },
                               child: Padding(
                                 padding: context.paddingRightDefault,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: e["isActive"] == true
+                                    color: choosenCategories.contains(e)
                                         ? AppColors.activeColor
                                         : AppColors.containerColor,
                                   ),
                                   child: Padding(
                                     padding: context.paddingAllLow,
                                     child: Text(
-                                      "${e["name"]}",
+                                      "${e.value}",
                                       style: context.textTheme.titleMedium
                                           ?.copyWith(
                                         color: AppColors.whiteColor,
