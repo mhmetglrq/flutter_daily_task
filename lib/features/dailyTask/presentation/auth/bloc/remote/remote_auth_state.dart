@@ -1,12 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/entities/user.dart';
 
 abstract class RemoteAuthState extends Equatable {
   final String? message;
-  const RemoteAuthState({this.message});
+  final UserEntity? user;
+  const RemoteAuthState({this.message, this.user});
 
   @override
   List<Object> get props => [
         message!,
+        user!,
       ];
 }
 
@@ -19,7 +22,8 @@ class RemoteAuthLoading extends RemoteAuthState {
 }
 
 class RemoteAuthDone extends RemoteAuthState {
-  const RemoteAuthDone();
+  const RemoteAuthDone({String? message, UserEntity? userEntity})
+      : super(message: message, user: userEntity);
 }
 
 class RemoteAuthError extends RemoteAuthState {

@@ -18,7 +18,6 @@ class AppRoutes {
         return _materialRoute(const BottomNavbar());
       case AppRouteNames.bottomNavbar:
         return _materialRoute(const BottomNavbar());
-
       case AppRouteNames.signUp:
         return _materialRoute(const SignUp());
 

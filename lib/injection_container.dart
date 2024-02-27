@@ -31,7 +31,7 @@ final sl = GetIt.instance; // Service Locator
 
 Future<void> initializeDependencies() async {
   // Bloc
-  sl.registerFactory(() => RemoteAuthBloc(sl(), sl()));
+  sl.registerFactory(() => RemoteAuthBloc(sl(), sl(),sl()));
   sl.registerFactory(() => BottomNavbarBloc(sl()));
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ProjectBloc(sl(), sl()));

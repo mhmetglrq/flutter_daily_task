@@ -16,3 +16,7 @@ class RemoteSignUpEvent extends RemoteAuthEvent {
 
   RemoteSignUpEvent({required this.user});
 }
+
+class GetUserEvent extends RemoteAuthEvent {
+  GetUserEvent();
+}
