@@ -2,8 +2,8 @@ part of 'calendar_bloc.dart';
 
 class CalendarState extends Equatable {
   final Map<String, dynamic> day;
-
-  const CalendarState(this.day);
+  final TaskEntity? taskEntity;
+  const CalendarState(this.day, {this.taskEntity});
   @override
   List<Object?> get props => [day];
 
@@ -21,7 +21,8 @@ class CalendarLoading extends CalendarState {
 }
 
 class CalendarLoaded extends CalendarState {
-  const CalendarLoaded(Map<String, dynamic> day) : super(day);
+  const CalendarLoaded(Map<String, dynamic> day, {TaskEntity? taskEntity})
+      : super(day, taskEntity: taskEntity);
   @override
   List<Object?> get props => [day];
 }
