@@ -10,6 +10,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   final CreateTaskUseCase _createTaskUseCase;
   CalendarBloc(this._createTaskUseCase) : super(const CalendarLoading()) {
     on<SetDayEvent>(onSetDayEvent);
+    on<CreateTaskEvent>(onCreateTaskEvent);
   }
 
   void onSetDayEvent(SetDayEvent event, Emitter<CalendarState> emit) {
