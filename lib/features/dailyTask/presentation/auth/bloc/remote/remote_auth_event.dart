@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/user.dart';
 
 abstract class RemoteAuthEvent {

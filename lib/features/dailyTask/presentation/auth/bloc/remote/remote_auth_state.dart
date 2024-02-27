@@ -22,7 +22,7 @@ class RemoteAuthLoading extends RemoteAuthState {
 }
 
 class RemoteAuthDone extends RemoteAuthState {
-  const RemoteAuthDone();
+  const RemoteAuthDone(String? message):super(message: message);
 }
 
 class RemoteAuthError extends RemoteAuthState {
