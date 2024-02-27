@@ -17,7 +17,7 @@ class FirebaseTaskService {
 
   Future<List<TaskModel>> getTasks() async {
     List<TaskModel> tasks = [];
-    final snapshot = await _firestore
+    await _firestore
         .collection("users")
         .doc(_auth.currentUser!.uid)
         .collection('tasks')
