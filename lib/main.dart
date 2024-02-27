@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/auth/bloc/remote/remote_auth_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/auth/bloc/remote/remote_auth_event.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/auth/bloc/remote/remote_auth_state.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bottomNavbar/bloc/bottom_navbar_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/profile/bloc/profile_bloc.dart';
@@ -39,7 +41,23 @@ Future<void> main() async {
           create: (context) => sl<CalendarBloc>(),
         ),
       ],
-      child: const MyApp(),
+      child: BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
+        builder: (context, state) {
+          context.read<RemoteAuthBloc>().add(GetUserEvent());
+          if (state is RemoteAuthDone) {
+            return MyApp(
+              isLogin: state.user != null ? true : false,
+            );
+          }
+          return const MaterialApp(
+            home: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        },
+      ),
     ),
   );
 }
