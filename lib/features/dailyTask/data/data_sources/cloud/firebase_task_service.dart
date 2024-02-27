@@ -16,11 +16,17 @@ class FirebaseTaskService {
   }
 
   Future<List<TaskModel>> getTasks() async {
+    List<TaskModel> tasks = [];
     final snapshot = await _firestore
         .collection("users")
         .doc(_auth.currentUser!.uid)
         .collection('tasks')
-        .get();
-    return snapshot.docs.map((e) => TaskModel.fromMap(e.data())).toList();
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        tasks.add(TaskModel.fromMap(element.data()));
+      }
+    });
+    return tasks;
   }
 }

@@ -4,5 +4,5 @@ import '../../../../core/resources/data_state.dart';
 
 abstract class TaskRepository {
   Future<DataState<void>> createTask(TaskEntity task);
-  Future<DataState<TaskEntity>> getTasks();
+  Future<DataState<List<TaskEntity>>> getTasks();
 }
