@@ -26,9 +26,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     final params = event.task;
     final dataState = await _createTaskUseCase(params: params);
     if (dataState is DataSuccess) {
-      emit(CalendarLoaded(
-        taskEntity: dataState.data!,
-      ));
+      emit(const CalendarLoaded());
     } else if (dataState is DataError) {
       emit(CalendarError(dataState.message!));
     }

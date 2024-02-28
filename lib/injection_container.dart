@@ -37,7 +37,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ProjectBloc(sl(), sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl()));
-  sl.registerFactory(() => CalendarBloc(sl()));
+  sl.registerFactory(() => CalendarBloc(sl(), sl()));
   //UseCase
 
   //----Auth
