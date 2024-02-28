@@ -378,7 +378,8 @@ class _CreateTaskState extends State<CreateTask> {
                                   description: _descriptionController.text,
                                   deadline:
                                       DateFormat("dd.MM.y").parse(_endDate!),
-                                  createdAt: DateTime.now(),
+                                  createdAt: DateFormat("dd MMMM yyyy")
+                                      .parse(_dateController.text),
                                   updatedAt: DateTime.now(),
                                   assignes: choosenUsers,
                                   statuses: const [],
