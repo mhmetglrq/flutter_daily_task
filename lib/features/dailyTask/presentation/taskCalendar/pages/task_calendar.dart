@@ -40,6 +40,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
     return Scaffold(
       body: BlocBuilder<CalendarBloc, CalendarState>(
         builder: (context, state) {
+          context.read<CalendarBloc>().add(const GetTasksEvent());
           return Column(
             children: [
               Container(
@@ -165,18 +166,25 @@ class _TaskCalendarState extends State<TaskCalendar> {
                         "Tasks",
                         style: context.textTheme.headlineMedium,
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: 15,
-                          padding: context.paddingTopLow,
-                          itemBuilder: (BuildContext context, int index) {
-                            return const ProgressCard(
-                              title: "Task Title",
-                              subtitle: "Subtitle",
-                            );
-                          },
+                      if (state is CalendarError)
+                        Text(
+                          state.message!,
+                          style: context.textTheme.labelMedium,
                         ),
-                      ),
+                      if (state is CalendarLoaded)
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: state.tasks?.length,
+                            padding: context.paddingTopLow,
+                            itemBuilder: (BuildContext context, int index) {
+                              final item = state.tasks?[index];
+                              return ProgressCard(
+                                title: "${item?.name}",
+                                subtitle: "${item?.description}",
+                              );
+                            },
+                          ),
+                        ),
                     ],
                   ),
                 ),
