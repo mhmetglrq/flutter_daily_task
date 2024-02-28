@@ -4,7 +4,8 @@ class CalendarState extends Equatable {
   final Map<String, dynamic>? day;
   final TaskEntity? taskEntity;
   final String? message;
-  const CalendarState({this.day, this.taskEntity, this.message});
+  final List<TaskEntity>? tasks;
+  const CalendarState({this.day, this.taskEntity, this.message, this.tasks});
   @override
   List<Object?> get props => [day, taskEntity, message];
 
@@ -23,7 +24,10 @@ class CalendarLoading extends CalendarState {
 }
 
 class CalendarLoaded extends CalendarState {
-  const CalendarLoaded({Map<String, dynamic>? day, TaskEntity? taskEntity})
+  const CalendarLoaded(
+      {Map<String, dynamic>? day,
+      TaskEntity? taskEntity,
+      List<TaskEntity>? tasks})
       : super(day: day, taskEntity: taskEntity);
   @override
   List<Object?> get props => [day];

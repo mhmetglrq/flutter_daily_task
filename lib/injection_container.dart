@@ -14,6 +14,7 @@ import 'package:flutter_daily_task/features/dailyTask/domain/usecases/home/get_s
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/profile/get_profile_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/project/create_project_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/create_task_usecase.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/get_tasks_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bottomNavbar/bloc/bottom_navbar_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/profile/bloc/profile_bloc.dart';
@@ -45,7 +46,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton(() => GetUserUseCase(sl()));
   //----Task
   sl.registerLazySingleton(() => CreateTaskUseCase(sl()));
-  sl.registerLazySingleton(() => GetProjectsUseCase(sl()));
+  sl.registerLazySingleton(() => GetTasksUseCase(sl()));
   //----Profile
   sl.registerLazySingleton(() => GetProfileUseCase(sl()));
   //----Project
@@ -66,5 +67,4 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<ProjectRepository>(
       () => ProjectRepositoryImpl(sl()));
   sl.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(sl()));
-  sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(sl()));
 }

@@ -40,6 +40,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
     return Scaffold(
       body: BlocBuilder<CalendarBloc, CalendarState>(
         builder: (context, state) {
+          context.read<CalendarBloc>().add(GetTasksEvent() );
           return Column(
             children: [
               Container(

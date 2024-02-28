@@ -19,3 +19,10 @@ class CreateTaskEvent extends CalendarEvent {
   @override
   List<Object> get props => [task];
 }
+
+class GetTasksEvent extends CalendarEvent {
+  const GetTasksEvent();
+
+  @override
+  List<Object> get props => [];
+}
