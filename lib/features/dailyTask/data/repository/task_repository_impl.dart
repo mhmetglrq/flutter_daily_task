@@ -1,4 +1,3 @@
-
 import 'package:flutter_daily_task/core/resources/data_state.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_task_service.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/model/task.dart';
@@ -20,9 +19,9 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<DataState<List<TaskEntity>>> getTasks() async{
+  Future<DataState<List<TaskModel>>> getTasks() async {
     try {
-      final tasks = await _firebaseTaskService.getTasks(); 
+      final tasks = await _firebaseTaskService.getTasks();
       return DataSuccess(
         data: tasks,
       );

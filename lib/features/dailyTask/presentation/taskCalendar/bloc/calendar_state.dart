@@ -28,9 +28,9 @@ class CalendarLoaded extends CalendarState {
       {Map<String, dynamic>? day,
       TaskEntity? taskEntity,
       List<TaskEntity>? tasks})
-      : super(day: day, taskEntity: taskEntity);
+      : super(day: day, taskEntity: taskEntity, tasks: tasks);
   @override
-  List<Object?> get props => [day];
+  List<Object?> get props => [day, taskEntity, tasks, message];
 }
 
 class CalendarError extends CalendarState {
