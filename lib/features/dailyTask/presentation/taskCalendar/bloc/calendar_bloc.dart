@@ -34,7 +34,9 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
   void onGetTasksEvent(GetTasksEvent event, Emitter<CalendarState> emit) async {
     final dataState = await _getTasksUseCase();
+    
     if (dataState is DataSuccess) {
+      print(dataState.data);
       emit(CalendarLoaded(
         tasks: dataState.data!,
       ));

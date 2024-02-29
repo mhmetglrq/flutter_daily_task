@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import '../../domain/entities/task.dart';
 import 'status.dart';
 import 'user.dart';
@@ -92,9 +94,9 @@ class TaskModel extends TaskEntity {
       'uid': uid,
       'name': name,
       'description': description,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
-      'deadline': deadline,
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
+      'deadline': deadline?.toIso8601String(),
       'statuses': statuses,
       'assignes': assignes,
     };
