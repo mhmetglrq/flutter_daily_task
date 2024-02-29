@@ -40,7 +40,9 @@ class _TaskCalendarState extends State<TaskCalendar> {
     return Scaffold(
       body: BlocBuilder<CalendarBloc, CalendarState>(
         builder: (context, state) {
-          context.read<CalendarBloc>().add(const GetTasksEvent());
+          context.read<CalendarBloc>().add(
+                GetTasksEvent(tasks: state.tasks),
+              );
           return Column(
             children: [
               Container(
@@ -173,17 +175,23 @@ class _TaskCalendarState extends State<TaskCalendar> {
                         ),
                       if (state is CalendarLoaded)
                         Expanded(
-                          child: ListView.builder(
-                            itemCount: state.tasks?.length,
-                            padding: context.paddingTopLow,
-                            itemBuilder: (BuildContext context, int index) {
-                              final item = state.tasks?[index];
-                              return ProgressCard(
-                                title: "${item?.name}",
-                                subtitle: "${item?.description}",
-                              );
-                            },
-                          ),
+                          child: state.tasks != null
+                              ? ListView.builder(
+                                  itemCount: state.tasks?.length,
+                                  padding: context.paddingTopLow,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final item = state.tasks?[index];
+
+                                    return ProgressCard(
+                                      title: "${item?.name}",
+                                      subtitle: "${item?.description}",
+                                    );
+                                  },
+                                )
+                              : const Center(
+                                  child: Text("No Task"),
+                                ),
                         ),
                     ],
                   ),
