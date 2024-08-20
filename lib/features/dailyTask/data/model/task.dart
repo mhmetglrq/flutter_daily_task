@@ -1,29 +1,18 @@
-import 'package:intl/intl.dart';
-
 import '../../domain/entities/task.dart';
 import 'status.dart';
 import 'user.dart';
 
 class TaskModel extends TaskEntity {
   const TaskModel({
-    String? uid,
-    String? name,
-    String? description,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    DateTime? deadline,
-    List<StatusModel>? statuses,
-    List<UserModel>? assignes,
-  }) : super(
-          uid: uid,
-          name: name,
-          description: description,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-          deadline: deadline,
-          statuses: statuses,
-          assignes: assignes,
-        );
+    super.uid,
+    super.name,
+    super.description,
+    super.createdAt,
+    super.updatedAt,
+    super.deadline,
+    List<StatusModel>? super.statuses,
+    List<UserModel>? super.assignes,
+  });
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(

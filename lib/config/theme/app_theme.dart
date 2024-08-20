@@ -144,14 +144,14 @@ class AppTheme {
         ),
       ),
       confirmButtonStyle: ButtonStyle(
-        shape: MaterialStateProperty.all(
+        shape: WidgetStateProperty.all(
           const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(15),
             ),
           ),
         ),
-        backgroundColor: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(
           AppColors.containerColor,
         ),
       ),
@@ -168,7 +168,7 @@ class AppTheme {
         fontFamily: "Poppins",
       ),
       dividerColor: Colors.white,
-      yearForegroundColor: MaterialStateProperty.all(Colors.white),
+      yearForegroundColor: WidgetStateProperty.all(Colors.white),
       yearStyle: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w500,
@@ -177,7 +177,7 @@ class AppTheme {
         fontFamily: "Poppins",
       ),
       headerForegroundColor: Colors.white,
-      yearOverlayColor: const MaterialStatePropertyAll(
+      yearOverlayColor: const WidgetStatePropertyAll(
         Colors.white,
       ),
       weekdayStyle: const TextStyle(

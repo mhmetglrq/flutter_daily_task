@@ -2,9 +2,9 @@ import '../../domain/entities/status.dart';
 
 class StatusModel extends StatusEntity {
   const StatusModel({
-    String? uid,
-    String? value,
-  }) : super(uid: uid, value: value);
+    super.uid,
+    super.value,
+  });
 
   factory StatusModel.fromJson(Map<String, dynamic> json) {
     return StatusModel(
