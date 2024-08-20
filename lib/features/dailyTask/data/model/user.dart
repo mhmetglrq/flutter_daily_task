@@ -4,26 +4,16 @@ import 'task.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
-    String? uid,
-    String? name,
-    String? surname,
-    String? email,
-    String? password,
-    List<ProjectModel>? projects,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    List<TaskModel>? tasks,
-  }) : super(
-          uid: uid,
-          name: name,
-          surname: surname,
-          email: email,
-          password: password,
-          projects: projects,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-          tasks: tasks,
-        );
+    super.uid,
+    super.name,
+    super.surname,
+    super.email,
+    super.password,
+    List<ProjectModel>? super.projects,
+    super.createdAt,
+    super.updatedAt,
+    List<TaskModel>? super.tasks,
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(

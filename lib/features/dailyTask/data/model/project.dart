@@ -6,28 +6,17 @@ import 'user.dart';
 
 class ProjectModel extends ProjectEntity {
   const ProjectModel({
-    String? uid,
-    String? name,
-    String? description,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    DateTime? deadline,
-    List<TaskModel>? tasks,
-    List<UserModel>? assignes,
-    StatusModel? status,
-    List<CategoryModel>? categories,
-  }) : super(
-          uid: uid,
-          name: name,
-          description: description,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-          deadline: deadline,
-          tasks: tasks,
-          assignes: assignes,
-          status: status,
-          categories: categories,
-        );
+    super.uid,
+    super.name,
+    super.description,
+    super.createdAt,
+    super.updatedAt,
+    super.deadline,
+    List<TaskModel>? super.tasks,
+    List<UserModel>? super.assignes,
+    StatusModel? super.status,
+    List<CategoryModel>? super.categories,
+  });
 
   factory ProjectModel.fromJson(Map<String, dynamic> json) {
     return ProjectModel(
