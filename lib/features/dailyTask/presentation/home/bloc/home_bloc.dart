@@ -29,19 +29,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void onGetProjectsEvent(GetProjects event, Emitter<HomeState> emit) async {
     final dataState = await _getProjectsUseCase(params: event.projects);
-    final List<ProjectEntity> projects = dataState.data!;
+    final List<ProjectEntity>? projects = dataState.data;
     final int pageIndex = state.pageIndex;
     final int choosenValue = state.choosenValue;
     final List<StatusEntity> statusList = state.status;
-    projects.sort((a, b) => a.createdAt!.compareTo(b.createdAt!));
+    (projects ?? []).sort((a, b) => (a.createdAt ?? DateTime.now())
+        .compareTo(b.createdAt ?? DateTime.now()));
     if (dataState is DataSuccess) {
       emit(
         HomeLoaded(
           pageIndex,
           choosenValue,
-          projects.length >= 5
-              ? projects.reversed.toList().sublist(0, 5)
-              : projects.reversed.toList(),
+          (projects ?? []).length >= 5
+              ? (projects ?? []).reversed.toList().sublist(0, 5)
+              : (projects ?? []).reversed.toList(),
           statusList,
         ),
       );
