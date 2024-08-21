@@ -37,11 +37,6 @@ class UserModel extends UserEntity {
     );
   }
 
-  @override
-  String toString() {
-    return 'UserModel(uid: $uid, name: $name, surname: $surname, email: $email, password: $password, projects: $projects, createdAt: $createdAt, updatedAt: $updatedAt, tasks: $tasks)';
-  }
-
   factory UserModel.fromEntity(UserEntity entity) {
     return UserModel(
       uid: entity.uid,
