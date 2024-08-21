@@ -30,9 +30,6 @@ class CategoryModel extends CategoryEntity {
     );
   }
 
-  @override
-  String toString() => 'CategoryModel(uid: $uid, value: $value)';
-
   factory CategoryModel.fromEntity(CategoryEntity entity) {
     return CategoryModel(
       uid: entity.uid,

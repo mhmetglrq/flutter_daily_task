@@ -46,10 +46,23 @@ Future<void> main() async {
       child: BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
         builder: (context, state) {
           context.read<RemoteAuthBloc>().add(GetUserEvent());
-          log(state.toString());
-          return MyApp(
-            isLogin: state.user != null ? true : false,
-          );
+          if (state is RemoteAuthLoading) {
+            return const MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            );
+          } else if (state is RemoteAuthError) {
+            return const MyApp(
+              isLogin: false,
+            );
+          } else {
+            return const MyApp(
+              isLogin: true,
+            );
+          }
         },
       ),
     ),
