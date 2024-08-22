@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/auth/bloc/remote/remote_auth_bloc.dart';
@@ -47,20 +45,19 @@ Future<void> main() async {
         builder: (context, state) {
           context.read<RemoteAuthBloc>().add(GetUserEvent());
           if (state is RemoteAuthLoading) {
-            return const MaterialApp(
-              home: Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
+            return const MyApp(
+              isLogin: false,
+              isLoading: true,
             );
           } else if (state is RemoteAuthError) {
             return const MyApp(
               isLogin: false,
+              isLoading: false,
             );
           } else {
             return const MyApp(
               isLogin: true,
+              isLoading: false,
             );
           }
         },
