@@ -9,10 +9,10 @@ class UserModel extends UserEntity {
     super.surname,
     super.email,
     super.password,
-    List<ProjectModel>? super.projects,
+    super.projects,
     super.createdAt,
     super.updatedAt,
-    List<TaskModel>? super.tasks,
+    super.tasks,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {

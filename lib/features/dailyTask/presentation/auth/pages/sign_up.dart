@@ -105,13 +105,16 @@ class _SignUpState extends State<SignUp> {
                                   if (state is RemoteAuthDone) {
                                     Navigator.pushNamed(
                                         context, AppRouteNames.signIn);
-                                  }
-                                  BlocProvider.of<RemoteAuthBloc>(context)
-                                      .close();
-                                  if (state is RemoteAuthError) {
+                                  } else if (state is RemoteAuthError) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text("${state.message}"),
+                                      ),
+                                    );
+                                  } else if (state is RemoteAuthLoading) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Loading..."),
                                       ),
                                     );
                                   }
