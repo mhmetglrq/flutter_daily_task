@@ -19,36 +19,46 @@ class FirebaseAuthService {
     await _auth.signOut();
   }
 
-  Future<User> createUser(UserModel user) async {
-    User firebaseUser = await _auth
+  Future<UserModel> createUser(UserModel user) async {
+    UserModel userModel = const UserModel();
+    _auth
         .createUserWithEmailAndPassword(
             email: user.email!, password: user.password!)
-        .then((value) => value.user!);
-    UserModel userModel = UserModel(
-      uid: firebaseUser.uid,
-      name: user.name,
-      surname: user.surname,
-      email: user.email,
-      password: user.password,
-      projects: user.projects
+        .then((value) {
+      List<ProjectModel>? projects = user.projects
           ?.map((entity) => ProjectModel.fromEntity(entity))
-          .toList(),
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-      tasks: user.tasks?.map((entity) => TaskModel.fromEntity(entity)).toList(),
-    );
+          .toList();
+      userModel = UserModel(
+        uid: value.user?.uid,
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        password: user.password,
+        projects: projects,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        tasks:
+            user.tasks?.map((entity) => TaskModel.fromEntity(entity)).toList(),
+      );
+    });
+
     await _firestore.collection('users').doc(userModel.uid).set(
           userModel.toMap(),
         );
-    return firebaseUser;
+    return userModel;
   }
 
-  Future<UserModel> getUser() async {
+  Future<UserModel?> getUser() async {
     return await _firestore
         .collection("users")
-        .doc(_auth.currentUser!.uid)
+        .doc(_auth.currentUser?.uid)
         .get()
-        .then(
-            (value) => UserModel.fromMap(value.data() as Map<String, dynamic>));
+        .then((value) {
+      if (value.exists) {
+        return UserModel.fromMap(value.data()!);
+      } else {
+        return null;
+      }
+    });
   }
 }
