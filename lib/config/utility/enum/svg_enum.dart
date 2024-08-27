@@ -19,6 +19,8 @@ enum SvgConstants {
   stackOverflow("stack_overflow"),
   web("web"),
   editProfile("edit_profile"),
+  projectCategory("project_category"),
+  latestProject("latest_project"),
   ;
 
   final String value;

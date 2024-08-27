@@ -1,5 +1,6 @@
 enum ImageConstants {
   signIn("sign_in"),
+  profile("profile"),
   ;
 
   final String value;

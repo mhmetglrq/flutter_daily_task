@@ -127,7 +127,7 @@ class _CreateProjectState extends State<CreateProject> {
                           currentDate: DateTime.now(),
                           builder: (BuildContext context, Widget? child) {
                             return Theme(
-                              data: AppTheme.lightTheme,
+                              data: AppTheme.lightTheme(context),
                               child: child!,
                             );
                           },
@@ -174,7 +174,7 @@ class _CreateProjectState extends State<CreateProject> {
                               currentDate: DateTime.now(),
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
-                                  data: AppTheme.lightTheme,
+                                  data: AppTheme.lightTheme(context),
                                   child: child!,
                                 );
                               },
@@ -223,7 +223,7 @@ class _CreateProjectState extends State<CreateProject> {
                               currentDate: DateTime.now(),
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
-                                  data: AppTheme.lightTheme,
+                                  data: AppTheme.lightTheme(context),
                                   child: child!,
                                 );
                               },
