@@ -88,6 +88,7 @@ class _SignUpState extends State<SignUp> {
                             });
                           },
                         ),
+                        //TODO: Old page state working with new bloc state!!!
                         BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
                           builder: (context, state) {
                             return PurpleButton(
@@ -103,8 +104,8 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                   );
                                   if (state is RemoteAuthDone) {
-                                    Navigator.pushNamed(
-                                        context, AppRouteNames.signIn);
+                                    Navigator.pushNamedAndRemoveUntil(context,
+                                        AppRouteNames.signIn, (route) => false);
                                   } else if (state is RemoteAuthError) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
