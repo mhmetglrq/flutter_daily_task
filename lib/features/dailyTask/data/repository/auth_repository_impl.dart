@@ -52,7 +52,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final user = await _firebaseService.getUser();
 
       if (user == null) {
-        return DataError(message: 'User not found');
+        return DataSuccess(data: null);
       } else {
         return DataSuccess(
           data: UserModel.fromEntity(user),
