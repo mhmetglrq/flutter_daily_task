@@ -42,7 +42,6 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
     if (dataState is DataSuccess) {
       emit(
         RemoteAuthDone(
-          message: "Login Success",
           userEntity: dataState.data,
         ),
       );
@@ -53,11 +52,14 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
 
   void onSignUpEvent(
       RemoteSignUpEvent event, Emitter<RemoteAuthState> emit) async {
-    final params = event.user;
+    final params = SignUpCaseParams(event.user);
+
     final dataState = await _signUpUseCase(params: params);
     if (dataState is DataSuccess) {
       if (dataState.data != null) {
-        emit(const RemoteAuthDone());
+        emit(RemoteAuthDone(
+          userEntity: dataState.data,
+        ));
       } else {
         emit(RemoteAuthError(dataState.message));
       }
