@@ -124,7 +124,7 @@ class _CreateTaskState extends State<CreateTask> {
                           currentDate: DateTime.now(),
                           builder: (BuildContext context, Widget? child) {
                             return Theme(
-                              data: AppTheme.lightTheme,
+                              data: AppTheme.lightTheme(context),
                               child: child!,
                             );
                           },
@@ -171,7 +171,7 @@ class _CreateTaskState extends State<CreateTask> {
                               currentDate: DateTime.now(),
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
-                                  data: AppTheme.lightTheme,
+                                  data: AppTheme.lightTheme(context),
                                   child: child!,
                                 );
                               },
@@ -220,7 +220,7 @@ class _CreateTaskState extends State<CreateTask> {
                               currentDate: DateTime.now(),
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
-                                  data: AppTheme.lightTheme,
+                                  data: AppTheme.lightTheme(context),
                                   child: child!,
                                 );
                               },
