@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_auth_service.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_home_service.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/data_sources/cloud/firebase_project_service.dart';
@@ -31,6 +33,14 @@ import 'features/dailyTask/presentation/auth/bloc/remote/remote_auth_bloc.dart';
 final sl = GetIt.instance; // Service Locator
 
 Future<void> initializeDependencies() async {
+  // Firebase Service
+  sl.registerLazySingleton(
+    () => FirebaseAuthService(
+      auth: FirebaseAuth.instance,
+      firestore: FirebaseFirestore.instance,
+    ),
+  );
+
   // Bloc
   sl.registerFactory(() => RemoteAuthBloc(sl(), sl(), sl()));
   sl.registerFactory(() => BottomNavbarBloc(sl()));
@@ -56,7 +66,6 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton(() => GetStatusListUseCase(sl()));
 
   // Dependencies
-  sl.registerLazySingleton(() => FirebaseAuthService());
   sl.registerLazySingleton(() => FirebaseTaskService());
   sl.registerLazySingleton(() => FirebaseProjectService());
   sl.registerLazySingleton(() => FirebaseHomeService());

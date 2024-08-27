@@ -55,8 +55,8 @@ Future<void> main() async {
               isLoading: false,
             );
           } else {
-            return const MyApp(
-              isLogin: true,
+            return MyApp(
+              isLogin: state.user != null ? true : false,
               isLoading: false,
             );
           }
