@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
@@ -131,6 +133,10 @@ class _HomeState extends State<Home> {
                               children: [
                                 SvgPicture.asset(
                                   SvgConstants.projectCategory.getSvg,
+                                  colorFilter: ColorFilter.mode(
+                                    Color(status?.color ?? 0),
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                                 Padding(
                                   padding: context.paddingAllDefault,
@@ -149,7 +155,7 @@ class _HomeState extends State<Home> {
                                       Padding(
                                         padding: context.paddingVerticalLow,
                                         child: Text(
-                                          '12 tasks',
+                                          '${status?.projectCount ?? 0} tasks',
                                           style: context.textTheme.bodyMedium
                                               ?.copyWith(
                                             color: AppColors.titleTextColor,
@@ -175,7 +181,24 @@ class _HomeState extends State<Home> {
                                             Padding(
                                               padding: context.paddingAllLow,
                                               child: GestureDetector(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  List<Color> colors = [
+                                                    const Color(0xFFFFAA9B),
+                                                    const Color(0xFFBCC3FF),
+                                                    const Color(0xFFFFDA55),
+                                                    const Color(0xFFBAE4C6),
+                                                    const Color(0xFFFF82A9),
+                                                    const Color(0xFFFF7D55),
+                                                    const Color(0xFF3093DA),
+                                                  ];
+
+                                                  for (var element in colors) {
+                                                    int testingColor =
+                                                        element.value;
+                                                    log(testingColor
+                                                        .toString());
+                                                  }
+                                                },
                                                 child: Card(
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:

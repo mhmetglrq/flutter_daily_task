@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class StatusEntity extends Equatable {
   final String? uid;
   final String? value;
-  final String? color;
+  final int? color;
   final int? projectCount;
   const StatusEntity({
     this.uid,
