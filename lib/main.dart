@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/auth/bloc/remote/remote_auth_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/auth/bloc/remote/remote_auth_event.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/auth/bloc/remote/remote_auth_state.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/bottomNavbar/bloc/bottom_navbar_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/profile/bloc/profile_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/bloc/project_bloc.dart';
@@ -28,9 +27,7 @@ Future<void> main() async {
         BlocProvider<RemoteAuthBloc>(
           create: (context) => sl<RemoteAuthBloc>(),
         ),
-        BlocProvider<BottomNavbarBloc>(
-          create: (context) => sl<BottomNavbarBloc>(),
-        ),
+       
         BlocProvider<ProfileBloc>(
           create: (context) => sl<ProfileBloc>(),
         ),
