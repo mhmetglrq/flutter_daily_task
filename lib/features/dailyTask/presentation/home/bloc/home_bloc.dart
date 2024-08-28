@@ -12,62 +12,37 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetProjectsUseCase _getProjectsUseCase;
   final GetStatusListUseCase _getStatusListUseCase;
   HomeBloc(this._getProjectsUseCase, this._getStatusListUseCase)
-      : super(HomeLoading()) {
-    on<SetPageEvent>(setPageEvenet);
-    on<SetChosenValueEvent>(setChosenValueEvent);
+      : super(const HomeLoading()) {
     on<GetProjects>(onGetProjectsEvent);
     on<GetStatusEvent>(onGetStatusEvent);
   }
 
-  void setPageEvenet(SetPageEvent event, Emitter<HomeState> emit) {
-    emit(state.copyWith(pageIndex: event.pageIndex));
-  }
-
-  void setChosenValueEvent(SetChosenValueEvent event, Emitter<HomeState> emit) {
-    emit(state.copyWith(choosenValue: event.choosenValue));
-  }
-
   void onGetProjectsEvent(GetProjects event, Emitter<HomeState> emit) async {
-    final dataState = await _getProjectsUseCase(params: event.projects);
+    final dataState = await _getProjectsUseCase();
     final List<ProjectEntity>? projects = dataState.data;
-    final int pageIndex = state.pageIndex;
-    final int choosenValue = state.choosenValue;
-    final List<StatusEntity> statusList = state.status;
     (projects ?? []).sort((a, b) => (a.createdAt ?? DateTime.now())
         .compareTo(b.createdAt ?? DateTime.now()));
     if (dataState is DataSuccess) {
-      emit(
-        HomeLoaded(
-          pageIndex,
-          choosenValue,
-          (projects ?? []).length >= 5
-              ? (projects ?? []).reversed.toList().sublist(0, 5)
-              : (projects ?? []).reversed.toList(),
-          statusList,
-        ),
-      );
+      emit(HomeLoaded(projects, state.status));
     } else {
-      emit(HomeError(message: dataState.message!));
+      emit(
+        HomeError(dataState.message),
+      );
     }
   }
 
   void onGetStatusEvent(GetStatusEvent event, Emitter<HomeState> emit) async {
     final dataState = await _getStatusListUseCase();
-    final List<ProjectEntity> projects = state.projects;
-    final int pageIndex = state.pageIndex;
-    final int choosenValue = state.choosenValue;
     final List<StatusEntity> statusList = dataState.data!;
     if (dataState is DataSuccess) {
       emit(
         HomeLoaded(
-          pageIndex,
-          choosenValue,
-          projects,
+          state.projects,
           statusList,
         ),
       );
     } else {
-      emit(HomeError(message: dataState.message!));
+      emit(HomeError(dataState.message));
     }
   }
 }

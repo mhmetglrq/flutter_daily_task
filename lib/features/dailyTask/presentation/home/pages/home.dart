@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
-import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../config/items/colors.dart';
+import '../../auth/bloc/remote/remote_auth_bloc.dart';
+import '../../auth/bloc/remote/remote_auth_state.dart';
+import '../bloc/home_bloc.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -44,22 +47,26 @@ class _HomeState extends State<Home> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Hello,',
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                color: AppColors.whiteColor,
-                              ),
-                            ),
-                            Text(
-                              'Shashi',
-                              style: context.textTheme.labelLarge?.copyWith(
-                                color: AppColors.whiteColor,
-                              ),
-                            ),
-                          ],
+                        BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
+                          builder: (context, state) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Hello,',
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.whiteColor,
+                                  ),
+                                ),
+                                Text(
+                                  state.user?.name ?? "Kullanıcı adı",
+                                  style: context.textTheme.labelLarge?.copyWith(
+                                    color: AppColors.whiteColor,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
                         Builder(
                           builder: (context) {
@@ -108,85 +115,98 @@ class _HomeState extends State<Home> {
                     title: 'Categories',
                     onTap: () {},
                   ),
-                  SizedBox(
-                    height: context.dynamicHeight(0.3),
-                    child: PageView.builder(
-                      controller: PageController(viewportFraction: 0.53),
-                      padEnds: false,
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Stack(
-                          children: [
-                            SvgPicture.asset(
-                              SvgConstants.projectCategory.getSvg,
-                            ),
-                            Padding(
-                              padding: context.paddingAllDefault,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Category $index',
-                                    style:
-                                        context.textTheme.labelLarge?.copyWith(
-                                      color: AppColors.titleTextColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: context.paddingVerticalLow,
-                                    child: Text(
-                                      '12 tasks',
-                                      style: context.textTheme.bodyMedium
-                                          ?.copyWith(
-                                        color: AppColors.titleTextColor,
+                  BlocBuilder<HomeBloc, HomeState>(
+                    builder: (context, state) {
+                      BlocProvider.of<HomeBloc>(context)
+                          .add(const GetStatusEvent());
+                      return SizedBox(
+                        height: context.dynamicHeight(0.3),
+                        child: PageView.builder(
+                          controller: PageController(viewportFraction: 0.53),
+                          padEnds: false,
+                          itemCount: state.status?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            final status = state.status?[index];
+                            return Stack(
+                              children: [
+                                SvgPicture.asset(
+                                  SvgConstants.projectCategory.getSvg,
+                                ),
+                                Padding(
+                                  padding: context.paddingAllDefault,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        status?.value ?? "Category",
+                                        style: context.textTheme.labelLarge
+                                            ?.copyWith(
+                                          color: AppColors.titleTextColor,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Padding(
-                                    padding: context.paddingVerticalLow,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'More Info',
-                                          style: context.textTheme.labelLarge
+                                      Padding(
+                                        padding: context.paddingVerticalLow,
+                                        child: Text(
+                                          '12 tasks',
+                                          style: context.textTheme.bodyMedium
                                               ?.copyWith(
                                             color: AppColors.titleTextColor,
-                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        Padding(
-                                          padding: context.paddingAllLow,
-                                          child: GestureDetector(
-                                            onTap: () {},
-                                            child: Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(7),
+                                      ),
+                                      const Spacer(),
+                                      Padding(
+                                        padding: context.paddingVerticalLow,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'More Info',
+                                              style: context
+                                                  .textTheme.labelLarge
+                                                  ?.copyWith(
+                                                color: AppColors.titleTextColor,
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                              color: AppColors.containerColor,
-                                              child: Padding(
-                                                padding: context.paddingAllLow,
-                                                child: const Icon(
-                                                  Icons.arrow_forward_outlined,
+                                            ),
+                                            Padding(
+                                              padding: context.paddingAllLow,
+                                              child: GestureDetector(
+                                                onTap: () {},
+                                                child: Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            7),
+                                                  ),
+                                                  color:
+                                                      AppColors.containerColor,
+                                                  child: Padding(
+                                                    padding:
+                                                        context.paddingAllLow,
+                                                    child: const Icon(
+                                                      Icons
+                                                          .arrow_forward_outlined,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                   const TitleWithThreeDots(
                     title: "Latest Project",

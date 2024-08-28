@@ -17,7 +17,6 @@ import 'package:flutter_daily_task/features/dailyTask/domain/usecases/profile/ge
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/project/create_project_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/create_task_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/get_tasks_usecase.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/bottomNavbar/bloc/bottom_navbar_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/profile/bloc/profile_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/bloc/project_bloc.dart';
@@ -43,7 +42,6 @@ Future<void> initializeDependencies() async {
 
   // Bloc
   sl.registerFactory(() => RemoteAuthBloc(sl(), sl(), sl()));
-  sl.registerFactory(() => BottomNavbarBloc(sl()));
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ProjectBloc(sl(), sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl()));

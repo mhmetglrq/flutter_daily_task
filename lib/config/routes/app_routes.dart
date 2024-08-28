@@ -5,7 +5,6 @@ import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/project.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/project_details.dart';
 
-import '../../features/dailyTask/presentation/bottomNavbar/pages/bottom_navbar.dart';
 import '../../features/dailyTask/presentation/home/pages/home.dart';
 import '../../features/dailyTask/presentation/taskCalendar/pages/create_task.dart';
 import '../../features/dailyTask/presentation/taskCalendar/pages/task_calendar.dart';
@@ -14,10 +13,6 @@ import 'app_route_names.dart';
 class AppRoutes {
   static Route onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
-        return _materialRoute(const BottomNavbar());
-      case AppRouteNames.bottomNavbar:
-        return _materialRoute(const BottomNavbar());
       case AppRouteNames.signUp:
         return _materialRoute(const SignUp());
 
@@ -40,7 +35,7 @@ class AppRoutes {
         return _materialRoute(ProjectDetails(project: project));
 
       default:
-        return _materialRoute(const BottomNavbar());
+        return _materialRoute(const SignIn());
     }
   }
 
