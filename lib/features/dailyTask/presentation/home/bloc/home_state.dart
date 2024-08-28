@@ -1,57 +1,29 @@
 part of 'home_bloc.dart';
 
 class HomeState extends Equatable {
-  final int pageIndex;
-  final int choosenValue;
-  final List<StatusEntity> status;
-  final List<ProjectEntity> projects;
-  const HomeState(
-      {required this.pageIndex,
-      required this.choosenValue,
-      required this.projects,
-      required this.status});
+  final String? message;
+  final List<StatusEntity>? status;
+  final List<ProjectEntity>? projects;
+  const HomeState({this.projects, this.status, this.message});
 
   @override
-  List<Object> get props => [pageIndex, choosenValue, projects, status];
-
-  HomeState copyWith(
-      {int? pageIndex,
-      int? choosenValue,
-      List<ProjectEntity>? projects,
-      List<StatusEntity>? status}) {
-    return HomeState(
-        pageIndex: pageIndex ?? this.pageIndex,
-        choosenValue: choosenValue ?? this.choosenValue,
-        projects: projects ?? this.projects,
-        status: status ?? this.status);
-  }
+  List<Object?> get props => [projects, status, message];
 }
 
 class HomeInitial extends HomeState {
-  HomeInitial()
-      : super(choosenValue: 0, pageIndex: 0, projects: [], status: []);
+  const HomeInitial() : super();
 }
 
 class HomeLoading extends HomeState {
-  HomeLoading()
-      : super(choosenValue: 0, pageIndex: 0, projects: [], status: []);
+  const HomeLoading() : super();
 }
 
 class HomeLoaded extends HomeState {
-  const HomeLoaded(int pageIndex, int choosenValue,
-      List<ProjectEntity> projects, List<StatusEntity> status)
-      : super(
-            pageIndex: pageIndex,
-            choosenValue: choosenValue,
-            projects: projects,
-            status: status);
+  const HomeLoaded(List<ProjectEntity>? projects, List<StatusEntity>? status)
+      : super(projects: projects, status: status);
 }
 
 class HomeError extends HomeState {
-  final String message;
-  HomeError({required this.message})
-      : super(choosenValue: 0, pageIndex: 0, projects: [], status: []);
-
   @override
-  List<Object> get props => [message];
+  const HomeError(message) : super(message: message);
 }
