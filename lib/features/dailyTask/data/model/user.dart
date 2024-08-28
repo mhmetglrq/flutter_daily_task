@@ -13,6 +13,7 @@ class UserModel extends UserEntity {
     super.createdAt,
     super.updatedAt,
     super.tasks,
+    super.lastProject,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +35,7 @@ class UserModel extends UserEntity {
       tasks: json['tasks'] != null
           ? (json['tasks'] as List).map((e) => TaskModel.fromJson(e)).toList()
           : null,
+      lastProject: json['lastProject'],
     );
   }
 
@@ -49,6 +51,7 @@ class UserModel extends UserEntity {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       tasks: entity.tasks?.map((e) => TaskModel.fromEntity(e)).toList(),
+      lastProject: entity.lastProject,
     );
   }
 
@@ -71,6 +74,7 @@ class UserModel extends UserEntity {
       tasks: map['tasks'] != null
           ? (map['tasks'] as List).map((e) => TaskModel.fromMap(e)).toList()
           : null,
+      lastProject: map['lastProject'],
     );
   }
 
@@ -85,6 +89,7 @@ class UserModel extends UserEntity {
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
       'tasks': tasks?.map((e) => e as Map<String, dynamic>).toList(),
+      'lastProject': lastProject,
     };
   }
 }

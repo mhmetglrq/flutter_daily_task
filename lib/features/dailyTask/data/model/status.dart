@@ -4,12 +4,16 @@ class StatusModel extends StatusEntity {
   const StatusModel({
     super.uid,
     super.value,
+    super.color,
+    super.projectCount,
   });
 
   factory StatusModel.fromJson(Map<String, dynamic> json) {
     return StatusModel(
       uid: json['uid'],
       value: json['value'],
+      color: json['color'],
+      projectCount: json['projectCount'],
     );
   }
 
@@ -17,12 +21,16 @@ class StatusModel extends StatusEntity {
     return {
       'uid': uid,
       'value': value,
+      'color': color,
+      'projectCount': projectCount,
     };
   }
 
   StatusModel copyWith({
     String? uid,
     String? value,
+    String? color,
+    int? projectCount,
   }) {
     return StatusModel(
       uid: uid ?? this.uid,
@@ -30,13 +38,12 @@ class StatusModel extends StatusEntity {
     );
   }
 
-  @override
-  String toString() => 'StatusModel(uid: $uid, value: $value)';
-
   factory StatusModel.fromEntity(StatusEntity entity) {
     return StatusModel(
       uid: entity.uid,
       value: entity.value,
+      color: entity.color,
+      projectCount: entity.projectCount,
     );
   }
 
@@ -44,6 +51,8 @@ class StatusModel extends StatusEntity {
     return StatusModel(
       uid: map['uid'],
       value: map['value'],
+      color: map['color'],
+      projectCount: map['projectCount'],
     );
   }
 
@@ -51,6 +60,8 @@ class StatusModel extends StatusEntity {
     return {
       'uid': uid,
       'value': value,
+      'color': color,
+      'projectCount': projectCount,
     };
   }
 }
