@@ -16,6 +16,7 @@ class ProjectModel extends ProjectEntity {
     List<UserModel>? super.assignes,
     StatusModel? super.status,
     List<CategoryModel>? super.categories,
+    
   });
 
   factory ProjectModel.fromJson(Map<String, dynamic> json) {

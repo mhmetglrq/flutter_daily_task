@@ -102,7 +102,7 @@ class _SignInState extends State<SignIn> {
                                   if (state is RemoteAuthDone) {
                                     Navigator.pushNamed(
                                       context,
-                                      AppRouteNames.bottomNavbar,
+                                      AppRouteNames.home,
                                     );
                                   }
                                   if (state is RemoteAuthError) {
