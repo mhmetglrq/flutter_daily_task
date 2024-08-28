@@ -29,7 +29,7 @@ class StatusModel extends StatusEntity {
   StatusModel copyWith({
     String? uid,
     String? value,
-    String? color,
+    int? color,
     int? projectCount,
   }) {
     return StatusModel(
