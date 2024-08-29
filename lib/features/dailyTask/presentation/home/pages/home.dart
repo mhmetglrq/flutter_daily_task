@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
+import 'package:flutter_daily_task/config/routes/app_route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../config/items/colors.dart';
 import '../../auth/bloc/remote/remote_auth_bloc.dart';
+import '../../auth/bloc/remote/remote_auth_event.dart';
 import '../../auth/bloc/remote/remote_auth_state.dart';
 import '../bloc/home_bloc.dart';
 
@@ -21,7 +23,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: const Drawer(),
+      endDrawer: const AppDrawer(),
       body: Stack(
         children: [
           Column(
@@ -210,9 +212,11 @@ class _HomeState extends State<Home> {
                                                   child: Padding(
                                                     padding:
                                                         context.paddingAllLow,
-                                                    child: const Icon(
+                                                    child: Icon(
                                                       Icons
                                                           .arrow_forward_outlined,
+                                                      color: Color(
+                                                          status?.color ?? 0),
                                                     ),
                                                   ),
                                                 ),
@@ -276,7 +280,6 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                     const Spacer(), //TODO: Add percentage progress bar
-
                                     Padding(
                                       padding: context.paddingVerticalLow,
                                       child: MaterialButton(
@@ -413,6 +416,160 @@ class _HomeState extends State<Home> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AppDrawer extends StatelessWidget {
+  const AppDrawer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: AppColors.whiteColor,
+      child: Padding(
+        padding: context.paddingAllDefault,
+        child: Column(
+          children: [
+            DrawerHeader(
+              child: CircleAvatar(
+                radius: context.dynamicHeight(0.1),
+                backgroundColor: AppColors.blackColor,
+                child: Text(
+                  "M"[0].toUpperCase(),
+                  style: context.textTheme.headlineLarge?.copyWith(
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              "Mehmet Guler",
+              style: context.textTheme.labelLarge?.copyWith(
+                color: AppColors.blackColor,
+              ),
+            ),
+            const Divider(),
+            Padding(
+              padding: context.paddingVerticalLow,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: AppColors.blackColor,
+                  ),
+                ),
+                child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  leading: SvgPicture.asset(SvgConstants.projects.getSvg),
+                  title: Text(
+                    "Projects",
+                    style: context.textTheme.labelMedium?.copyWith(
+                      color: AppColors.blackColor,
+                    ),
+                  ),
+                  onTap: () {},
+                ),
+              ),
+            ),
+            Padding(
+              padding: context.paddingVerticalLow,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: AppColors.blackColor,
+                  ),
+                ),
+                child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  leading: SvgPicture.asset(SvgConstants.tasks.getSvg),
+                  title: Text(
+                    "Tasks",
+                    style: context.textTheme.labelMedium?.copyWith(
+                      color: AppColors.blackColor,
+                    ),
+                  ),
+                  onTap: () {},
+                ),
+              ),
+            ),
+            const Spacer(),
+            const Divider(),
+            Padding(
+              padding: context.paddingVerticalLow,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: AppColors.blackColor,
+                  ),
+                ),
+                child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  leading: SvgPicture.asset(
+                    SvgConstants.settings.getSvg,
+                  ),
+                  title: Text(
+                    "Settings",
+                    style: context.textTheme.labelMedium?.copyWith(
+                      color: AppColors.blackColor,
+                    ),
+                  ),
+                  onTap: () {},
+                ),
+              ),
+            ),
+            BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
+              builder: (context, state) {
+                return Padding(
+                  padding: context.paddingVerticalLow,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: AppColors.blackColor,
+                      ),
+                    ),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      leading: SvgPicture.asset(
+                        SvgConstants.logout.getSvg,
+                      ),
+                      title: Text(
+                        "Log Out",
+                        style: context.textTheme.labelMedium?.copyWith(
+                          color: AppColors.blackColor,
+                        ),
+                      ),
+                      onTap: () {
+                        BlocProvider.of<RemoteAuthBloc>(context)
+                            .add(RemoteSignOutEvent());
+                        if (state is RemoteAuthDone) {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, AppRouteNames.signIn, (route) => false);
+                        } else {
+                          log("Log out failed");
+                        }
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return MaterialApp(
           title: 'Daily Task',
-          theme: AppTheme.lightTheme(context),
+          theme: AppTheme.darkTheme(context),
           debugShowCheckedModeBanner: false,
           onGenerateRoute: AppRoutes.onGenerateRoutes,
           initialRoute:
