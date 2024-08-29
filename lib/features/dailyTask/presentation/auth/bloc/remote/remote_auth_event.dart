@@ -20,3 +20,7 @@ class RemoteSignUpEvent extends RemoteAuthEvent {
 class GetUserEvent extends RemoteAuthEvent {
   GetUserEvent();
 }
+
+class RemoteSignOutEvent extends RemoteAuthEvent {
+  RemoteSignOutEvent();
+}

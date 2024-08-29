@@ -26,6 +26,7 @@ import 'package:get_it/get_it.dart';
 import 'features/dailyTask/data/repository/auth_repository_impl.dart';
 import 'features/dailyTask/domain/repository/auth_repository.dart';
 import 'features/dailyTask/domain/usecases/auth/sign_in_usecase.dart';
+import 'features/dailyTask/domain/usecases/auth/sign_out_usecase.dart';
 import 'features/dailyTask/domain/usecases/auth/sign_up_usecase.dart';
 import 'features/dailyTask/presentation/auth/bloc/remote/remote_auth_bloc.dart';
 
@@ -41,7 +42,7 @@ Future<void> initializeDependencies() async {
   );
 
   // Bloc
-  sl.registerFactory(() => RemoteAuthBloc(sl(), sl(), sl()));
+  sl.registerFactory(() => RemoteAuthBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ProjectBloc(sl(), sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl()));
@@ -52,6 +53,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton(() => SignInUseCase(sl()));
   sl.registerLazySingleton(() => SignUpUseCase(sl()));
   sl.registerLazySingleton(() => GetUserUseCase(sl()));
+  sl.registerLazySingleton(() => SignOutUseCase(sl()));
   //----Task
   sl.registerLazySingleton(() => CreateTaskUseCase(sl()));
   sl.registerLazySingleton(() => GetTasksUseCase(sl()));
