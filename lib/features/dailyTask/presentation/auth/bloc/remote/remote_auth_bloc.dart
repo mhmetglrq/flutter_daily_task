@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/core/resources/data_state.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/get_user_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/sign_in_usecase.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/sign_out_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/sign_up_usecase.dart';
 
 import 'remote_auth_event.dart';
@@ -11,11 +12,14 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
   final SignInUseCase _signInUseCase;
   final SignUpUseCase _signUpUseCase;
   final GetUserUseCase _getUserUseCase;
-  RemoteAuthBloc(this._signInUseCase, this._signUpUseCase, this._getUserUseCase)
+  final SignOutUseCase _signOutUseCase;
+  RemoteAuthBloc(this._signInUseCase, this._signUpUseCase, this._getUserUseCase,
+      this._signOutUseCase)
       : super(const RemoteAuthLoading()) {
     on<RemoteSignInEvent>(onSignInEvent);
     on<RemoteSignUpEvent>(onSignUpEvent);
     on<GetUserEvent>(onGetUserEvent);
+    on<RemoteSignOutEvent>(onSignOutEvent);
   }
 
   void onSignInEvent(
@@ -68,6 +72,18 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
       emit(
         RemoteAuthError(dataState.message),
       );
+    }
+  }
+
+  void onSignOutEvent(
+      RemoteSignOutEvent event, Emitter<RemoteAuthState> emit) async {
+    final dataState = await _signOutUseCase();
+    if (dataState is DataSuccess) {
+      emit(const RemoteAuthDone(
+        userEntity: null,
+      ));
+    } else {
+      emit(RemoteAuthError(dataState.message));
     }
   }
 }
