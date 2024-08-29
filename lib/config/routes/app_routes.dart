@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/auth/pages/sign_in.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/auth/pages/sign_up.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/create_project.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/project.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/project_details.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/auth/sign_in.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/auth/sign_up.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/project/create_project.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/project/project.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/project/project_details.dart';
 
-import '../../features/dailyTask/presentation/home/pages/home.dart';
-import '../../features/dailyTask/presentation/taskCalendar/pages/create_task.dart';
-import '../../features/dailyTask/presentation/taskCalendar/pages/task_calendar.dart';
+import '../../features/dailyTask/presentation/views/home/home.dart';
+import '../../features/dailyTask/presentation/views/task/create_task.dart';
+import '../../features/dailyTask/presentation/views/task/task_calendar.dart';
 import 'app_route_names.dart';
 
 class AppRoutes {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/home/pages/home.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/profile/pages/profile.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/project/pages/project.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/taskCalendar/pages/task_calendar.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/home/home.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/profile/profile.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/project/project.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/task/task_calendar.dart';
 
 class MenuItems {
   MenuItems._();

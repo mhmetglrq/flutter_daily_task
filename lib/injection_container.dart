@@ -17,10 +17,10 @@ import 'package:flutter_daily_task/features/dailyTask/domain/usecases/profile/ge
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/project/create_project_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/create_task_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/get_tasks_usecase.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/home/bloc/home_bloc.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/profile/bloc/profile_bloc.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/project/bloc/project_bloc.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/taskCalendar/bloc/calendar_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/home/remote/remote_home_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/profile/remote/remote_profile_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/remote_project_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/task/remote/remote_task_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import 'features/dailyTask/data/repository/auth_repository_impl.dart';
@@ -28,7 +28,7 @@ import 'features/dailyTask/domain/repository/auth_repository.dart';
 import 'features/dailyTask/domain/usecases/auth/sign_in_usecase.dart';
 import 'features/dailyTask/domain/usecases/auth/sign_out_usecase.dart';
 import 'features/dailyTask/domain/usecases/auth/sign_up_usecase.dart';
-import 'features/dailyTask/presentation/auth/bloc/remote/remote_auth_bloc.dart';
+import 'features/dailyTask/presentation/bloc/auth/remote/remote_auth_bloc.dart';
 
 final sl = GetIt.instance; // Service Locator
 
@@ -43,10 +43,10 @@ Future<void> initializeDependencies() async {
 
   // Bloc
   sl.registerFactory(() => RemoteAuthBloc(sl(), sl(), sl(), sl()));
-  sl.registerFactory(() => ProfileBloc());
-  sl.registerFactory(() => ProjectBloc(sl(), sl()));
-  sl.registerFactory(() => HomeBloc(sl(), sl()));
-  sl.registerFactory(() => CalendarBloc(sl(), sl()));
+  sl.registerFactory(() => RemoteProfileBloc());
+  sl.registerFactory(() => RemoteProjectBloc(sl(), sl()));
+  sl.registerFactory(() => RemoteHomeBloc(sl(), sl()));
+  sl.registerFactory(() => RemoteCalendarBloc(sl(), sl()));
   //UseCase
 
   //----Auth
