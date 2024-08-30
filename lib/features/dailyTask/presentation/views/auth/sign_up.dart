@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
-import 'package:flutter_daily_task/config/routes/app_route_names.dart';
+import 'package:flutter_daily_task/config/routes/route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 
 import '../../../../../config/items/colors.dart';
@@ -105,7 +105,7 @@ class _SignUpState extends State<SignUp> {
                                   );
                                   if (state is RemoteAuthDone) {
                                     Navigator.pushNamedAndRemoveUntil(context,
-                                        AppRouteNames.signIn, (route) => false);
+                                        RouteNames.signIn, (route) => false);
                                   } else if (state is RemoteAuthError) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
@@ -140,8 +140,8 @@ class _SignUpState extends State<SignUp> {
                         TextRowButton(
                           text: "Do you have an account ? ",
                           buttonText: "Sign In",
-                          onTap: () => Navigator.pushNamed(
-                              context, AppRouteNames.signIn),
+                          onTap: () =>
+                              Navigator.pushNamed(context, RouteNames.signIn),
                         ),
                       ],
                     ),

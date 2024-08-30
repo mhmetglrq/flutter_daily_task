@@ -4,6 +4,7 @@ enum SvgConstants {
   menu("menu"),
   tasks("tasks"),
   logout("logout"),
+  add("add"),
   notification("notification"),
   projects("projects"),
   search("search"),

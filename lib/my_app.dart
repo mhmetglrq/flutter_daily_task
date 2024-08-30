@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_daily_task/config/routes/app_route_names.dart';
-import 'package:flutter_daily_task/config/routes/app_routes.dart';
+import 'package:flutter_daily_task/config/routes/route_names.dart';
+import 'package:flutter_daily_task/config/routes/app_router.dart';
 import 'package:flutter_daily_task/config/theme/app_theme.dart';
 
 import 'features/dailyTask/presentation/bloc/auth/remote/remote_auth_bloc.dart';
@@ -13,14 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
-      builder: (context, state) {
+      builder: (buildContext, state) {
         return MaterialApp(
           title: 'Daily Task',
-          theme: AppTheme.darkTheme(context),
+          theme: AppTheme.darkTheme(buildContext),
           debugShowCheckedModeBanner: false,
-          onGenerateRoute: AppRoutes.onGenerateRoutes,
+          onGenerateRoute: AppRouter.generateRoute,
           initialRoute:
-              state.user != null ? AppRouteNames.home : AppRouteNames.signIn,
+              state.user != null ? RouteNames.home : RouteNames.signIn,
         );
       },
     );

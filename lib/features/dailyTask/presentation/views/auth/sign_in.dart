@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
-import 'package:flutter_daily_task/config/routes/app_route_names.dart';
+import 'package:flutter_daily_task/config/routes/route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/auth/remote/remote_auth_bloc.dart';
 
@@ -102,7 +102,7 @@ class _SignInState extends State<SignIn> {
                                   if (state is RemoteAuthDone) {
                                     Navigator.pushNamed(
                                       context,
-                                      AppRouteNames.home,
+                                      RouteNames.home,
                                     );
                                   }
                                   if (state is RemoteAuthError) {
@@ -136,7 +136,7 @@ class _SignInState extends State<SignIn> {
                           buttonText: "Sign Up",
                           onTap: () => Navigator.pushNamed(
                             context,
-                            AppRouteNames.signUp,
+                            RouteNames.signUp,
                           ),
                         )
                       ],
