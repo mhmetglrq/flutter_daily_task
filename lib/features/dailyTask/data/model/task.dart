@@ -4,24 +4,15 @@ import 'user.dart';
 
 class TaskModel extends TaskEntity {
   const TaskModel({
-    String? uid,
-    String? name,
-    String? description,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    DateTime? deadline,
-    List<StatusModel>? statuses,
-    List<UserModel>? assignes,
-  }) : super(
-          uid: uid,
-          name: name,
-          description: description,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-          deadline: deadline,
-          statuses: statuses,
-          assignes: assignes,
-        );
+    super.uid,
+    super.name,
+    super.description,
+    super.createdAt,
+    super.updatedAt,
+    super.deadline,
+    List<StatusModel>? super.statuses,
+    List<UserModel>? super.assignes,
+  });
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
@@ -67,14 +58,23 @@ class TaskModel extends TaskEntity {
 
   factory TaskModel.fromMap(Map<String, dynamic> map) {
     return TaskModel(
-      uid: map['uid'],
-      name: map['name'],
-      description: map['description'],
-      createdAt: map['createdAt'],
-      updatedAt: map['updatedAt'],
-      deadline: map['deadline'],
-      statuses: map['statuses'],
-      assignes: map['assignes'],
+      uid: map["uid"],
+      name: map["name"],
+      description: map["description"],
+      createdAt:
+          map['createdAt'] != null ? DateTime.parse(map['createdAt']) : null,
+      updatedAt:
+          map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : null,
+      deadline:
+          map['deadline'] != null ? DateTime.parse(map['deadline']) : null,
+      statuses: map['statuses'] != null
+          ? (map['statuses'] as List)
+              .map((e) => StatusModel.fromMap(e))
+              .toList()
+          : null,
+      assignes: map['assignes'] != null
+          ? (map['assignes'] as List).map((e) => UserModel.fromMap(e)).toList()
+          : null,
     );
   }
 
@@ -83,9 +83,9 @@ class TaskModel extends TaskEntity {
       'uid': uid,
       'name': name,
       'description': description,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
-      'deadline': deadline,
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
+      'deadline': deadline?.toIso8601String(),
       'statuses': statuses,
       'assignes': assignes,
     };

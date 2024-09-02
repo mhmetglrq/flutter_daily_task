@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/model/project.dart';
+import 'package:flutter_daily_task/features/dailyTask/data/model/status.dart';
 
 class FirebaseHomeService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -19,5 +20,15 @@ class FirebaseHomeService {
       }
     });
     return projects;
+  }
+
+  Future<List<StatusModel>> getStatusList() async {
+    List<StatusModel> status = [];
+    await _firestore.collection("situations").get().then((value) {
+      for (var element in value.docs) {
+        status.add(StatusModel.fromJson(element.data()));
+      }
+    });
+    return status;
   }
 }

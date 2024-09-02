@@ -2,9 +2,9 @@ import '../../domain/entities/category.dart';
 
 class CategoryModel extends CategoryEntity {
   const CategoryModel({
-    String? uid,
-    String? value,
-  }) : super(uid: uid, value: value);
+    super.uid,
+    super.value,
+  });
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(
@@ -29,9 +29,6 @@ class CategoryModel extends CategoryEntity {
       value: value ?? this.value,
     );
   }
-
-  @override
-  String toString() => 'CategoryModel(uid: $uid, value: $value)';
 
   factory CategoryModel.fromEntity(CategoryEntity entity) {
     return CategoryModel(

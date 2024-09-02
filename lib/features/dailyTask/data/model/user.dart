@@ -4,26 +4,17 @@ import 'task.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
-    String? uid,
-    String? name,
-    String? surname,
-    String? email,
-    String? password,
-    List<ProjectModel>? projects,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    List<TaskModel>? tasks,
-  }) : super(
-          uid: uid,
-          name: name,
-          surname: surname,
-          email: email,
-          password: password,
-          projects: projects,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-          tasks: tasks,
-        );
+    super.uid,
+    super.name,
+    super.surname,
+    super.email,
+    super.password,
+    super.projects,
+    super.createdAt,
+    super.updatedAt,
+    super.tasks,
+    super.lastProject,
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -44,12 +35,8 @@ class UserModel extends UserEntity {
       tasks: json['tasks'] != null
           ? (json['tasks'] as List).map((e) => TaskModel.fromJson(e)).toList()
           : null,
+      lastProject: json['lastProject'],
     );
-  }
-
-  @override
-  String toString() {
-    return 'UserModel(uid: $uid, name: $name, surname: $surname, email: $email, password: $password, projects: $projects, createdAt: $createdAt, updatedAt: $updatedAt, tasks: $tasks)';
   }
 
   factory UserModel.fromEntity(UserEntity entity) {
@@ -64,6 +51,7 @@ class UserModel extends UserEntity {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       tasks: entity.tasks?.map((e) => TaskModel.fromEntity(e)).toList(),
+      lastProject: entity.lastProject,
     );
   }
 
@@ -86,6 +74,7 @@ class UserModel extends UserEntity {
       tasks: map['tasks'] != null
           ? (map['tasks'] as List).map((e) => TaskModel.fromMap(e)).toList()
           : null,
+      lastProject: map['lastProject'],
     );
   }
 
@@ -100,6 +89,7 @@ class UserModel extends UserEntity {
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
       'tasks': tasks?.map((e) => e as Map<String, dynamic>).toList(),
+      'lastProject': lastProject,
     };
   }
 }

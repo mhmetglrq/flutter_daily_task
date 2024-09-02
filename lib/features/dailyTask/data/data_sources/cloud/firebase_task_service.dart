@@ -14,4 +14,19 @@ class FirebaseTaskService {
         .doc(task.uid)
         .set(task.toMap());
   }
+
+  Future<List<TaskModel>> getTasks() async {
+    List<TaskModel> tasks = [];
+    await _firestore
+        .collection("users")
+        .doc(_auth.currentUser!.uid)
+        .collection('tasks')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        tasks.add(TaskModel.fromMap(element.data()));
+      }
+    });
+    return tasks;
+  }
 }

@@ -12,7 +12,7 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._firebaseService);
 
   @override
-  Future<DataState<User>> createUser(UserEntity user) async {
+  Future<DataState<UserModel>> createUser(UserEntity user) async {
     try {
       return DataSuccess(
         data: await _firebaseService.createUser(
@@ -49,9 +49,15 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<DataState<UserEntity>> getUser() async {
     try {
-      return DataSuccess(
-        data: await _firebaseService.getUser(),
-      );
+      final user = await _firebaseService.getUser();
+
+      if (user == null) {
+        return DataSuccess(data: null);
+      } else {
+        return DataSuccess(
+          data: UserModel.fromEntity(user),
+        );
+      }
     } catch (e) {
       return DataError(message: e.toString());
     }

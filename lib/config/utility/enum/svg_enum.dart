@@ -2,6 +2,9 @@ enum SvgConstants {
   calendar("calendar"),
   home("home"),
   menu("menu"),
+  tasks("tasks"),
+  logout("logout"),
+  add("add"),
   notification("notification"),
   projects("projects"),
   search("search"),
@@ -12,6 +15,7 @@ enum SvgConstants {
   eyeOff("eye_off"),
   signIn("sign_in"),
   signUp("sign_up"),
+  settings("settings"),
   person("person"),
   github("github"),
   medium("medium"),
@@ -19,6 +23,8 @@ enum SvgConstants {
   stackOverflow("stack_overflow"),
   web("web"),
   editProfile("edit_profile"),
+  projectCategory("project_category"),
+  latestProject("latest_project"),
   ;
 
   final String value;

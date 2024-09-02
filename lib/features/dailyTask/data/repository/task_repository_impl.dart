@@ -6,13 +6,24 @@ import 'package:flutter_daily_task/features/dailyTask/domain/repository/task_rep
 
 class TaskRepositoryImpl implements TaskRepository {
   final FirebaseTaskService _firebaseTaskService;
-
   TaskRepositoryImpl(this._firebaseTaskService);
   @override
   Future<DataState<void>> createTask(TaskEntity task) async {
     try {
       return DataSuccess(
         data: _firebaseTaskService.createTask(TaskModel.fromEntity(task)),
+      );
+    } catch (e) {
+      return DataError(message: e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<List<TaskModel>>> getTasks() async {
+    try {
+      final tasks = await _firebaseTaskService.getTasks();
+      return DataSuccess(
+        data: tasks,
       );
     } catch (e) {
       return DataError(message: e.toString());
