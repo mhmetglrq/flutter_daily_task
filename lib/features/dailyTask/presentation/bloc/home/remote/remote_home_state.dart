@@ -4,10 +4,16 @@ class RemoteHomeState extends Equatable {
   final String? message;
   final List<StatusEntity>? status;
   final List<ProjectEntity>? projects;
-  const RemoteHomeState({this.projects, this.status, this.message});
+  final bool? isDrawerOpen;
+  const RemoteHomeState({
+    this.projects,
+    this.status,
+    this.message,
+    this.isDrawerOpen = false,
+  });
 
   @override
-  List<Object?> get props => [projects, status, message];
+  List<Object?> get props => [projects, status, message, isDrawerOpen];
 }
 
 class HomeInitial extends RemoteHomeState {
@@ -19,8 +25,9 @@ class HomeLoading extends RemoteHomeState {
 }
 
 class HomeLoaded extends RemoteHomeState {
-  const HomeLoaded(List<ProjectEntity>? projects, List<StatusEntity>? status)
-      : super(projects: projects, status: status);
+  const HomeLoaded(List<ProjectEntity>? projects, List<StatusEntity>? status,
+      bool? isDrawerOpen)
+      : super(projects: projects, status: status, isDrawerOpen: isDrawerOpen);
 }
 
 class HomeError extends RemoteHomeState {

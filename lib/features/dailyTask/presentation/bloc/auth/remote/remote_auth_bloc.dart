@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_daily_task/config/routes/route_names.dart';
 import 'package:flutter_daily_task/core/resources/data_state.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/get_user_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/sign_in_usecase.dart';
@@ -15,7 +16,7 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
   final SignOutUseCase _signOutUseCase;
   RemoteAuthBloc(this._signInUseCase, this._signUpUseCase, this._getUserUseCase,
       this._signOutUseCase)
-      : super(const RemoteAuthLoading()) {
+      : super(const RemoteAuthInitial()) {
     on<RemoteSignInEvent>(onSignInEvent);
     on<RemoteSignUpEvent>(onSignUpEvent);
     on<GetUserEvent>(onGetUserEvent);
@@ -47,10 +48,11 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
       emit(
         RemoteAuthDone(
           userEntity: dataState.data,
+          initialRoute: RouteNames.home,
         ),
       );
     } else {
-      emit(RemoteAuthError(dataState.message));
+      emit(RemoteAuthError(dataState.message,));
     }
   }
 

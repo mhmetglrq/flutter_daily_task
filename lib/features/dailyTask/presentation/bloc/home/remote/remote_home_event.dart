@@ -11,3 +11,7 @@ class GetProjects extends RemoteHomeEvent {
 class GetStatusEvent extends RemoteHomeEvent {
   const GetStatusEvent();
 }
+
+class ChangeDrawerState extends RemoteHomeEvent {
+  const ChangeDrawerState();
+}

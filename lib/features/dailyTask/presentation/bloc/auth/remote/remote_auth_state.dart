@@ -4,13 +4,11 @@ import 'package:flutter_daily_task/features/dailyTask/domain/entities/user.dart'
 abstract class RemoteAuthState extends Equatable {
   final String? message;
   final UserEntity? user;
-  const RemoteAuthState({this.message, this.user});
+  final String? initialRoute;
+  const RemoteAuthState({this.message, this.user, this.initialRoute});
 
   @override
-  List<Object?> get props => [
-        message,
-        user,
-      ];
+  List<Object?> get props => [message, user, initialRoute];
 }
 
 class RemoteAuthInitial extends RemoteAuthState {
@@ -22,7 +20,7 @@ class RemoteAuthLoading extends RemoteAuthState {
 }
 
 class RemoteAuthDone extends RemoteAuthState {
-  const RemoteAuthDone({super.message, UserEntity? userEntity})
+  const RemoteAuthDone({UserEntity? userEntity, super.initialRoute})
       : super(user: userEntity);
 }
 
