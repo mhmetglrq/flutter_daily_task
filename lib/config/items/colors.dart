@@ -19,4 +19,12 @@ class AppColors {
   static const containerColor = Color(0xFF302A42);
   static const buttonColor = Color(0xFF6C5ECF);
   static const errorRedColor = Color(0xFF94545e);
+
+  //? Project Categories Colors
+  static const Color softwareDevCatColor = Color(0xFFFF9799);
+  static const Color designCatColor = Color(0xFFF1B8FF);
+  static const Color marketingCatColor = Color(0xFFE5FF7F);
+  static const Color businessCatColor = Color(0xFFB0FCFF);
+  static const Color financeCatColor = Color(0xFFFFC9B2);
+  static const Color educationCatColor = Color(0xFFB8CCFF);
 }

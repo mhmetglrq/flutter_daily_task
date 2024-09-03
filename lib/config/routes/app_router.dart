@@ -20,7 +20,7 @@ class AppRouter {
       case RouteNames.project:
         return _slideRoute(
           settings: settings,
-          view: const Project(),
+          view: const Projects(),
           duration: const Duration(milliseconds: 300),
           //Sağdan gelecek şekilde offset ver
           begin: const Offset(1, 0),
