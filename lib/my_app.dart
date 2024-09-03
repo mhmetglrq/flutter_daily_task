@@ -14,9 +14,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isLoading = true;
+
   @override
   Widget build(BuildContext context) {
-    bool isLoading = true;
     return BlocConsumer<RemoteAuthBloc, RemoteAuthState>(
       builder: (buildContext, state) {
         return isLoading

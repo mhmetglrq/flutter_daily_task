@@ -15,11 +15,6 @@ class RemoteHomeBloc extends Bloc<RemoteHomeEvent, RemoteHomeState> {
       : super(const HomeLoading()) {
     on<GetProjects>(onGetProjectsEvent);
     on<GetStatusEvent>(onGetStatusEvent);
-    on<ChangeDrawerState>((
-      event,
-      emit,
-    ) =>
-        onChangeDrawerState(event, emit));
   }
 
   void onGetProjectsEvent(
@@ -29,7 +24,7 @@ class RemoteHomeBloc extends Bloc<RemoteHomeEvent, RemoteHomeState> {
     (projects ?? []).sort((a, b) => (a.createdAt ?? DateTime.now())
         .compareTo(b.createdAt ?? DateTime.now()));
     if (dataState is DataSuccess) {
-      emit(HomeLoaded(projects, state.status, state.isDrawerOpen));
+      emit(HomeLoaded(projects, state.status, ));
     } else {
       emit(
         HomeError(dataState.message),
@@ -43,21 +38,10 @@ class RemoteHomeBloc extends Bloc<RemoteHomeEvent, RemoteHomeState> {
     final List<StatusEntity> statusList = dataState.data!;
     if (dataState is DataSuccess) {
       emit(
-        HomeLoaded(state.projects, statusList, state.isDrawerOpen),
+        HomeLoaded(state.projects, statusList),
       );
     } else {
       emit(HomeError(dataState.message));
     }
-  }
-
-  void onChangeDrawerState(
-      ChangeDrawerState event, Emitter<RemoteHomeState> emit) {
-    bool isDrawerOpen = state.isDrawerOpen ?? false;
-
-    emit(HomeLoaded(
-      state.projects,
-      state.status,
-      !isDrawerOpen,
-    ));
   }
 }

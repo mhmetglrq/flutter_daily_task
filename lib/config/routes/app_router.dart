@@ -21,7 +21,7 @@ class AppRouter {
         return _slideRoute(
           settings: settings,
           view: const Project(),
-          duration: const Duration(milliseconds: 1500),
+          duration: const Duration(milliseconds: 300),
           //Sağdan gelecek şekilde offset ver
           begin: const Offset(1, 0),
           end: Offset.zero,
