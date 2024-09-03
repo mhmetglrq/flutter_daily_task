@@ -10,6 +10,7 @@ import '../../bloc/auth/remote/remote_auth_bloc.dart';
 import '../../bloc/auth/remote/remote_auth_state.dart';
 import '../../bloc/home/remote/remote_home_bloc.dart';
 import '../../widgets/custom_drawer.dart';
+import '../../widgets/title_with_tree_dots.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -67,10 +68,13 @@ class _HomeState extends State<Home> {
                   onHorizontalDragUpdate: _handleDragUpdate,
                   onHorizontalDragEnd: _handleDragEnd,
                   onTap: () {
-                    if (!(state.isDrawerOpen ?? false)) {
-                      BlocProvider.of<RemoteHomeBloc>(context)
-                          .add(const ChangeDrawerState());
-                      initialPosition = 0;
+                    if (_isTap) {
+                      setState(() {
+                        _isTap = !_isTap;
+                        if (!_isTap) {
+                          initialPosition = 0;
+                        }
+                      });
                     }
                   },
                   child: ConstrainedBox(
@@ -139,21 +143,18 @@ class _HomeState extends State<Home> {
                                         builder: (context) {
                                           return InkWell(
                                             onTap: () {
-                                              BlocProvider.of<RemoteHomeBloc>(
-                                                      context)
-                                                  .add(
-                                                      const ChangeDrawerState());
-                                              log(state.isDrawerOpen
-                                                  .toString());
-                                              if (state.isDrawerOpen ?? false) {
-                                                initialPosition =
-                                                    MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.6;
-                                              } else {
-                                                initialPosition = 0;
-                                              }
+                                             setState(() {
+                                                _isTap = !_isTap;
+                                                if (_isTap) {
+                                                  initialPosition =
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.6;
+                                                } else {
+                                                  initialPosition = 0;
+                                                }
+                                              });
                                             },
                                             radius: 50,
                                             child: SvgPicture.asset(
@@ -281,34 +282,7 @@ class _HomeState extends State<Home> {
                                                                 .paddingAllLow,
                                                             child:
                                                                 GestureDetector(
-                                                              onTap: () {
-                                                                List<Color>
-                                                                    colors = [
-                                                                  const Color(
-                                                                      0xFFFFAA9B),
-                                                                  const Color(
-                                                                      0xFFBCC3FF),
-                                                                  const Color(
-                                                                      0xFFFFDA55),
-                                                                  const Color(
-                                                                      0xFFBAE4C6),
-                                                                  const Color(
-                                                                      0xFFFF82A9),
-                                                                  const Color(
-                                                                      0xFFFF7D55),
-                                                                  const Color(
-                                                                      0xFF3093DA),
-                                                                ];
-
-                                                                for (var element
-                                                                    in colors) {
-                                                                  int testingColor =
-                                                                      element
-                                                                          .value;
-                                                                  log(testingColor
-                                                                      .toString());
-                                                                }
-                                                              },
+                                                              onTap: () {},
                                                               child: Card(
                                                                 shape:
                                                                     RoundedRectangleBorder(
@@ -576,58 +550,6 @@ class _HomeState extends State<Home> {
                 ),
               );
             },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// class AppDrawer extends StatelessWidget {
-//   const AppDrawer({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Drawer(
-//       backgroundColor: AppColors.whiteColor,
-//       child:
-//     );
-//   }
-// }
-
-class TitleWithThreeDots extends StatelessWidget {
-  const TitleWithThreeDots({
-    super.key,
-    required this.title,
-    this.onTap,
-    this.color = AppColors.whiteColor,
-  });
-  final String title;
-  final Color? color;
-  final Function()? onTap;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: context.paddingVerticalDefault,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: context.textTheme.labelMedium?.copyWith(
-              color: color,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          InkWell(
-            radius: 50,
-            onTap: onTap,
-            child: Icon(
-              Icons.more_horiz_outlined,
-              color: color,
-            ),
           ),
         ],
       ),

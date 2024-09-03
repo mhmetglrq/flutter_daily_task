@@ -79,9 +79,6 @@ class CustomDrawer extends StatelessWidget {
                             ),
                             onTap: () {
                               Navigator.pushNamed(context, RouteNames.project);
-                              BlocProvider.of<RemoteHomeBloc>(context)
-                                  .add(const ChangeDrawerState());
-                              log(state.isDrawerOpen.toString());
                             },
                           ),
                         ),
