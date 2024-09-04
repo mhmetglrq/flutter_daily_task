@@ -21,5 +21,16 @@ class ProjectRepositoryImpl implements ProjectRepository {
     }
   }
 
-
+  @override
+  Stream<DataState<List<ProjectEntity>>> getProjects() {
+    try {
+      return _firebaseProjectService.getProjects().map((projects) {
+        return DataSuccess(
+          data: projects.map((e) => e).toList(),
+        );
+      });
+    } catch (e) {
+      return Stream.value(DataError(message: e.toString()));
+    }
+  }
 }

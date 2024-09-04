@@ -14,4 +14,15 @@ class FirebaseProjectService {
         .doc(project.uid)
         .set(project.toMap());
   }
+
+  Stream<List<ProjectModel>> getProjects() {
+    return _firestore
+        .collection("users")
+        .doc(_auth.currentUser!.uid)
+        .collection("projects")
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => ProjectModel.fromMap(doc.data()))
+            .toList());
+  }
 }
