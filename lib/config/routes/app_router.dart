@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/views/auth/sign_in.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/views/auth/sign_up.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/views/home/home.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/views/project/project.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/project/projects.dart';
 
+import '../../features/dailyTask/presentation/views/project/create_project.dart';
 import 'route_names.dart';
 
 class AppRouter {
@@ -25,6 +26,12 @@ class AppRouter {
           //Sağdan gelecek şekilde offset ver
           begin: const Offset(1, 0),
           end: Offset.zero,
+        );
+      case RouteNames.createProject:
+        return _fadeRoute(
+          settings: settings,
+          view: const CreateProject(),
+          duration: const Duration(milliseconds: 300),
         );
       default:
         return MaterialPageRoute(
