@@ -11,45 +11,47 @@ class RemoteProjectBloc extends Bloc<RemoteProjectEvents, RemoteProjectState> {
   final CreateProjectUseCase _createProjectUseCase;
   final GetProjectsUseCase _getProjectsUseCase;
   RemoteProjectBloc(this._createProjectUseCase, this._getProjectsUseCase)
-      : super(ProjectLoading(const [])) {
-    on<CreateProjectEvent>(_createProjectEvent);
+      : super(const ProjectInitial()) {
+    on<CreateProjectEvent>(onCreateProjectEvent);
     on<GetProjects>(onGetProjectsEvent);
+    on<ChooseCategory>(onChooseCategoryEvent);
   }
 
-  void _createProjectEvent(
+  //TODO :Find a way to get projects from state
+  void onCreateProjectEvent(
       CreateProjectEvent event, Emitter<RemoteProjectState> emit) async {
+    emit(const ProjectLoading());
     final params = event.project;
     final dataState = await _createProjectUseCase(params: params);
     if (dataState is DataSuccess) {
-      emit(ProjectDone(
-        const [],
-        "",
-      ));
+      emit(ProjectDone(category: state.category));
     } else {
-      emit(ProjectError(
-        const [],
-        dataState.message,
-      ));
+      emit(
+        ProjectError(dataState.message),
+      );
+    }
+  }
+
+  void onChooseCategoryEvent(
+      ChooseCategory event, Emitter<RemoteProjectState> emit) {
+    if (event.category == state.category) {
+      emit(const CategorySelected(null));
+    } else {
+      emit(CategorySelected(event.category));
     }
   }
 
   void onGetProjectsEvent(
       GetProjects event, Emitter<RemoteProjectState> emit) async {
-    final dataState = await _getProjectsUseCase(params: event.projects);
-    final List<ProjectEntity> projects = dataState.data!;
+    emit(const ProjectLoading());
+    final dataState = await _getProjectsUseCase();
+    final List<ProjectEntity> projects = dataState.data ?? [];
     if (dataState is DataSuccess) {
-      emit(ProjectDone(projects, "Project Loaded Successfully!"));
+      emit(ProjectDone(projects: projects, category: state.category));
     } else {
       emit(
-        ProjectError(const [], dataState.message!),
+        ProjectError(dataState.message),
       );
     }
-  }
-
-  void onChooseCategoriesEvent(
-      ChooseCategories event, Emitter<RemoteProjectState> emit) {
-    emit(
-      state.copyWith(categories: event.categories),
-    );
   }
 }

@@ -6,13 +6,11 @@ abstract class RemoteProjectEvents {
 
 class CreateProjectEvent extends RemoteProjectEvents {
   final ProjectEntity project;
-
   CreateProjectEvent({required this.project});
 }
 
 class GetProjects extends RemoteProjectEvents {
-  final List<ProjectEntity> projects;
-  const GetProjects({required this.projects});
+  const GetProjects();
 }
 
 class UpdateProjectEvent extends RemoteProjectEvents {
@@ -27,8 +25,7 @@ class DeleteProjectEvent extends RemoteProjectEvents {
   DeleteProjectEvent({required this.project});
 }
 
-class ChooseCategories extends RemoteProjectEvents {
-  final List<String> categories;
-
-  ChooseCategories({required this.categories});
+class ChooseCategory extends RemoteProjectEvents {
+  final String category;
+  ChooseCategory({required this.category});
 }

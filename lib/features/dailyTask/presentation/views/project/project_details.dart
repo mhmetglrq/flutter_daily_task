@@ -206,22 +206,6 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                     ),
                     const ColoredTitle(
                         color: AppColors.periwinkle, title: "Categories"),
-                    SizedBox(
-                      height: context.dynamicHeight(0.08),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: widget.project.categories!
-                              .map(
-                                (e) => ProjectStatusCard(
-                                  color: AppColors.activeColor,
-                                  name: "${e.value}",
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    ),
                     Padding(
                       padding: context.paddingVerticalDefault,
                       child: const Divider(

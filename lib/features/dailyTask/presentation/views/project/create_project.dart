@@ -1,18 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_daily_task/config/constants/project_categories.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
-import 'package:flutter_daily_task/config/theme/app_theme.dart';
-import 'package:flutter_daily_task/features/dailyTask/data/model/category.dart';
-import 'package:flutter_daily_task/features/dailyTask/data/model/status.dart';
-import 'package:flutter_daily_task/features/dailyTask/data/model/user.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/remote_project_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/remote_project_events.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
-import '../../../../../config/widget/title/colored_title.dart';
-import '../../bloc/project/remote/remote_project_bloc.dart';
-import '../../bloc/project/remote/remote_project_events.dart';
 import '../../bloc/project/remote/remote_project_state.dart';
 
 class CreateProject extends StatefulWidget {
@@ -23,427 +20,402 @@ class CreateProject extends StatefulWidget {
 }
 
 class _CreateProjectState extends State<CreateProject> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  String? _startDate;
-  String? _endDate;
-  List<CategoryModel> choosenCategories = [];
-  List<UserModel> choosenUsers = [];
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
 
   @override
   void dispose() {
-    _dateController.dispose();
-    _nameController.dispose();
-    _descriptionController.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
+    dateController.dispose();
+    timeController.dispose();
     super.dispose();
-  }
-
-  void addCategoryItem(CategoryModel item) {
-    if (choosenCategories.contains(item)) {
-      choosenCategories.remove(item);
-    } else {
-      choosenCategories.add(item);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        centerTitle: true,
-        title: Text(
-          "Create a Project",
-          style: context.textTheme.titleMedium?.copyWith(
-            color: Colors.white,
-            fontSize: context.dynamicHeight(0.025),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: context.dynamicHeight(0.35),
-            decoration: BoxDecoration(
-              color: AppColors.containerColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: context.paddingHorizontalDefault,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: context.dynamicHeight(0.12),
-                  ),
-                  Text(
-                    "Name",
-                    style: context.textTheme.titleMedium?.copyWith(
-                      color: Colors.white,
-                      fontSize: context.dynamicHeight(0.02),
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  Padding(
-                    padding: context.paddingBottomLow,
-                    child: TextFormField(
-                      controller: _nameController,
-                      style: context.textTheme.titleMedium?.copyWith(
-                        color: Colors.white,
-                        fontSize: context.dynamicHeight(0.02),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "Date",
-                    style: context.textTheme.titleMedium?.copyWith(
-                      color: Colors.white,
-                      fontSize: context.dynamicHeight(0.02),
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  Padding(
-                    padding: context.paddingBottomLow,
-                    child: TextFormField(
-                      controller: _dateController,
-                      onTap: () async {
-                        await showDatePicker(
-                          useRootNavigator: false,
-                          barrierColor: AppColors.scaffoldColor,
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(20),
-                          lastDate: DateTime(2025),
-                          currentDate: DateTime.now(),
-                          builder: (BuildContext context, Widget? child) {
-                            return Theme(
-                              data: AppTheme.lightTheme(context),
-                              child: child!,
-                            );
-                          },
-                        ).then(
-                          (value) {
-                            if (value != null) {
-                              _dateController.text =
-                                  DateFormat("dd MMMM yyyy").format(value);
-                            }
-                          },
-                        );
-                      },
-                      readOnly: true,
-                      style: context.textTheme.titleMedium?.copyWith(
-                        color: Colors.white,
-                        fontSize: context.dynamicHeight(0.02),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: context.paddingAllDefault,
+      body: Container(
+        width: context.width,
+        height: context.height,
+        color: AppColors.blackColor,
+        child: Column(
+          children: [
+            Padding(
+              padding: context.paddingAllDefault,
+              child: Container(
+                height: context.height * 0.71,
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.circular(40),
+                ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    SizedBox(height: context.dynamicHeight(0.03)),
+                    Stack(
+                      alignment: Alignment.center,
                       children: [
-                        GestureDetector(
-                          onTap: () async {
-                            await showDatePicker(
-                              useRootNavigator: false,
-                              barrierColor: AppColors.scaffoldColor,
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(20),
-                              lastDate: DateTime(2025),
-                              currentDate: DateTime.now(),
-                              builder: (BuildContext context, Widget? child) {
-                                return Theme(
-                                  data: AppTheme.lightTheme(context),
-                                  child: child!,
-                                );
-                              },
-                            ).then(
-                              (value) {
-                                if (value != null) {
-                                  setState(() {
-                                    _startDate =
-                                        DateFormat("dd.MM.y").format(value);
-                                  });
-                                }
-                              },
-                            );
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Start Time",
-                                style: context.textTheme.titleMedium?.copyWith(
-                                  color: AppColors.periwinkle,
-                                  fontSize: context.dynamicHeight(0.02),
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              Text(
-                                _startDate ?? "",
-                                style: context.textTheme.titleMedium?.copyWith(
-                                  color: AppColors.whiteColor,
-                                  fontSize: context.dynamicHeight(0.03),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Add Project",
+                            style: context.textTheme.labelLarge
+                                ?.copyWith(color: AppColors.blackColor),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () async {
-                            await showDatePicker(
-                              useRootNavigator: false,
-                              barrierColor: AppColors.scaffoldColor,
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(20),
-                              lastDate: DateTime(2025),
-                              currentDate: DateTime.now(),
-                              builder: (BuildContext context, Widget? child) {
-                                return Theme(
-                                  data: AppTheme.lightTheme(context),
-                                  child: child!,
-                                );
-                              },
-                            ).then(
-                              (value) {
-                                if (value != null) {
-                                  setState(() {
-                                    _endDate =
-                                        DateFormat("dd.MM.y").format(value);
-                                  });
-                                }
-                              },
-                            );
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "End Time",
-                                style: context.textTheme.titleMedium?.copyWith(
-                                  color: AppColors.periwinkle,
-                                  fontSize: context.dynamicHeight(0.02),
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              Text(
-                                _endDate ?? "",
-                                style: context.textTheme.titleMedium?.copyWith(
-                                  color: AppColors.whiteColor,
-                                  fontSize: context.dynamicHeight(0.03),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new,
+                              color: AppColors.blackColor,
+                            ),
                           ),
                         ),
                       ],
                     ),
                     Padding(
-                      padding: context.paddingVerticalDefault,
-                      child: const Divider(
-                        color: AppColors.whiteColor,
-                      ),
-                    ),
-                    const ColoredTitle(
-                      title: "Description",
-                      color: AppColors.periwinkle,
-                    ),
-                    TextFormField(
-                      maxLines: 5,
-                      controller: _descriptionController,
-                      style: context.textTheme.titleMedium?.copyWith(
-                        color: AppColors.periwinkle,
-                        fontSize: context.dynamicHeight(0.018),
-                        fontWeight: FontWeight.w300,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: "Write a description",
-                        hintStyle: context.textTheme.titleMedium?.copyWith(
-                          color: AppColors.periwinkle,
-                          fontSize: context.dynamicHeight(0.018),
-                          fontWeight: FontWeight.w300,
-                        ),
-                        border: InputBorder.none,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                    Padding(
-                      padding: context.paddingVerticalDefault,
-                      child: const Divider(
-                        color: AppColors.whiteColor,
-                      ),
-                    ),
-                    const ColoredTitle(
-                        color: AppColors.periwinkle, title: "Status"),
-                    SizedBox(
-                      height: context.dynamicHeight(0.08),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            const CategoryModel(uid: "1", value: "Design"),
-                            const CategoryModel(uid: "2", value: "Meeting"),
-                            const CategoryModel(uid: "3", value: "Coding"),
-                            const CategoryModel(uid: "4", value: "Testing"),
-                            const CategoryModel(uid: "5", value: "Bug Fix"),
-                            const CategoryModel(uid: "6", value: "Deployment"),
-                          ].map((e) {
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  addCategoryItem(e);
-                                });
-                              },
-                              child: Padding(
-                                padding: context.paddingRightDefault,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: choosenCategories.contains(e)
-                                        ? AppColors.activeColor
-                                        : AppColors.containerColor,
-                                  ),
-                                  child: Padding(
-                                    padding: context.paddingAllLow,
-                                    child: Text(
-                                      e.value!,
-                                      style: context.textTheme.titleMedium
-                                          ?.copyWith(
-                                        color: AppColors.whiteColor,
-                                        fontSize: context.dynamicHeight(0.018),
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                  ),
+                      padding: context.paddingAllDefault,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _title(context, "Title"),
+                          Padding(
+                            padding: context.paddingVerticalLow,
+                            child: TextFormField(
+                              controller: titleController,
+                              decoration: InputDecoration(
+                                hintText: "Enter Project Title",
+                                hintStyle:
+                                    context.textTheme.labelMedium?.copyWith(
+                                  color: AppColors.blackColor,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                            );
-                          }).toList(),
-                        ),
+                            ),
+                          ),
+                          _title(context, "Description"),
+                          Padding(
+                            padding: context.paddingVerticalLow,
+                            child: TextFormField(
+                              controller: descriptionController,
+                              maxLines: 3,
+                              decoration: InputDecoration(
+                                hintText: "Enter project details",
+                                hintStyle:
+                                    context.textTheme.labelMedium?.copyWith(
+                                  color: AppColors.blackColor,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                          ),
+                          _title(context, "Category"),
+                          BlocBuilder<RemoteProjectBloc, RemoteProjectState>(
+                            builder: (context, state) {
+                              return Padding(
+                                padding: context.paddingVerticalLow,
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                      maxHeight: context.dynamicHeight(0.078),
+                                      minHeight: context.dynamicHeight(0.05)),
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: projectCategories.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      final category = projectCategories[index];
+                                      final selectedCategory = state.category;
+                                      return GestureDetector(
+                                        onTap: () {
+                                          BlocProvider.of<RemoteProjectBloc>(
+                                                  context)
+                                              .add(
+                                            ChooseCategory(
+                                                category: category.title),
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                            right: context.dynamicWidth(0.05),
+                                            top: context.dynamicHeight(0.01),
+                                          ),
+                                          child: AnimatedContainer(
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: selectedCategory ==
+                                                      category.title
+                                                  ? category.color
+                                                  : AppColors.whiteColor,
+                                              border: Border.all(
+                                                color: selectedCategory ==
+                                                        category.title
+                                                    ? category.color
+                                                    : AppColors.blackColor,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            duration: const Duration(
+                                                milliseconds: 400),
+                                            child: Padding(
+                                              padding:
+                                                  context.paddingAllDefault,
+                                              child: Text(
+                                                category.title,
+                                                style: context
+                                                    .textTheme.bodySmall
+                                                    ?.copyWith(
+                                                        color: AppColors
+                                                            .blackColor),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _title(context, "Date"),
+                                    Padding(
+                                      padding: context.paddingVerticalLow,
+                                      child: TextFormField(
+                                        controller: dateController,
+                                        readOnly: true,
+                                        showCursor: false,
+                                        onTap: () {
+                                          showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(2000),
+                                            lastDate: DateTime(2025),
+                                          ).then((value) {
+                                            if (value != null) {
+                                              dateController.text =
+                                                  DateFormat("dd MMM yyyy")
+                                                      .format(value);
+                                            }
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          hintText: "21 Nov 2021",
+                                          hintStyle: context
+                                              .textTheme.labelMedium
+                                              ?.copyWith(
+                                            color: AppColors.blackColor,
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: context.dynamicWidth(0.05)),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _title(context, "Time"),
+                                    Padding(
+                                      padding: context.paddingVerticalLow,
+                                      child: TextFormField(
+                                        controller: timeController,
+                                        readOnly: true,
+                                        showCursor: false,
+                                        onTap: () {
+                                          showTimePicker(
+                                            context: context,
+                                            initialTime: TimeOfDay.now(),
+                                          ).then((value) {
+                                            if (value != null) {
+                                              timeController.text =
+                                                  DateFormat("HH:mm").format(
+                                                      DateTime(
+                                                          2021,
+                                                          1,
+                                                          1,
+                                                          value.hour,
+                                                          value.minute));
+                                            }
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          hintText: "11:00",
+                                          hintStyle: context
+                                              .textTheme.labelMedium
+                                              ?.copyWith(
+                                            color: AppColors.blackColor,
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: context.paddingVerticalDefault,
-                      child: const Divider(
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: context.paddingHorizontalHigh,
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Assign To",
+                      style: context.textTheme.labelLarge?.copyWith(
                         color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const ColoredTitle(
-                      color: AppColors.periwinkle,
-                      title: "Members",
-                    ),
-                    SizedBox(
-                      height: context.dynamicHeight(0.08),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
+                  ),
+                  Padding(
+                    padding: context.paddingTopDefault,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
-                            for (int i = 0; i < 1; i++)
+                            for (int i = 0; i < 4; i++)
                               Padding(
-                                padding: context.paddingRightDefault,
+                                padding: context.paddingRightLow,
                                 child: CircleAvatar(
-                                  radius: context.dynamicHeight(0.04),
                                   backgroundColor: AppColors.whiteColor,
-                                  child: Text(
-                                    "M",
-                                    style:
-                                        context.textTheme.titleMedium?.copyWith(
-                                      color: AppColors.periwinkle,
-                                      fontSize: context.dynamicHeight(0.03),
-                                      fontWeight: FontWeight.bold,
+                                  radius: 25,
+                                  child: CircleAvatar(
+                                    radius: 24,
+                                    backgroundColor: AppColors.titleTextColor,
+                                    child: Image.asset(
+                                      "assets/images/profile_0.png",
                                     ),
                                   ),
                                 ),
                               ),
                           ],
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: context.paddingVerticalDefault,
-                      child: const Divider(
-                        color: AppColors.whiteColor,
-                      ),
-                    ),
-                    BlocBuilder<RemoteProjectBloc, RemoteProjectState>(
-                      builder: (context, state) {
-                        return Padding(
-                          padding: context.paddingVerticalDefault,
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: context.dynamicHeight(0.06),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                final uid = const Uuid().v4();
-                                ProjectEntity project = ProjectEntity(
-                                  name: _nameController.text,
-                                  createdAt: DateFormat("dd MMMM yyyy")
-                                      .parse(_dateController.text),
-                                  description: _descriptionController.text,
-                                  deadline:
-                                      DateFormat("dd.MM.y").parse(_endDate!),
-                                  categories: choosenCategories,
-                                  status: const StatusModel(
-                                    uid: "1",
-                                    value: "Active",
-                                  ),
-                                  uid: uid,
-                                );
-                                context.read<RemoteProjectBloc>().add(
-                                      CreateProjectEvent(
-                                        project: project,
-                                      ),
-                                    );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.activeColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Text(
-                                "Create Project",
-                                style: context.textTheme.titleMedium?.copyWith(
-                                  color: AppColors.whiteColor,
-                                  fontSize: context.dynamicHeight(0.02),
-                                  fontWeight: FontWeight.bold,
-                                ),
+                        InkWell(
+                          onTap: () {},
+                          child: const CircleAvatar(
+                            radius: 25,
+                            backgroundColor: AppColors.yellowColor,
+                            child: CircleAvatar(
+                              backgroundColor: AppColors.blackColor,
+                              radius: 23,
+                              child: Icon(
+                                Icons.add,
+                                color: AppColors.yellowColor,
                               ),
                             ),
                           ),
-                        );
-                      },
+                        )
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+            BlocConsumer<RemoteProjectBloc, RemoteProjectState>(
+              builder: (context, state) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidth(0.08),
+                    vertical: context.dynamicHeight(0.025),
+                  ),
+                  child: MaterialButton(
+                    onPressed: () {
+                      final formattedDate =
+                          DateFormat("dd MMM yyyy").parse(dateController.text);
+                      final formattedTime =
+                          DateFormat("HH:mm").parse(timeController.text);
+                      DateTime deadline = DateTime(
+                        formattedDate.year,
+                        formattedDate.month,
+                        formattedDate.day,
+                        formattedTime.hour,
+                        formattedTime.minute,
+                      );
+                      BlocProvider.of<RemoteProjectBloc>(context).add(
+                        CreateProjectEvent(
+                          project: ProjectEntity(
+                            name: titleController.text,
+                            description: descriptionController.text,
+                            category: state.category,
+                            createdAt: DateTime.now(),
+                            deadline: deadline,
+                          ),
+                        ),
+                      );
+                    },
+                    minWidth: double.infinity,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    color: AppColors.yellowColor,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.dynamicWidth(0.05),
+                        vertical: context.dynamicHeight(0.015),
+                      ),
+                      child: state is ProjectLoading
+                          ? const CircularProgressIndicator.adaptive()
+                          : Text(
+                              "Create Project",
+                              style: context.textTheme.labelMedium
+                                  ?.copyWith(color: AppColors.titleTextColor),
+                            ),
+                    ),
+                  ),
+                );
+              },
+              listener: (BuildContext context, RemoteProjectState state) {
+                if (state is ProjectDone) {
+                  log(state.projects.toString());
+                  Navigator.pop(context);
+                }
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Text _title(BuildContext context, String title) {
+    return Text(
+      title,
+      style: context.textTheme.labelLarge?.copyWith(
+        color: AppColors.titleTextColor,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
