@@ -4,11 +4,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../config/items/colors.dart';
 import '../../../../../config/utility/enum/svg_enum.dart';
+import '../../../domain/entities/project.dart';
 
 class ProjectCard extends StatelessWidget {
   const ProjectCard({
     super.key,
+    required this.project,
   });
+  final ProjectEntity project;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class ProjectCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Creating Userflows',
+                        project.name ?? "Empty",
                         style: context.textTheme.labelLarge?.copyWith(
                           color: AppColors.yellowColor,
                           fontWeight: FontWeight.bold,
@@ -45,7 +48,7 @@ class ProjectCard extends StatelessWidget {
                       Padding(
                         padding: context.paddingVerticalLow,
                         child: Text(
-                          'Category',
+                          project.description ?? "Empty",
                           style: context.textTheme.bodyMedium?.copyWith(
                             color: AppColors.turquoiseColor,
                           ),

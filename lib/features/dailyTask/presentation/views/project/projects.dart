@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/constants/project_categories.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../config/items/colors.dart';
+import '../../../../../config/routes/route_names.dart';
 import '../../../../../config/utility/enum/svg_enum.dart';
+import '../../../domain/entities/project.dart';
+import '../../bloc/project/remote/remote_project_bloc.dart';
+import '../../bloc/project/remote/remote_project_events.dart';
+import '../../bloc/project/remote/remote_project_state.dart';
 import '../../widgets/project/project_card.dart';
 import '../../widgets/title_with_tree_dots.dart';
 
@@ -16,6 +22,13 @@ class Projects extends StatefulWidget {
 }
 
 class _ProjectsState extends State<Projects> {
+  bool isLoading = true;
+  @override
+  void initState() {
+    BlocProvider.of<RemoteProjectBloc>(context).add(const GetProjects());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +52,9 @@ class _ProjectsState extends State<Projects> {
           Padding(
             padding: context.paddingRightDefault,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RouteNames.createProject);
+              },
               child: SvgPicture.asset(
                 SvgConstants.add.getSvg,
               ),
@@ -137,13 +152,34 @@ class _ProjectsState extends State<Projects> {
                     title: "Latest Project",
                     color: AppColors.whiteColor,
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return const ProjectCard();
-                      },
-                    ),
+                  BlocConsumer<RemoteProjectBloc, RemoteProjectState>(
+                    listener: (context, state) {
+                      if (state is ProjectDone) {
+                        isLoading = false;
+                      }
+                    },
+                    builder: (context, state) {
+                      return Expanded(
+                        child: isLoading
+                            ? const Center(
+                                child: CircularProgressIndicator.adaptive(),
+                              )
+                            : ListView.builder(
+                                itemCount: state.projects?.length ?? 0,
+                                padding: EdgeInsets.zero,
+                                itemBuilder: (context, index) {
+                                  final project = state.projects?[index];
+                                  return ProjectCard(
+                                    project: project ??
+                                        const ProjectEntity(
+                                          name: 'Creating Userflows',
+                                          category: 'Category',
+                                        ),
+                                  );
+                                },
+                              ),
+                      );
+                    },
                   )
                 ],
               ),

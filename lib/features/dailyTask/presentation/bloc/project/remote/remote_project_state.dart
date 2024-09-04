@@ -1,44 +1,35 @@
-import 'package:equatable/equatable.dart';
-
 import '../../../../domain/entities/project.dart';
 
-class RemoteProjectState extends Equatable {
+class RemoteProjectState {
   final String? message;
-  final List<ProjectEntity> projects;
-  final List<String> categories;
-  const RemoteProjectState(
-      {this.message, required this.projects, required this.categories});
-  @override
-  List<Object> get props => [message!, projects, categories];
-
-  RemoteProjectState copyWith(
-      {String? message,
-      List<ProjectEntity>? projects,
-      List<String>? categories}) {
-    return RemoteProjectState(
-        message: message ?? this.message,
-        projects: projects ?? this.projects,
-        categories: categories ?? this.categories);
-  }
+  final List<ProjectEntity>? projects;
+  final String? category;
+  const RemoteProjectState({this.message, this.projects, this.category});
 }
 
 class ProjectInitial extends RemoteProjectState {
-  ProjectInitial(List<ProjectEntity> projects)
-      : super(projects: projects, message: "", categories: []);
+  const ProjectInitial() : super();
 }
 
 class ProjectLoading extends RemoteProjectState {
-  ProjectLoading(List<ProjectEntity> projects)
-      : super(projects: projects, message: "", categories: []);
+  const ProjectLoading()
+      : super(
+          message: "Loading...",
+        );
 }
 
 class ProjectDone extends RemoteProjectState {
-  ProjectDone(List<ProjectEntity> projects, String? message)
-      : super(projects: projects, message: message, categories: []);
+  const ProjectDone({super.projects, super.category});
 }
 
 class ProjectError extends RemoteProjectState {
   @override
-  ProjectError(List<ProjectEntity> projects, String? message)
-      : super(message: message, projects: projects, categories: []);
+  const ProjectError(String? message) : super(message: message);
+}
+
+class CategorySelected extends RemoteProjectState {
+  const CategorySelected(String? category)
+      : super(
+          category: category,
+        );
 }
