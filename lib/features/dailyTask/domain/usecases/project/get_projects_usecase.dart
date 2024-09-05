@@ -4,7 +4,8 @@ import '../../../../../core/resources/data_state.dart';
 import '../../entities/project.dart';
 import '../../repository/project_repository.dart';
 
-class GetProjectsUsecase implements UseCaseStream<void, List<ProjectEntity>> {
+class GetProjectsUsecase
+    implements UseCaseStream<DataState<List<ProjectEntity>>, void> {
   final ProjectRepository _projectRepository;
 
   GetProjectsUsecase(this._projectRepository);
