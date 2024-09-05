@@ -33,3 +33,7 @@ class CategorySelected extends RemoteProjectState {
           category: category,
         );
 }
+
+class ProjectCreated extends RemoteProjectState {
+  const ProjectCreated() : super();
+}
