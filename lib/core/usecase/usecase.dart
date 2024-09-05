@@ -3,5 +3,5 @@ abstract class UseCase<Type, Params> {
 }
 
 abstract class UseCaseStream<Type, Params> {
-  Stream<Type> call({Params params});
+  Stream<Type> call({Params? params});
 }
