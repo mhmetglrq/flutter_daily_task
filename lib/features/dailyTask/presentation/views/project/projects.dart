@@ -22,7 +22,6 @@ class Projects extends StatefulWidget {
 }
 
 class _ProjectsState extends State<Projects> {
-  bool isLoading = true;
   @override
   void initState() {
     BlocProvider.of<RemoteProjectBloc>(context).add(const GetProjects());
@@ -152,15 +151,10 @@ class _ProjectsState extends State<Projects> {
                     title: "Latest Project",
                     color: AppColors.whiteColor,
                   ),
-                  BlocConsumer<RemoteProjectBloc, RemoteProjectState>(
-                    listener: (context, state) {
-                      if (state is ProjectDone) {
-                        isLoading = false;
-                      }
-                    },
+                  BlocBuilder<RemoteProjectBloc, RemoteProjectState>(
                     builder: (context, state) {
                       return Expanded(
-                        child: isLoading
+                        child: state is ProjectLoading
                             ? const Center(
                                 child: CircularProgressIndicator.adaptive(),
                               )

@@ -15,6 +15,7 @@ import 'package:flutter_daily_task/features/dailyTask/domain/usecases/home/get_p
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/home/get_status_list_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/profile/get_profile_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/project/create_project_usecase.dart';
+import 'package:flutter_daily_task/features/dailyTask/domain/usecases/project/get_projects_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/create_task_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/get_tasks_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/home/remote/remote_home_bloc.dart';
@@ -61,6 +62,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton(() => GetProfileUseCase(sl()));
   //----Project
   sl.registerLazySingleton(() => CreateProjectUseCase(sl()));
+  sl.registerLazySingleton(() => GetProjectsUsecase(sl()));
   //?----Home
   sl.registerLazySingleton(() => GetProjectsUseCase(sl()));
   sl.registerLazySingleton(() => GetStatusListUseCase(sl()));

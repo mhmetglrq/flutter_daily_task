@@ -20,6 +20,7 @@ class FirebaseProjectService {
         .collection("users")
         .doc(_auth.currentUser!.uid)
         .collection("projects")
+        .orderBy("createdAt", descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs
             .map((doc) => ProjectModel.fromMap(doc.data()))

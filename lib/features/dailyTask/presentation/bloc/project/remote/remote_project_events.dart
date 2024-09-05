@@ -6,7 +6,9 @@ abstract class RemoteProjectEvents {
 
 class CreateProjectEvent extends RemoteProjectEvents {
   final ProjectEntity project;
-  CreateProjectEvent({required this.project});
+  CreateProjectEvent({
+    required this.project,
+  });
 }
 
 class GetProjects extends RemoteProjectEvents {

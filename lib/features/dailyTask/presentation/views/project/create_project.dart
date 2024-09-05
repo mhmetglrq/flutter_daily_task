@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/constants/project_categories.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/remote_project_events.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../config/utility/utils/utils.dart';
 import '../../bloc/project/remote/remote_project_state.dart';
 
 class CreateProject extends StatefulWidget {
@@ -346,6 +348,7 @@ class _CreateProjectState extends State<CreateProject> {
             ),
             BlocConsumer<RemoteProjectBloc, RemoteProjectState>(
               builder: (context, state) {
+                log(state.projects.toString());
                 return Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: context.dynamicWidth(0.08),
@@ -398,8 +401,14 @@ class _CreateProjectState extends State<CreateProject> {
                 );
               },
               listener: (BuildContext context, RemoteProjectState state) {
-                if (state is ProjectDone) {
-                  log(state.projects.toString());
+                if (state is ProjectCreated) {
+                  Utils.showSnackBar(
+                    context: context,
+                    title: "Success!",
+                    message: "Project created successfully.",
+                    contentType: ContentType.success,
+                  );
+
                   Navigator.pop(context);
                 }
               },
