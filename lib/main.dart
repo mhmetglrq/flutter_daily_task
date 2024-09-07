@@ -5,7 +5,7 @@ import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/auth/rem
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/auth/remote/remote_auth_state.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/home/remote/remote_home_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/profile/remote/remote_profile_bloc.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/remote_project_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/project_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/task/remote/remote_task_bloc.dart';
 import 'package:flutter_daily_task/my_app.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,8 +30,8 @@ Future<void> main() async {
         BlocProvider<RemoteProfileBloc>(
           create: (context) => sl<RemoteProfileBloc>(),
         ),
-        BlocProvider<RemoteProjectBloc>(
-          create: (context) => sl<RemoteProjectBloc>(),
+        BlocProvider<ProjectBloc>(
+          create: (context) => sl<ProjectBloc>(),
         ),
         BlocProvider<RemoteCalendarBloc>(
           create: (context) => sl<RemoteCalendarBloc>(),
