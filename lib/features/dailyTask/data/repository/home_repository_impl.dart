@@ -4,6 +4,8 @@ import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.da
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/status.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/repository/home_repository.dart';
 
+import '../model/status.dart';
+
 class HomeRepositoryImpl implements HomeRepository {
   final FirebaseHomeService _firebaseHomeService;
   HomeRepositoryImpl(this._firebaseHomeService);
@@ -19,7 +21,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<DataState<List<StatusEntity>>> getStatusList() async {
+  Future<DataState<List<StatusModel>>> getStatusList() async {
     try {
       final status = await _firebaseHomeService.getStatusList();
       return DataSuccess(data: status);
