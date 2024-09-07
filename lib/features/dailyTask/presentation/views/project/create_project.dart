@@ -7,12 +7,12 @@ import 'package:flutter_daily_task/config/constants/project_categories.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/colors.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/remote_project_bloc.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/remote_project_events.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/project_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/project_events.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../config/utility/utils/utils.dart';
-import '../../bloc/project/remote/remote_project_state.dart';
+import '../../bloc/project/remote/project_state.dart';
 
 class CreateProject extends StatefulWidget {
   const CreateProject({super.key});
@@ -120,7 +120,7 @@ class _CreateProjectState extends State<CreateProject> {
                             ),
                           ),
                           _title(context, "Category"),
-                          BlocBuilder<RemoteProjectBloc, RemoteProjectState>(
+                          BlocBuilder<ProjectBloc, ProjectState>(
                             builder: (context, state) {
                               return Padding(
                                 padding: context.paddingVerticalLow,
@@ -137,8 +137,7 @@ class _CreateProjectState extends State<CreateProject> {
                                       final selectedCategory = state.category;
                                       return GestureDetector(
                                         onTap: () {
-                                          BlocProvider.of<RemoteProjectBloc>(
-                                                  context)
+                                          BlocProvider.of<ProjectBloc>(context)
                                               .add(
                                             ChooseCategory(
                                                 category: category.title),
@@ -346,7 +345,7 @@ class _CreateProjectState extends State<CreateProject> {
                 ],
               ),
             ),
-            BlocConsumer<RemoteProjectBloc, RemoteProjectState>(
+            BlocConsumer<ProjectBloc, ProjectState>(
               builder: (context, state) {
                 log(state.projects.toString());
                 return Padding(
@@ -367,7 +366,7 @@ class _CreateProjectState extends State<CreateProject> {
                         formattedTime.hour,
                         formattedTime.minute,
                       );
-                      BlocProvider.of<RemoteProjectBloc>(context).add(
+                      BlocProvider.of<ProjectBloc>(context).add(
                         CreateProjectEvent(
                           project: ProjectEntity(
                             name: titleController.text,
@@ -400,7 +399,7 @@ class _CreateProjectState extends State<CreateProject> {
                   ),
                 );
               },
-              listener: (BuildContext context, RemoteProjectState state) {
+              listener: (BuildContext context, ProjectState state) {
                 if (state is ProjectCreated) {
                   Utils.showSnackBar(
                     context: context,

@@ -20,7 +20,7 @@ import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/creat
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/task/get_tasks_usecase.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/home/remote/remote_home_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/profile/remote/remote_profile_bloc.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/remote_project_bloc.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/project_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/task/remote/remote_task_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -45,7 +45,7 @@ Future<void> initializeDependencies() async {
   // Bloc
   sl.registerFactory(() => RemoteAuthBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => RemoteProfileBloc());
-  sl.registerFactory(() => RemoteProjectBloc(sl(), sl()));
+  sl.registerFactory(() => ProjectBloc(sl(), sl()));
   sl.registerFactory(() => RemoteHomeBloc(sl(), sl()));
   sl.registerFactory(() => RemoteCalendarBloc(sl(), sl()));
   //UseCase

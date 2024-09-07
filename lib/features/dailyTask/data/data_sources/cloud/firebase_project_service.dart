@@ -15,12 +15,13 @@ class FirebaseProjectService {
         .set(project.toMap());
   }
 
-  Stream<List<ProjectModel>> getProjects() {
+  Stream<List<ProjectModel>> getProjects(String category) {
     return _firestore
         .collection("users")
         .doc(_auth.currentUser!.uid)
         .collection("projects")
         .orderBy("createdAt", descending: true)
+        .where("category", isEqualTo: category)
         .snapshots()
         .map((snapshot) => snapshot.docs
             .map((doc) => ProjectModel.fromMap(doc.data()))

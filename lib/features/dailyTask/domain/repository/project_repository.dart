@@ -3,5 +3,5 @@ import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.da
 
 abstract class ProjectRepository {
   Future<DataState<void>> createProject(ProjectEntity project);
-  Stream<DataState<List<ProjectEntity>>> getProjects();
+  Stream<List<ProjectEntity>> getProjects({String? category});
 }
