@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
-import 'package:flutter_daily_task/config/items/colors.dart';
+import 'package:flutter_daily_task/config/items/app_colors.dart';
 import 'package:flutter_daily_task/config/theme/app_theme.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/model/category.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/model/user.dart';

@@ -6,7 +6,7 @@ import 'package:flutter_daily_task/config/constants/project_categories.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../config/items/colors.dart';
+import '../../../../../config/items/app_colors.dart';
 import '../../../../../config/routes/route_names.dart';
 import '../../../../../config/utility/enum/svg_enum.dart';
 import '../../../domain/entities/project.dart';
