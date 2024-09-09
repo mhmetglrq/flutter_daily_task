@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 
-import '../../../../../config/items/colors.dart';
+import '../../../../../config/items/app_colors.dart';
 
 class EmailField extends StatelessWidget {
   const EmailField({

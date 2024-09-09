@@ -21,7 +21,7 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
 
   void onCreateProjectEvent(
       CreateProjectEvent event, Emitter<ProjectState> emit) async {
-    emit(const ProjectLoading());
+    emit(const ProjectCreating());
     final params = event.project;
     final dataState = await _createProjectUseCase(params: params);
     if (dataState is DataSuccess) {

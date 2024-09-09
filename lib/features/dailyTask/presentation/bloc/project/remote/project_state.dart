@@ -12,10 +12,7 @@ class ProjectInitial extends ProjectState {
 }
 
 class ProjectLoading extends ProjectState {
-  const ProjectLoading()
-      : super(
-          message: "Loading...",
-        );
+  const ProjectLoading() : super(message: "Loading...");
 }
 
 class ProjectDone extends ProjectState {
@@ -28,13 +25,13 @@ class ProjectError extends ProjectState {
 }
 
 class CategorySelected extends ProjectState {
-  const CategorySelected(
-    String? category,
-  ) : super(
-          category: category,
-        );
+  const CategorySelected(String? category) : super(category: category);
 }
 
 class ProjectCreated extends ProjectState {
   const ProjectCreated() : super();
+}
+
+class ProjectCreating extends ProjectState {
+  const ProjectCreating() : super(message: "Creating Project...");
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/views/auth/sign_in.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/views/auth/sign_up.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/views/home/home.dart';
+import 'package:flutter_daily_task/features/dailyTask/presentation/views/project/project_details.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/views/project/projects.dart';
 
 import '../../features/dailyTask/presentation/views/project/create_project.dart';
@@ -18,7 +19,7 @@ class AppRouter {
         return _materialRoute(const SignIn());
       case RouteNames.home:
         return _materialRoute(const Home());
-      case RouteNames.project:
+      case RouteNames.projects:
         return _slideRoute(
           settings: settings,
           view: const Projects(),
@@ -31,6 +32,16 @@ class AppRouter {
         return _fadeRoute(
           settings: settings,
           view: const CreateProject(),
+          duration: const Duration(milliseconds: 300),
+        );
+      case RouteNames.projectDetail:
+        final args = settings.arguments as Map<String, dynamic>;
+        final project = args['project'];
+        return _fadeRoute(
+          settings: settings,
+          view: ProjectDetail(
+            project: project,
+          ),
           duration: const Duration(milliseconds: 300),
         );
       default:
