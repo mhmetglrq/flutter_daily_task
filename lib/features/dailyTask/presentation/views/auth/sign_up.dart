@@ -4,7 +4,7 @@ import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/routes/route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 
-import '../../../../../config/items/colors.dart';
+import '../../../../../config/items/app_colors.dart';
 import '../../../domain/entities/user.dart';
 import '../../bloc/auth/remote/remote_auth_bloc.dart';
 import '../../bloc/auth/remote/remote_auth_event.dart';
@@ -88,7 +88,6 @@ class _SignUpState extends State<SignUp> {
                             });
                           },
                         ),
-                        //TODO: Old page state working with new bloc state!!!
                         BlocBuilder<RemoteAuthBloc, RemoteAuthState>(
                           builder: (context, state) {
                             return PurpleButton(

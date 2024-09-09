@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
-import 'package:flutter_daily_task/config/items/colors.dart';
+import 'package:flutter_daily_task/config/items/app_colors.dart';
 
 class ProjectStatusCard extends StatelessWidget {
   const ProjectStatusCard({super.key, required this.color, required this.name});

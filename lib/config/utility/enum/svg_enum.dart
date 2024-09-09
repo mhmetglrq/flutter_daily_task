@@ -1,5 +1,6 @@
 enum SvgConstants {
   calendar("calendar"),
+  clock("clock"),
   home("home"),
   menu("menu"),
   tasks("tasks"),

@@ -27,4 +27,12 @@ class AppColors {
   static const Color businessCatColor = Color(0xFFB0FCFF);
   static const Color financeCatColor = Color(0xFFFFC9B2);
   static const Color educationCatColor = Color(0xFFB8CCFF);
+
+  //? Task Categories Colors
+  static const Color codingTaskColor = Color(0xFFBCC3FF);
+  static const Color bugFixTaskColor = Color(0xFFFFAA9B);
+  static const Color designTaskColor = Color(0xFFFF7D55);
+  static const Color testingTaskColor = Color(0xFFBAE4C6);
+  static const Color meetingTaskColor = Color(0xFFFF82A9);
+  static const Color deploymentTaskColor = Color(0xFFFFDA55);
 }

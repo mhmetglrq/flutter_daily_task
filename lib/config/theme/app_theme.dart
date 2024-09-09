@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 
-import '../items/colors.dart';
+import '../items/app_colors.dart';
 
 class AppTheme {
   static ThemeData lightTheme(BuildContext context) => ThemeData(

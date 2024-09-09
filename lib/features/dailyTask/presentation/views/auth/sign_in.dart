@@ -5,7 +5,7 @@ import 'package:flutter_daily_task/config/routes/route_names.dart';
 import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/auth/remote/remote_auth_bloc.dart';
 
-import '../../../../../config/items/colors.dart';
+import '../../../../../config/items/app_colors.dart';
 import '../../bloc/auth/remote/remote_auth_event.dart';
 import '../../bloc/auth/remote/remote_auth_state.dart';
 import '../../widgets/auth/email_field.dart';
