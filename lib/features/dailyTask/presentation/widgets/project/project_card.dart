@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../config/items/colors.dart';
+import '../../../../../config/items/app_colors.dart';
+import '../../../../../config/routes/route_names.dart';
 import '../../../../../config/utility/enum/svg_enum.dart';
 import '../../../domain/entities/project.dart';
 
@@ -58,7 +59,15 @@ class ProjectCard extends StatelessWidget {
                       Padding(
                         padding: context.paddingVerticalLow,
                         child: MaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              RouteNames.projectDetail,
+                              arguments: {
+                                "project": project,
+                              },
+                            );
+                          },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
