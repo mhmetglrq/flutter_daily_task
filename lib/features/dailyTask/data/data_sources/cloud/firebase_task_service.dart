@@ -12,7 +12,9 @@ class FirebaseTaskService {
         .doc(_auth.currentUser!.uid)
         .collection('tasks')
         .doc(task.uid)
-        .set(task.toMap());
+        .set(
+          task.toJson(),
+        );
   }
 
   Future<List<TaskModel>> getTasks() async {
@@ -22,11 +24,17 @@ class FirebaseTaskService {
         .doc(_auth.currentUser!.uid)
         .collection('tasks')
         .get()
-        .then((value) {
-      for (var element in value.docs) {
-        tasks.add(TaskModel.fromMap(element.data()));
-      }
-    });
+        .then(
+      (value) {
+        for (var element in value.docs) {
+          tasks.add(
+            TaskModel.fromJson(
+              element.data(),
+            ),
+          );
+        }
+      },
+    );
     return tasks;
   }
 }
