@@ -13,9 +13,10 @@ class UserModel extends UserEntity {
     super.createdAt,
     super.updatedAt,
     super.tasks,
-    super.lastProject,
+    super.lastProjectId,
   });
 
+  // JSON'dan UserModel'e dönüştürme
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       uid: json['uid'],
@@ -35,10 +36,11 @@ class UserModel extends UserEntity {
       tasks: json['tasks'] != null
           ? (json['tasks'] as List).map((e) => TaskModel.fromJson(e)).toList()
           : null,
-      lastProject: json['lastProject'],
+      lastProjectId: json['lastProjectId'],
     );
   }
 
+  // Entity'den UserModel'e dönüştürme
   factory UserModel.fromEntity(UserEntity entity) {
     return UserModel(
       uid: entity.uid,
@@ -51,45 +53,23 @@ class UserModel extends UserEntity {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       tasks: entity.tasks?.map((e) => TaskModel.fromEntity(e)).toList(),
-      lastProject: entity.lastProject,
+      lastProjectId: entity.lastProjectId,
     );
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      uid: map['uid'],
-      name: map['name'],
-      surname: map['surname'],
-      email: map['email'],
-      password: map['password'],
-      projects: map['projects'] != null
-          ? (map['projects'] as List)
-              .map((e) => ProjectModel.fromMap(e))
-              .toList()
-          : null,
-      createdAt:
-          map['createdAt'] != null ? DateTime.parse(map['createdAt']) : null,
-      updatedAt:
-          map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : null,
-      tasks: map['tasks'] != null
-          ? (map['tasks'] as List).map((e) => TaskModel.fromMap(e)).toList()
-          : null,
-      lastProject: map['lastProject'],
-    );
-  }
-
-  Map<String, dynamic> toMap() {
+  // UserModel'den JSON'a dönüştürme
+  Map<String, dynamic> toJson() {
     return {
       'uid': uid,
       'name': name,
       'surname': surname,
       'email': email,
       'password': password,
-      'projects': projects?.map((e) => e as Map<String, dynamic>).toList(),
+      'projects': projects?.map((e) => ProjectModel.fromEntity(e).toJson()).toList(),
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
-      'tasks': tasks?.map((e) => e as Map<String, dynamic>).toList(),
-      'lastProject': lastProject,
+      'tasks': tasks?.map((e) => TaskModel.fromEntity(e).toJson()).toList(),
+      'lastProjectId': lastProjectId,
     };
   }
 }

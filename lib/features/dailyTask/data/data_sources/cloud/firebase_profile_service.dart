@@ -20,7 +20,7 @@ class FirebaseProfileService {
         .doc(_auth.currentUser!.uid)
         .get()
         .then(
-          (value) => UserModel.fromMap(value.data() as Map<String, dynamic>),
+          (value) => UserModel.fromJson(value.data() as Map<String, dynamic>),
         );
   }
 

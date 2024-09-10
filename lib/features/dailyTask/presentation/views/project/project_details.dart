@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_daily_task/config/constants/task_categories.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/app_colors.dart';
-import 'package:flutter_daily_task/config/utility/enum/image_enums.dart';
 import 'package:flutter_daily_task/config/utility/enum/svg_enum.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
-import 'package:flutter_daily_task/features/dailyTask/presentation/widgets/title_with_tree_dots.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 

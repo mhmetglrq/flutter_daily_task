@@ -29,6 +29,7 @@ import 'features/dailyTask/domain/repository/auth_repository.dart';
 import 'features/dailyTask/domain/usecases/auth/sign_in_usecase.dart';
 import 'features/dailyTask/domain/usecases/auth/sign_out_usecase.dart';
 import 'features/dailyTask/domain/usecases/auth/sign_up_usecase.dart';
+import 'features/dailyTask/domain/usecases/project/get_members_usecase.dart';
 import 'features/dailyTask/presentation/bloc/auth/remote/remote_auth_bloc.dart';
 
 final sl = GetIt.instance; // Service Locator
@@ -45,7 +46,7 @@ Future<void> initializeDependencies() async {
   // Bloc
   sl.registerFactory(() => RemoteAuthBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => RemoteProfileBloc());
-  sl.registerFactory(() => ProjectBloc(sl(), sl()));
+  sl.registerFactory(() => ProjectBloc(sl(), sl(), sl()));
   sl.registerFactory(() => RemoteHomeBloc(sl(), sl()));
   sl.registerFactory(() => RemoteCalendarBloc(sl(), sl()));
   //UseCase
@@ -63,6 +64,7 @@ Future<void> initializeDependencies() async {
   //----Project
   sl.registerLazySingleton(() => CreateProjectUseCase(sl()));
   sl.registerLazySingleton(() => GetProjectsUsecase(sl()));
+  sl.registerLazySingleton(() => GetMembersUseCase(sl()));
   //?----Home
   sl.registerLazySingleton(() => GetProjectsUseCase(sl()));
   sl.registerLazySingleton(() => GetStatusListUseCase(sl()));

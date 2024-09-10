@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_daily_task/features/dailyTask/data/model/user.dart';
@@ -32,9 +30,8 @@ class FirebaseAuthService {
       tasks: const [],
       password: user.password,
     );
-    log(userModel.toString());
     await firestore.collection('users').doc(userModel.uid).set(
-          userModel.toMap(),
+          userModel.toJson(),
         );
     return userModel;
   }
@@ -46,7 +43,7 @@ class FirebaseAuthService {
         .get()
         .then((value) {
       if (value.exists) {
-        return UserModel.fromMap(value.data()!);
+        return UserModel.fromJson(value.data() as Map<String, dynamic>);
       } else {
         return null;
       }

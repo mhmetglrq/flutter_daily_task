@@ -31,3 +31,18 @@ class ChooseCategory extends ProjectEvents {
   final String category;
   ChooseCategory({required this.category});
 }
+
+class FetchTasks extends ProjectEvents {
+  final String projectId;
+  FetchTasks({required this.projectId});
+}
+
+class CreateTask extends ProjectEvents {
+  final String projectId;
+  final String taskName;
+  CreateTask({required this.projectId, required this.taskName});
+}
+
+class FetchMembers extends ProjectEvents {
+  const FetchMembers();
+}

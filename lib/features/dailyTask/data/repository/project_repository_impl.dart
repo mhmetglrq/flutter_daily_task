@@ -4,6 +4,8 @@ import 'package:flutter_daily_task/features/dailyTask/data/model/project.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/repository/project_repository.dart';
 
+import '../../domain/entities/member.dart';
+
 class ProjectRepositoryImpl implements ProjectRepository {
   final FirebaseProjectService _firebaseProjectService;
   ProjectRepositoryImpl(this._firebaseProjectService);
@@ -29,6 +31,15 @@ class ProjectRepositoryImpl implements ProjectRepository {
           );
     } catch (e) {
       return Stream.value([]);
+    }
+  }
+
+  @override
+  Future<DataState<List<MemberEntity>>> getMembers() async {
+    try {
+      return DataSuccess(data: await _firebaseProjectService.getMembers());
+    } catch (e) {
+      return DataError(message: e.toString());
     }
   }
 }

@@ -1,5 +1,4 @@
 import '../../domain/entities/task.dart';
-import 'status.dart';
 import 'user.dart';
 
 class TaskModel extends TaskEntity {
@@ -10,7 +9,6 @@ class TaskModel extends TaskEntity {
     super.createdAt,
     super.updatedAt,
     super.deadline,
-    List<StatusModel>? super.statuses,
     List<UserModel>? super.assignes,
   });
 
@@ -25,22 +23,12 @@ class TaskModel extends TaskEntity {
           json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
       deadline:
           json['deadline'] != null ? DateTime.parse(json['deadline']) : null,
-      statuses: json['statuses'] != null
-          ? (json['statuses'] as List)
-              .map((e) => StatusModel.fromJson(e))
-              .toList()
-          : null,
       assignes: json['assignes'] != null
           ? (json['assignes'] as List)
               .map((e) => UserModel.fromJson(e))
               .toList()
           : null,
     );
-  }
-
-  @override
-  String toString() {
-    return 'TaskModel(uid: $uid, name: $name, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, deadline: $deadline, statuses: $statuses, assignes: $assignes)';
   }
 
   factory TaskModel.fromEntity(TaskEntity entity) {
@@ -51,34 +39,11 @@ class TaskModel extends TaskEntity {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       deadline: entity.deadline,
-      statuses: entity.statuses?.map((e) => StatusModel.fromEntity(e)).toList(),
       assignes: entity.assignes?.map((e) => UserModel.fromEntity(e)).toList(),
     );
   }
 
-  factory TaskModel.fromMap(Map<String, dynamic> map) {
-    return TaskModel(
-      uid: map["uid"],
-      name: map["name"],
-      description: map["description"],
-      createdAt:
-          map['createdAt'] != null ? DateTime.parse(map['createdAt']) : null,
-      updatedAt:
-          map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : null,
-      deadline:
-          map['deadline'] != null ? DateTime.parse(map['deadline']) : null,
-      statuses: map['statuses'] != null
-          ? (map['statuses'] as List)
-              .map((e) => StatusModel.fromMap(e))
-              .toList()
-          : null,
-      assignes: map['assignes'] != null
-          ? (map['assignes'] as List).map((e) => UserModel.fromMap(e)).toList()
-          : null,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'uid': uid,
       'name': name,
@@ -86,8 +51,8 @@ class TaskModel extends TaskEntity {
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
       'deadline': deadline?.toIso8601String(),
-      'statuses': statuses,
-      'assignes': assignes,
+      'assignes':
+          assignes?.map((e) => UserModel.fromEntity(e).toJson()).toList(),
     };
   }
 }
