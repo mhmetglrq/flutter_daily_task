@@ -24,4 +24,5 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return DataError(message: e.toString());
     }
   }
+
 }
