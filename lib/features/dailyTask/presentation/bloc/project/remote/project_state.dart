@@ -1,10 +1,13 @@
+import '../../../../domain/entities/member.dart';
 import '../../../../domain/entities/project.dart';
 
 class ProjectState {
   final String? message;
   final List<ProjectEntity>? projects;
   final String? category;
-  const ProjectState({this.message, this.projects, this.category});
+  final List<MemberEntity>? members;
+  const ProjectState(
+      {this.message, this.projects, this.category, this.members});
 }
 
 class ProjectInitial extends ProjectState {
@@ -25,7 +28,8 @@ class ProjectError extends ProjectState {
 }
 
 class CategorySelected extends ProjectState {
-  const CategorySelected(String? category) : super(category: category);
+  const CategorySelected(String? category, {super.projects, super.members})
+      : super(category: category);
 }
 
 class ProjectCreated extends ProjectState {
@@ -34,4 +38,12 @@ class ProjectCreated extends ProjectState {
 
 class ProjectCreating extends ProjectState {
   const ProjectCreating() : super(message: "Creating Project...");
+}
+
+class MembersLoading extends ProjectState {
+  const MembersLoading() : super(message: "Loading Members...");
+}
+
+class MembersDone extends ProjectState {
+  const MembersDone({super.members, super.projects, super.category});
 }

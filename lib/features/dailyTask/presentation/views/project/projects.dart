@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/constants/project_categories.dart';
@@ -176,7 +174,6 @@ class _ProjectsState extends State<Projects> {
                   ),
                   BlocBuilder<ProjectBloc, ProjectState>(
                     builder: (context, state) {
-                      log('Projects: ${state.message}');
                       return Expanded(
                         child: state is ProjectLoading
                             ? const Center(

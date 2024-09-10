@@ -8,6 +8,7 @@ import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.da
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/project_bloc.dart';
 import 'package:flutter_daily_task/features/dailyTask/presentation/bloc/project/remote/project_events.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../config/utility/utils/utils.dart';
 import '../../bloc/project/remote/project_state.dart';
@@ -26,12 +27,14 @@ class _CreateProjectState extends State<CreateProject> {
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  List<String>? assigness = [];
 
   @override
   void initState() {
     super.initState();
-    dateController.text = DateFormat("dd MMM yyyy").format(DateTime.now());
+    dateController.text = DateFormat("dd MMM yy").format(DateTime.now());
     timeController.text = DateFormat("HH:mm").format(DateTime.now());
+    BlocProvider.of<ProjectBloc>(context).add(const FetchMembers());
   }
 
   @override
@@ -286,54 +289,65 @@ class _CreateProjectState extends State<CreateProject> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: context.paddingTopDefault,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Stack(
-                              children: [
-                                for (int i = 0; i < 4; i++)
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: i * context.dynamicWidth(0.1),
-                                    ),
-                                    child: CircleAvatar(
-                                      backgroundColor: AppColors.whiteColor,
-                                      radius: 25,
-                                      child: CircleAvatar(
-                                          radius: 24,
-                                          backgroundColor:
-                                              AppColors.titleTextColor,
-                                          child: Text(
-                                            "M",
-                                            style: context.textTheme.labelLarge
-                                                ?.copyWith(
-                                              color: AppColors.whiteColor,
-                                            ),
-                                          )),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: const CircleAvatar(
-                              radius: 25,
-                              backgroundColor: AppColors.yellowColor,
-                              child: CircleAvatar(
-                                backgroundColor: AppColors.blackColor,
-                                radius: 23,
-                                child: Icon(
-                                  Icons.add,
-                                  color: AppColors.yellowColor,
+                    BlocBuilder<ProjectBloc, ProjectState>(
+                      builder: (context, state) {
+                        return Padding(
+                          padding: context.paddingTopDefault,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Stack(
+                                  children: [
+                                    for (int i = 0;
+                                        i <
+                                            ((state.members ?? []).length > 4
+                                                ? 4
+                                                : (state.members ?? []).length);
+                                        i++)
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: i * context.dynamicWidth(0.1),
+                                        ),
+                                        child: CircleAvatar(
+                                          backgroundColor: AppColors.whiteColor,
+                                          radius: 25,
+                                          child: CircleAvatar(
+                                              radius: 24,
+                                              backgroundColor:
+                                                  AppColors.titleTextColor,
+                                              child: Text(
+                                                state.members?[i].name?[0] ??
+                                                    "M",
+                                                style: context
+                                                    .textTheme.labelLarge
+                                                    ?.copyWith(
+                                                  color: AppColors.whiteColor,
+                                                ),
+                                              )),
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
+                              InkWell(
+                                onTap: () {},
+                                child: const CircleAvatar(
+                                  radius: 25,
+                                  backgroundColor: AppColors.yellowColor,
+                                  child: CircleAvatar(
+                                    backgroundColor: AppColors.blackColor,
+                                    radius: 23,
+                                    child: Icon(
+                                      Icons.add,
+                                      color: AppColors.yellowColor,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -352,8 +366,10 @@ class _CreateProjectState extends State<CreateProject> {
                               .parse(dateController.text);
                           final formattedTime =
                               DateFormat("HH:mm").parse(timeController.text);
+                          final uid = const Uuid().v4();
+                          final year = int.parse("20${formattedDate.year}");
                           DateTime deadline = DateTime(
-                            formattedDate.year,
+                            year,
                             formattedDate.month,
                             formattedDate.day,
                             formattedTime.hour,
@@ -362,6 +378,7 @@ class _CreateProjectState extends State<CreateProject> {
                           BlocProvider.of<ProjectBloc>(context).add(
                             CreateProjectEvent(
                               project: ProjectEntity(
+                                uid: uid,
                                 name: titleController.text,
                                 description: descriptionController.text,
                                 category: state.category,
