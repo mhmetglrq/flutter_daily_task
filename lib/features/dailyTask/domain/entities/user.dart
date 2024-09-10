@@ -13,7 +13,7 @@ class UserEntity extends Equatable {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final List<TaskEntity>? tasks;
-  final String? lastProject;
+  final String? lastProjectId;
 
   const UserEntity({
     this.uid,
@@ -25,7 +25,7 @@ class UserEntity extends Equatable {
     this.createdAt,
     this.updatedAt,
     this.tasks = const [],
-    this.lastProject,
+    this.lastProjectId,
   });
 
   @override
@@ -39,6 +39,6 @@ class UserEntity extends Equatable {
         createdAt,
         updatedAt,
         tasks,
-        lastProject,
+        lastProjectId,
       ];
 }

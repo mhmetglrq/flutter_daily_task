@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_daily_task/features/dailyTask/domain/entities/user.dart';
+import 'member.dart';
 import 'status.dart';
 import 'task.dart';
 
@@ -8,7 +8,7 @@ class ProjectEntity extends Equatable {
   final String? name;
   final String? description;
   final String? category;
-  final List<UserEntity>? assignes;
+  final List<MemberEntity>? assigness;
   final List<TaskEntity>? tasks;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -20,7 +20,7 @@ class ProjectEntity extends Equatable {
     this.name,
     this.description,
     this.category,
-    this.assignes,
+    this.assigness,
     this.tasks,
     this.createdAt,
     this.updatedAt,
@@ -34,7 +34,7 @@ class ProjectEntity extends Equatable {
         name,
         description,
         category,
-        assignes,
+        assigness,
         tasks,
         createdAt,
         updatedAt,

@@ -1,13 +1,12 @@
 import 'package:equatable/equatable.dart';
-
-import 'status.dart';
+import 'category.dart';
 import 'user.dart';
 
 class TaskEntity extends Equatable {
   final String? uid;
   final String? name;
   final String? description;
-  final List<StatusEntity>? statuses;
+  final List<CategoryEntity>? statuses;
   final List<UserEntity>? assignes;
   final DateTime? createdAt;
   final DateTime? updatedAt;
