@@ -6,5 +6,5 @@ import '../entities/member.dart';
 abstract class ProjectRepository {
   Future<DataState<void>> createProject(ProjectEntity project);
   Stream<List<ProjectEntity>> getProjects({String? category});
-  Future<DataState<List<MemberEntity>>> getMembers();
+  Future<DataState<List<MemberEntity>>> getMembers({String? email});
 }
