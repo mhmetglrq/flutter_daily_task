@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/core/resources/data_state.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/project/create_project_usecase.dart';
 
+import '../../../../domain/entities/member.dart';
 import '../../../../domain/entities/project.dart';
 import '../../../../domain/usecases/project/get_members_usecase.dart';
 import '../../../../domain/usecases/project/get_projects_usecase.dart';
@@ -20,7 +21,9 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
     on<CreateProjectEvent>(onCreateProjectEvent);
     on<FetchProjects>(_onFetchProjects);
     on<ChooseCategory>(onChooseCategoryEvent);
-    on<FetchMembers>(onFetchMembersEvent);
+    on<FetchMember>(onFetchMemberEvent);
+    on<AddMember>(onAddMemberEvent);
+    on<SelectMember>(onSelectMemberEvent);
   }
 
   void onCreateProjectEvent(
@@ -29,8 +32,11 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
     final params = event.project;
     final dataState = await _createProjectUseCase(params: params);
     if (dataState is DataSuccess) {
-      add(const FetchProjects());
-      emit(const ProjectCreated());
+      add(FetchProjects(category: state.category));
+      emit(ProjectCreated(
+        category: state.category,
+        projects: state.projects,
+      ));
     } else {
       emit(
         ProjectError(dataState.message),
@@ -40,16 +46,21 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
 
   void onChooseCategoryEvent(ChooseCategory event, Emitter<ProjectState> emit) {
     if (event.category == state.category) {
-      emit(CategorySelected(null,
-          members: state.members, projects: state.projects));
+      emit(CategorySelected(
+        null,
+        fetchedMembers: state.fetchedMembers,
+        projects: state.projects,
+        members: state.members,
+      ));
     } else {
       emit(CategorySelected(event.category,
-          members: state.members, projects: state.projects));
+          fetchedMembers: state.fetchedMembers,
+          projects: state.projects,
+          members: state.members));
     }
   }
 
-  Future<void> _onFetchProjects(
-      FetchProjects event, Emitter<ProjectState> emit) async {
+  void _onFetchProjects(FetchProjects event, Emitter<ProjectState> emit) async {
     emit(const ProjectLoading());
     try {
       FetchProjectsParams params =
@@ -70,18 +81,53 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
     }
   }
 
-  void onFetchMembersEvent(
-      FetchMembers event, Emitter<ProjectState> emit) async {
+  void onFetchMemberEvent(FetchMember event, Emitter<ProjectState> emit) async {
     emit(const MembersLoading());
-    final dataState = await _getMembersUseCase();
+
+    final dataState =
+        await _getMembersUseCase(params: GetMembersParams(email: event.email));
     if (dataState is DataSuccess) {
       emit(MembersDone(
-        members: dataState.data,
+        fetchedMembers: dataState.data,
       ));
     } else {
       emit(
         ProjectError(dataState.message),
       );
     }
+  }
+
+  void onAddMemberEvent(AddMember event, Emitter<ProjectState> emit) {
+    List<MemberEntity> members = state.members ?? [];
+    members.addAll(event.members);
+    emit(MembersDone(
+      fetchedMembers: state.fetchedMembers,
+      members: members,
+      searchedMember: state.searchedMember,
+      selectedMembers: state.selectedMembers,
+      category: state.category,
+      projects: state.projects,
+    ));
+  }
+
+  void onSelectMemberEvent(SelectMember event, Emitter<ProjectState> emit) {
+    List<MemberEntity> selectedMembers = state.selectedMembers ?? [];
+    List<MemberEntity> members = state.members ?? [];
+
+    if (selectedMembers.contains(event.member)) {
+      selectedMembers.remove(event.member);
+    } else {
+      if (!members.contains(event.member)) {
+        selectedMembers.add(event.member);
+      }
+    }
+    emit(MembersDone(
+      fetchedMembers: state.fetchedMembers,
+      selectedMembers: selectedMembers,
+      members: state.members,
+      category: state.category,
+      projects: state.projects,
+      searchedMember: state.searchedMember,
+    ));
   }
 }
