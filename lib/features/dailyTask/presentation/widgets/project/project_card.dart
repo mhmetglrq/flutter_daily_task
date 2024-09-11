@@ -112,63 +112,57 @@ class ProjectCard extends StatelessWidget {
                           SizedBox(
                             height: context.dynamicHeight(0.14),
                             child: Stack(
+                              alignment: Alignment.topCenter,
                               children: [
-                                CircleAvatar(
+                                for (int i = 0;
+                                    i <
+                                        ((project.assigness ?? []).length > 2
+                                            ? 2
+                                            : (project.assigness ?? []).length);
+                                    i++)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top: i.toDouble() * 25,
+                                    ),
+                                    child: CircleAvatar(
+                                      backgroundColor: AppColors.whiteColor,
+                                      radius: 20,
+                                      child: CircleAvatar(
+                                        radius: 18,
+                                        backgroundColor:
+                                            AppColors.titleTextColor,
+                                        child: Text(
+                                          project.assigness?[i].email?[0]
+                                                  .toUpperCase() ??
+                                              "M",
+                                          style: context.textTheme.bodySmall
+                                              ?.copyWith(
+                                            color: AppColors.whiteColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                          (project.assigness ?? []).length > 3
+                              ? CircleAvatar(
                                   backgroundColor: AppColors.whiteColor,
                                   radius: 20,
                                   child: CircleAvatar(
                                     radius: 18,
                                     backgroundColor: AppColors.titleTextColor,
-                                    child: Image.asset(
-                                      "assets/images/profile_0.png",
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 32,
-                                  child: CircleAvatar(
-                                    backgroundColor: AppColors.whiteColor,
-                                    radius: 20,
-                                    child: CircleAvatar(
-                                      radius: 18,
-                                      backgroundColor: AppColors.titleTextColor,
-                                      child: Image.asset(
-                                        "assets/images/profile_1.png",
+                                    child: Text(
+                                      "${(project.assigness?.length ?? 0) - 2}",
+                                      style:
+                                          context.textTheme.bodySmall?.copyWith(
+                                        color: AppColors.whiteColor,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  top: 64,
-                                  child: CircleAvatar(
-                                    backgroundColor: AppColors.whiteColor,
-                                    radius: 20,
-                                    child: CircleAvatar(
-                                      radius: 18,
-                                      backgroundColor: AppColors.titleTextColor,
-                                      child: Image.asset(
-                                        "assets/images/profile_2.png",
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          CircleAvatar(
-                            backgroundColor: AppColors.whiteColor,
-                            radius: 20,
-                            child: CircleAvatar(
-                              radius: 18,
-                              backgroundColor: AppColors.titleTextColor,
-                              child: Text(
-                                "3+",
-                                style: context.textTheme.bodySmall?.copyWith(
-                                  color: AppColors.whiteColor,
-                                ),
-                              ),
-                            ),
-                          ),
+                                )
+                              : const SizedBox(),
                         ],
                       ),
                     ),

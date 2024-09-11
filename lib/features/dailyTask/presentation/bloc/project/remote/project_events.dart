@@ -1,3 +1,4 @@
+import 'package:flutter_daily_task/features/dailyTask/domain/entities/member.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.dart';
 
 abstract class ProjectEvents {
@@ -43,6 +44,17 @@ class CreateTask extends ProjectEvents {
   CreateTask({required this.projectId, required this.taskName});
 }
 
-class FetchMembers extends ProjectEvents {
-  const FetchMembers();
+class FetchMember extends ProjectEvents {
+  final String? email;
+  const FetchMember({this.email});
+}
+
+class AddMember extends ProjectEvents {
+  final List<MemberEntity> members;
+  AddMember({required this.members});
+}
+
+class SelectMember extends ProjectEvents {
+  final MemberEntity member;
+  SelectMember({required this.member});
 }

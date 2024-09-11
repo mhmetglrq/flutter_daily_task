@@ -4,19 +4,19 @@ import '../../entities/member.dart';
 import '../../repository/project_repository.dart';
 
 class GetMembersUseCase
-    implements UseCase<DataState<List<MemberEntity>>, void> {
+    implements UseCase<DataState<List<MemberEntity>>, GetMembersParams> {
   final ProjectRepository _projectRepository;
 
   GetMembersUseCase(this._projectRepository);
 
   @override
-  Future<DataState<List<MemberEntity>>> call({void params}) {
-    return _projectRepository.getMembers();
+  Future<DataState<List<MemberEntity>>> call({GetMembersParams? params}) {
+    return _projectRepository.getMembers(email: params?.email);
   }
 }
 
 class GetMembersParams {
-  final String? category;
+  final String? email;
 
-  GetMembersParams({this.category});
+  GetMembersParams({this.email});
 }

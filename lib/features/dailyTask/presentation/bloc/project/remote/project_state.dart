@@ -6,8 +6,17 @@ class ProjectState {
   final List<ProjectEntity>? projects;
   final String? category;
   final List<MemberEntity>? members;
+  final List<MemberEntity>? fetchedMembers;
+  final MemberEntity? searchedMember;
+  final List<MemberEntity>? selectedMembers;
   const ProjectState(
-      {this.message, this.projects, this.category, this.members});
+      {this.message,
+      this.projects,
+      this.category,
+      this.fetchedMembers,
+      this.searchedMember,
+      this.selectedMembers,
+      this.members});
 }
 
 class ProjectInitial extends ProjectState {
@@ -28,12 +37,24 @@ class ProjectError extends ProjectState {
 }
 
 class CategorySelected extends ProjectState {
-  const CategorySelected(String? category, {super.projects, super.members})
+  const CategorySelected(String? category,
+      {super.projects,
+      super.fetchedMembers,
+      super.members,
+      super.selectedMembers,
+      super.searchedMember})
       : super(category: category);
 }
 
 class ProjectCreated extends ProjectState {
-  const ProjectCreated() : super();
+  const ProjectCreated(
+      {super.projects,
+      super.category,
+      super.fetchedMembers,
+      super.members,
+      super.selectedMembers,
+      super.searchedMember})
+      : super(message: "Project Created Successfully");
 }
 
 class ProjectCreating extends ProjectState {
@@ -45,5 +66,18 @@ class MembersLoading extends ProjectState {
 }
 
 class MembersDone extends ProjectState {
-  const MembersDone({super.members, super.projects, super.category});
+  const MembersDone(
+      {super.fetchedMembers,
+      super.projects,
+      super.category,
+      super.members,
+      super.selectedMembers,
+      super.searchedMember});
+}
+
+class MemberSelected extends ProjectState {
+  const MemberSelected(List<MemberEntity>? selectedMembers)
+      : super(
+          selectedMembers: selectedMembers,
+        );
 }
