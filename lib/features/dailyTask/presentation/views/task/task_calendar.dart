@@ -178,8 +178,6 @@ class _TaskCalendarState extends State<TaskCalendar> {
                                   padding: context.paddingTopLow,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    final item = state.tasks?[index];
-
                                     return Container();
                                   },
                                 )
