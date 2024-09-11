@@ -32,7 +32,11 @@ class ProjectModel extends ProjectEntity {
       tasks: json['tasks'] != null
           ? (json['tasks'] as List).map((e) => TaskModel.fromJson(e)).toList()
           : null,
-      assigness: json['assigness'],
+      assigness: json['assigness'] != null
+          ? (json['assigness'] as List)
+              .map((e) => MemberModel.fromJson(e))
+              .toList()
+          : null,
       status:
           json['status'] != null ? StatusModel.fromJson(json['status']) : null,
       category: json['category'],

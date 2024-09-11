@@ -7,6 +7,7 @@ class FirebaseProjectService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> createProject(ProjectModel project) async {
+    project.assigness?.add(const MemberModel(email: "wqeqw"));
     return await _firestore
         .collection("projects")
         .doc(project.uid)
@@ -24,8 +25,11 @@ class FirebaseProjectService {
             .toList());
   }
 
-  Future<List<MemberModel>> getMembers() async {
-    final users = await _firestore.collection("users").get();
+  Future<List<MemberModel>> getMembers({String? email}) async {
+    final users = await _firestore
+        .collection("users")
+        .where("email", isEqualTo: email)
+        .get();
     return users.docs.map((doc) => MemberModel.fromJson(doc.data())).toList();
   }
 }

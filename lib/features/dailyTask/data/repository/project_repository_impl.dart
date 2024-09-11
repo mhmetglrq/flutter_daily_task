@@ -35,9 +35,10 @@ class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @override
-  Future<DataState<List<MemberEntity>>> getMembers() async {
+  Future<DataState<List<MemberEntity>>> getMembers({String? email}) async {
     try {
-      return DataSuccess(data: await _firebaseProjectService.getMembers());
+      return DataSuccess(
+          data: await _firebaseProjectService.getMembers(email: email));
     } catch (e) {
       return DataError(message: e.toString());
     }
