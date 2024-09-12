@@ -6,7 +6,7 @@ abstract class DataState<T> {
 }
 
 class DataSuccess<T> extends DataState<T> {
-  DataSuccess({super.data});
+  DataSuccess( {super.data});
 }
 
 class DataLoading<T> extends DataState<T> {
