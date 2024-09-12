@@ -25,20 +25,17 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
 
   void onSignInEvent(
       RemoteSignInEvent event, Emitter<RemoteAuthState> emit) async {
-    Map<String, dynamic> params = {
-      "username": event.username,
-      "password": event.password
-    };
-    final dataState = await _signInUseCase(params: params);
+    final dataState = await _signInUseCase(
+      params: SignInUseCaseParams(
+        event.username,
+        event.password,
+      ),
+    );
     if (dataState is DataSuccess) {
-      if (dataState.data != null) {
-        emit(const RemoteAuthDone());
-      } else {
-        emit(RemoteAuthError(dataState.message));
-      }
+      emit(const RemoteAuthDone());
     }
     if (dataState is DataError) {
-      emit(RemoteAuthError(dataState.message));
+      emit(RemoteAuthError(message: dataState.message));
     }
   }
 
@@ -52,7 +49,9 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
         ),
       );
     } else {
-      emit(RemoteAuthError(dataState.message,));
+      emit(RemoteAuthError(
+        message: dataState.message,
+      ));
     }
   }
 
@@ -67,12 +66,12 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
           userEntity: dataState.data,
         ));
       } else {
-        emit(RemoteAuthError(dataState.message));
+        emit(RemoteAuthError(message: dataState.message));
       }
     }
     if (dataState is DataError) {
       emit(
-        RemoteAuthError(dataState.message),
+        RemoteAuthError(message: dataState.message),
       );
     }
   }
@@ -85,7 +84,8 @@ class RemoteAuthBloc extends Bloc<RemoteAuthEvent, RemoteAuthState> {
         userEntity: null,
       ));
     } else {
-      emit(RemoteAuthError(dataState.message));
+      emit(RemoteAuthError(message: dataState.message));
     }
   }
+
 }

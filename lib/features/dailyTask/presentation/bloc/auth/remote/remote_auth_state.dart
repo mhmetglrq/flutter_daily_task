@@ -1,4 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/user.dart';
 
 abstract class RemoteAuthState extends Equatable {
@@ -8,7 +10,7 @@ abstract class RemoteAuthState extends Equatable {
   const RemoteAuthState({this.message, this.user, this.initialRoute});
 
   @override
-  List<Object?> get props => [message, user, initialRoute];
+  List<Object?> get props => [message ?? "", user ?? "", initialRoute ?? ""];
 }
 
 class RemoteAuthInitial extends RemoteAuthState {
@@ -22,9 +24,12 @@ class RemoteAuthLoading extends RemoteAuthState {
 class RemoteAuthDone extends RemoteAuthState {
   const RemoteAuthDone({UserEntity? userEntity, super.initialRoute})
       : super(user: userEntity);
+  @override
+  List<Object?> get props =>
+      [user ?? '', initialRoute ?? '']; // Eklenmesi gereken props
 }
 
 class RemoteAuthError extends RemoteAuthState {
   @override
-  const RemoteAuthError(message) : super(message: message);
+  const RemoteAuthError({super.message});
 }
