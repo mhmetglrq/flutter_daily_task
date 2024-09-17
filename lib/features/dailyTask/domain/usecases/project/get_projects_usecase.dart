@@ -10,12 +10,13 @@ class GetProjectsUsecase
 
   @override
   Stream<List<ProjectEntity>> call({FetchProjectsParams? params}) {
-    return _projectRepository.getProjects(category: params?.category);
+    return _projectRepository.getProjects(category: params?.category, projectName: params?.projectName);
   }
 }
 
 class FetchProjectsParams {
   final String? category;
+  final String? projectName;
 
-  FetchProjectsParams({this.category});
+  FetchProjectsParams({this.category, this.projectName});
 }
