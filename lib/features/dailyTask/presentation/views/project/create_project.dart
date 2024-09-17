@@ -313,23 +313,35 @@ class _CreateProjectState extends State<CreateProject> {
                                         padding: EdgeInsets.only(
                                           left: i * context.dynamicWidth(0.1),
                                         ),
-                                        child: CircleAvatar(
-                                          backgroundColor: AppColors.whiteColor,
-                                          radius: 25,
+                                        child: GestureDetector(
+                                          onLongPress: () {
+                                            BlocProvider.of<ProjectBloc>(
+                                                    context)
+                                                .add(
+                                              RemoveMember(
+                                                member: state.members![i],
+                                              ),
+                                            );
+                                          },
                                           child: CircleAvatar(
-                                              radius: 24,
-                                              backgroundColor:
-                                                  AppColors.titleTextColor,
-                                              child: Text(
-                                                state.members?[i].email?[0]
-                                                        .toUpperCase() ??
-                                                    "M",
-                                                style: context
-                                                    .textTheme.labelLarge
-                                                    ?.copyWith(
-                                                  color: AppColors.whiteColor,
-                                                ),
-                                              )),
+                                            backgroundColor:
+                                                AppColors.whiteColor,
+                                            radius: 25,
+                                            child: CircleAvatar(
+                                                radius: 24,
+                                                backgroundColor:
+                                                    AppColors.titleTextColor,
+                                                child: Text(
+                                                  state.members?[i].email?[0]
+                                                          .toUpperCase() ??
+                                                      "M",
+                                                  style: context
+                                                      .textTheme.labelLarge
+                                                      ?.copyWith(
+                                                    color: AppColors.whiteColor,
+                                                  ),
+                                                )),
+                                          ),
                                         ),
                                       ),
                                   ],

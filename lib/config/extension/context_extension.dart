@@ -123,4 +123,17 @@ extension ThemeExtension on BuildContext {
 
   /// Get the brightness
   Brightness get brightness => Theme.of(this).brightness;
+
+  /// Get the primary color
+}
+
+extension KeyboardExtension on BuildContext {
+  /// Get the keyboard state of the device
+  bool get isKeyboardOpen => MediaQuery.of(this).viewInsets.bottom > 0;
+
+  /// Get the keyboard height
+  double get keyboardHeight => MediaQuery.of(this).viewInsets.bottom;
+
+  /// Get the keyboard height when the keyboard is open
+  double get keyboardHeightWhenOpen => isKeyboardOpen ? keyboardHeight : 0;
 }
