@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/core/resources/data_state.dart';
@@ -23,6 +24,7 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
     on<ChooseCategory>(onChooseCategoryEvent);
     on<FetchMember>(onFetchMemberEvent);
     on<AddMember>(onAddMemberEvent);
+    on<RemoveMember>(onRemoveMemberEvent);
     on<SelectMember>(onSelectMemberEvent);
   }
 
@@ -61,17 +63,26 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
   }
 
   void _onFetchProjects(FetchProjects event, Emitter<ProjectState> emit) async {
-    emit(const ProjectLoading());
+    emit(ProjectLoading(category: event.category));
     try {
-      FetchProjectsParams params =
-          FetchProjectsParams(category: event.category);
+      FetchProjectsParams params = FetchProjectsParams(
+        category: event.category,
+        projectName: event.projectName,
+      );
       final Stream<List<ProjectEntity>> projectStream =
           _getProjectsUseCase(params: params);
 
       await emit.forEach(
         projectStream,
-        onData: (projects) =>
-            ProjectDone(projects: projects, category: event.category),
+        onData: (projects) {
+          final sortedProjects = projects
+            ..sort((a, b) => (a.createdAt ?? DateTime.now())
+                .compareTo(b.createdAt ?? DateTime.now()));
+          return ProjectDone(
+            projects: sortedProjects.reversed.toList(),
+            category: event.category,
+          );
+        },
         onError: (error, stackTrace) => ProjectError(
           error.toString(),
         ),
@@ -107,6 +118,19 @@ class ProjectBloc extends Bloc<ProjectEvents, ProjectState> {
       selectedMembers: state.selectedMembers,
       category: state.category,
       projects: state.projects,
+    ));
+  }
+
+  void onRemoveMemberEvent(RemoveMember event, Emitter<ProjectState> emit) {
+    List<MemberEntity> members = state.members ?? [];
+    members.remove(event.member);
+    emit(MembersDone(
+      fetchedMembers: state.fetchedMembers,
+      selectedMembers: state.members,
+      members: members,
+      category: state.category,
+      projects: state.projects,
+      searchedMember: state.searchedMember,
     ));
   }
 

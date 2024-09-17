@@ -22,9 +22,12 @@ class Projects extends StatefulWidget {
 }
 
 class _ProjectsState extends State<Projects> {
+  late TextEditingController _searchController;
+
   @override
   void initState() {
     BlocProvider.of<ProjectBloc>(context).add(const FetchProjects());
+    _searchController = TextEditingController();
     super.initState();
   }
 
@@ -32,6 +35,7 @@ class _ProjectsState extends State<Projects> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: !context.isKeyboardOpen,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
@@ -40,6 +44,7 @@ class _ProjectsState extends State<Projects> {
             color: AppColors.whiteColor,
           ),
         ),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(
@@ -66,12 +71,20 @@ class _ProjectsState extends State<Projects> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: context.dynamicHeight(0.5),
+                  maxHeight: context.dynamicHeight(0.5),
+                ),
                 child: Container(
                   color: AppColors.blackColor,
                 ),
               ),
-              Expanded(
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: context.dynamicHeight(0.5),
+                  maxHeight: context.dynamicHeight(0.5),
+                ),
                 child: Container(
                   color: AppColors.whiteColor,
                 ),
@@ -84,30 +97,43 @@ class _ProjectsState extends State<Projects> {
               child: Column(
                 children: [
                   //AppBarArea
-                  Padding(
-                    padding: context.paddingVerticalDefault,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
+                  BlocBuilder<ProjectBloc, ProjectState>(
+                    builder: (context, state) {
+                      return Padding(
+                        padding: context.paddingVerticalDefault,
+                        child: TextField(
+                          onChanged: (value) {
+                            BlocProvider.of<ProjectBloc>(context).add(
+                              FetchProjects(
+                                category: state.category,
+                                projectName: value,
+                              ),
+                            );
+                          },
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: context.dynamicWidth(0.05),
+                              vertical: context.dynamicHeight(0.015),
+                            ),
+                            filled: true,
+                            fillColor: AppColors.whiteColor,
+                            hintText: "Find your project",
+                            hintStyle: context.textTheme.bodyMedium?.copyWith(
+                              color: AppColors.blackColor,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.search_outlined,
+                              color: AppColors.blackColor,
+                            ),
+                          ),
                         ),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: context.dynamicWidth(0.05),
-                          vertical: context.dynamicHeight(0.015),
-                        ),
-                        filled: true,
-                        fillColor: AppColors.whiteColor,
-                        hintText: "Find your project",
-                        hintStyle: context.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.blackColor,
-                        ),
-                        prefixIcon: const Icon(
-                          Icons.search_outlined,
-                          color: AppColors.blackColor,
-                        ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                   BlocBuilder<ProjectBloc, ProjectState>(
                     builder: (context, state) {
@@ -127,7 +153,9 @@ class _ProjectsState extends State<Projects> {
                               return GestureDetector(
                                 onTap: () {
                                   BlocProvider.of<ProjectBloc>(context).add(
-                                    FetchProjects(category: category.title),
+                                    FetchProjects(
+                                        category: category.title,
+                                        projectName: _searchController.text),
                                   );
                                 },
                                 child: Padding(

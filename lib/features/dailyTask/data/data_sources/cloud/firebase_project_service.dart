@@ -14,11 +14,15 @@ class FirebaseProjectService {
         .set(project.toJson());
   }
 
-  Stream<List<ProjectModel>> getProjects(String category) {
+  Stream<List<ProjectModel>> getProjects(String category,
+      {String? projectName}) {
     return _firestore
         .collection("projects")
-        .orderBy("createdAt", descending: true)
+        .where('name', isLessThanOrEqualTo: '$projectName\uf8ff')
+        .where('name', isGreaterThanOrEqualTo: projectName)
         .where("category", isEqualTo: category)
+        // .orderBy("createdAt", descending: true)
+        .limit(10)
         .snapshots()
         .map((snapshot) => snapshot.docs
             .map((doc) => ProjectModel.fromJson(doc.data()))
