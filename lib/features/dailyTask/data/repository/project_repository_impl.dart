@@ -24,9 +24,12 @@ class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @override
-  Stream<List<ProjectEntity>> getProjects({String? category}) {
+  Stream<List<ProjectEntity>> getProjects(
+      {String? category, String? projectName}) {
     try {
-      return _firebaseProjectService.getProjects(category ?? "").map(
+      return _firebaseProjectService
+          .getProjects(category ?? "", projectName: projectName)
+          .map(
             (projects) => projects.toList(),
           );
     } catch (e) {
