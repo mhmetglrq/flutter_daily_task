@@ -24,7 +24,7 @@ class ProjectInitial extends ProjectState {
 }
 
 class ProjectLoading extends ProjectState {
-  const ProjectLoading() : super(message: "Loading...");
+  const ProjectLoading({super.category}) : super(message: "Loading...");
 }
 
 class ProjectDone extends ProjectState {

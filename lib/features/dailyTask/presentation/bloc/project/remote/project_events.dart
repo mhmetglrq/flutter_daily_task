@@ -14,7 +14,9 @@ class CreateProjectEvent extends ProjectEvents {
 
 class FetchProjects extends ProjectEvents {
   final String? category;
-  const FetchProjects({this.category = "Software Development"});
+  final String? projectName;
+  const FetchProjects(
+      {this.category = "Software Development", this.projectName});
 }
 
 class UpdateProjectEvent extends ProjectEvents {
@@ -57,4 +59,9 @@ class AddMember extends ProjectEvents {
 class SelectMember extends ProjectEvents {
   final MemberEntity member;
   SelectMember({required this.member});
+}
+
+class RemoveMember extends ProjectEvents {
+  final MemberEntity member;
+  RemoveMember({required this.member});
 }
