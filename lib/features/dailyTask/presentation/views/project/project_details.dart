@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_daily_task/config/constants/task_categories.dart';
 import 'package:flutter_daily_task/config/extension/context_extension.dart';
 import 'package:flutter_daily_task/config/items/app_colors.dart';
@@ -7,12 +10,16 @@ import 'package:flutter_daily_task/features/dailyTask/domain/entities/project.da
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
+import '../../bloc/project/remote/project_bloc.dart';
+import '../../bloc/project/remote/project_events.dart';
+
 class ProjectDetail extends StatelessWidget {
   const ProjectDetail({super.key, required this.project});
   final ProjectEntity project;
 
   @override
   Widget build(BuildContext context) {
+    log("Project Detail ${project.uid}");
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -27,10 +34,46 @@ class ProjectDetail extends StatelessWidget {
         actions: [
           Padding(
             padding: context.paddingRightDefault,
-            child: InkWell(
-              onTap: () {},
-              child: const Icon(Icons.more_horiz_rounded,
-                  color: AppColors.whiteColor),
+            child: PopupMenuButton(
+              popUpAnimationStyle: AnimationStyle(
+                curve: Curves.easeIn,
+                duration: const Duration(milliseconds: 400),
+                reverseCurve: Curves.easeOut,
+                reverseDuration: const Duration(milliseconds: 400),
+              ),
+              itemBuilder: (context) {
+                return [
+                  const PopupMenuItem(
+                    child: ListTile(
+                      leading: Icon(Icons.edit),
+                      title: Text("Edit"),
+                    ),
+                  ),
+                  const PopupMenuItem(
+                    child: ListTile(
+                      leading: Icon(Icons.add),
+                      title: Text("Add Task"),
+                    ),
+                  ),
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: const Icon(Icons.remove),
+                      title: const Text("Remove Project"),
+                      onTap: () {
+                        BlocProvider.of<ProjectBloc>(context).add(
+                          RemoveProjectEvent(projectId: project.uid),
+                        );
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ];
+              },
+              child: const Icon(
+                Icons.more_horiz_rounded,
+                color: AppColors.whiteColor,
+              ),
             ),
           ),
         ],
@@ -114,7 +157,12 @@ class ProjectDetail extends StatelessWidget {
                         Expanded(
                           child: Stack(
                             children: [
-                              for (int i = 0; i < 6; i++)
+                              for (int i = 0;
+                                  i <
+                                      ((project.assigness ?? []).length < 6
+                                          ? (project.assigness ?? []).length
+                                          : 6);
+                                  i++)
                                 Padding(
                                   padding: EdgeInsets.only(
                                     left: i * context.dynamicWidth(0.1),
@@ -127,7 +175,9 @@ class ProjectDetail extends StatelessWidget {
                                         backgroundColor:
                                             AppColors.titleTextColor,
                                         child: Text(
-                                          "M",
+                                          project.assigness?[i].email?[0]
+                                                  .toUpperCase() ??
+                                              "M",
                                           style: context.textTheme.labelLarge
                                               ?.copyWith(
                                             color: AppColors.whiteColor,
@@ -139,7 +189,141 @@ class ProjectDetail extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return Dialog(
+                                      insetPadding: EdgeInsets.symmetric(
+                                        horizontal: context.dynamicWidth(0.05),
+                                        vertical:
+                                            (project.assigness ?? []).length < 3
+                                                ? context.dynamicHeight(0.25)
+                                                : context.dynamicHeight(0.15),
+                                      ),
+                                      backgroundColor: AppColors.whiteColor,
+                                      alignment: Alignment.center,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Padding(
+                                        padding: context.paddingAllDefault,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              "Assigness",
+                                              style: context
+                                                  .textTheme.labelLarge
+                                                  ?.copyWith(
+                                                color: AppColors.titleTextColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const Divider(),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: context.paddingTopLow,
+                                                child: ListView.builder(
+                                                  itemCount: project
+                                                          .assigness?.length ??
+                                                      0,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    final member = project
+                                                        .assigness?[index];
+                                                    return Padding(
+                                                      padding: context
+                                                          .paddingVerticalLow,
+                                                      child: AnimatedContainer(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: AppColors
+                                                              .educationCatColor,
+                                                          border: Border.all(
+                                                            color: AppColors
+                                                                .educationCatColor,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                            10,
+                                                          ),
+                                                        ),
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    400),
+                                                        child: Padding(
+                                                          padding: context
+                                                              .paddingAllLow,
+                                                          child: Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              CircleAvatar(
+                                                                backgroundColor:
+                                                                    AppColors
+                                                                        .whiteColor,
+                                                                radius: 25,
+                                                                child:
+                                                                    CircleAvatar(
+                                                                        radius:
+                                                                            24,
+                                                                        backgroundColor:
+                                                                            AppColors
+                                                                                .titleTextColor,
+                                                                        child:
+                                                                            Text(
+                                                                          member?.email?[0].toUpperCase() ??
+                                                                              "M",
+                                                                          style: context
+                                                                              .textTheme
+                                                                              .labelLarge
+                                                                              ?.copyWith(
+                                                                            color:
+                                                                                AppColors.whiteColor,
+                                                                          ),
+                                                                        )),
+                                                              ),
+                                                              Padding(
+                                                                padding: context
+                                                                    .paddingHorizontalLow,
+                                                                child: Text(
+                                                                  "${member?.email}",
+                                                                  style: context
+                                                                      .textTheme
+                                                                      .bodySmall
+                                                                      ?.copyWith(
+                                                                    color: AppColors
+                                                                        .blackColor,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
                           child: const CircleAvatar(
                             radius: 25,
                             backgroundColor: AppColors.yellowColor,

@@ -8,4 +8,5 @@ abstract class ProjectRepository {
   Stream<List<ProjectEntity>> getProjects(
       {String? category, String? projectName});
   Future<DataState<List<MemberEntity>>> getMembers({String? email});
+  Future<DataState<void>> removeProject(String projectId);
 }

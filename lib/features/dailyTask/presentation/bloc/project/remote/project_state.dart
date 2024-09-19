@@ -81,3 +81,17 @@ class MemberSelected extends ProjectState {
           selectedMembers: selectedMembers,
         );
 }
+
+class ProjectRemoving extends ProjectState {
+  const ProjectRemoving({
+    super.projects,
+    super.category,
+  }) : super(message: "Removing Project...");
+}
+
+class ProjectRemoved extends ProjectState {
+  const ProjectRemoved({
+    super.projects,
+    super.category,
+  });
+}

@@ -1,4 +1,3 @@
-import 'package:flutter_daily_task/config/routes/route_names.dart';
 import 'package:flutter_daily_task/core/resources/data_state.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/entities/user.dart';
 import 'package:flutter_daily_task/features/dailyTask/domain/usecases/auth/get_user_usecase.dart';

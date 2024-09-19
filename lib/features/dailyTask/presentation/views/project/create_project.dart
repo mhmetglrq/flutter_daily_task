@@ -318,7 +318,7 @@ class _CreateProjectState extends State<CreateProject> {
                                             BlocProvider.of<ProjectBloc>(
                                                     context)
                                                 .add(
-                                              RemoveMember(
+                                              RemoveMemberEvent(
                                                 member: state.members![i],
                                               ),
                                             );

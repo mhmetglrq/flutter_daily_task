@@ -24,12 +24,6 @@ class UpdateProjectEvent extends ProjectEvents {
   UpdateProjectEvent({required this.project});
 }
 
-class DeleteProjectEvent extends ProjectEvents {
-  final ProjectEntity project;
-
-  DeleteProjectEvent({required this.project});
-}
-
 class ChooseCategory extends ProjectEvents {
   final String category;
   ChooseCategory({required this.category});
@@ -61,7 +55,12 @@ class SelectMember extends ProjectEvents {
   SelectMember({required this.member});
 }
 
-class RemoveMember extends ProjectEvents {
+class RemoveMemberEvent extends ProjectEvents {
   final MemberEntity member;
-  RemoveMember({required this.member});
+  RemoveMemberEvent({required this.member});
+}
+
+class RemoveProjectEvent extends ProjectEvents {
+  final String? projectId;
+  RemoveProjectEvent({this.projectId});
 }
