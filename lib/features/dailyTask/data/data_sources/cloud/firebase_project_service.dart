@@ -36,4 +36,8 @@ class FirebaseProjectService {
         .get();
     return users.docs.map((doc) => MemberModel.fromJson(doc.data())).toList();
   }
+
+  Future<void> removeProject(String projectId) async {
+    return await _firestore.collection("projects").doc(projectId).delete();
+  }
 }

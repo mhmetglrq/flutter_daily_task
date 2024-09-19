@@ -46,4 +46,15 @@ class ProjectRepositoryImpl implements ProjectRepository {
       return DataError(message: e.toString());
     }
   }
+
+  @override
+  Future<DataState<void>> removeProject(String projectId) async {
+    try {
+      return DataSuccess(
+        data: _firebaseProjectService.removeProject(projectId),
+      );
+    } catch (e) {
+      return DataError(message: e.toString());
+    }
+  }
 }
